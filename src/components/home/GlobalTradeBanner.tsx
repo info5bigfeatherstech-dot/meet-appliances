@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { Container } from '../common/Container';
-import { InteractiveGlobe } from './InteractiveGlobe';
+import { GlobalTradeMap } from './GlobalTradeMap';
 
 interface SlideContent {
   id: number;
@@ -105,67 +105,13 @@ export const GlobalTradeBanner: React.FC = () => {
         style={{ transform: 'translate3d(0,0,0)' }}
       />
 
-      {/* 2. Container Port & Cargo Cranes Panoramic Silhouette at Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-44 sm:h-56 -z-10 pointer-events-none overflow-hidden opacity-35">
-        <svg
-          viewBox="0 0 1600 240"
-          fill="none"
-          preserveAspectRatio="none"
-          className="w-full h-full text-[#1E5EFF]"
-        >
-          {/* Water reflection line */}
-          <line x1="0" y1="210" x2="1600" y2="210" stroke="rgba(126, 232, 176, 0.4)" strokeWidth="1" strokeDasharray="6 4" />
-          <line x1="0" y1="218" x2="1600" y2="218" stroke="rgba(30, 94, 255, 0.3)" strokeWidth="1" strokeDasharray="12 8" />
 
-          {/* Container Ship 1 Left */}
-          <path d="M40 210 L80 180 L280 180 L320 210 Z" fill="#0A1A3F" stroke="currentColor" strokeWidth="1.5" />
-          {/* Stacks of containers on ship */}
-          <rect x="95" y="145" width="45" height="35" fill="rgba(30, 94, 255, 0.4)" stroke="#1E5EFF" strokeWidth="1" />
-          <rect x="145" y="140" width="50" height="40" fill="rgba(126, 232, 176, 0.3)" stroke="#7EE8B0" strokeWidth="1" />
-          <rect x="200" y="148" width="45" height="32" fill="rgba(30, 94, 255, 0.5)" stroke="#1E5EFF" strokeWidth="1" />
-          <rect x="250" y="155" width="40" height="25" fill="rgba(126, 232, 176, 0.3)" stroke="#7EE8B0" strokeWidth="1" />
-          {/* Ship Bridge Tower */}
-          <rect x="65" y="130" width="25" height="50" fill="#0A1A3F" stroke="#1E5EFF" strokeWidth="1" />
-          <circle cx="75" cy="140" r="2.5" fill="#7EE8B0" />
 
-          {/* Port Quay Cranes 1 & 2 */}
-          <g stroke="currentColor" strokeWidth="1.8" opacity="0.8">
-            <path d="M20 210 L45 80 L60 80 L85 210 M45 130 L75 130" />
-            <path d="M5 75 L150 75 L110 50 L45 75" />
-            <line x1="120" y1="75" x2="120" y2="135" stroke="#7EE8B0" strokeWidth="1" strokeDasharray="3 3" />
-            <rect x="115" y="135" width="10" height="6" fill="#7EE8B0" />
-
-            <path d="M360 210 L385 60 L400 60 L425 210 M385 120 L415 120" />
-            <path d="M330 55 L490 55 L450 30 L385 55" />
-            <line x1="460" y1="55" x2="460" y2="125" stroke="#1E5EFF" strokeWidth="1" strokeDasharray="3 3" />
-            <rect x="455" y="125" width="10" height="6" fill="#1E5EFF" />
-
-            <path d="M680 210 L705 70 L720 70 L745 210 M705 125 L735 125" />
-            <path d="M650 65 L810 65 L770 40 L705 65" />
-            <line x1="775" y1="65" x2="775" y2="140" stroke="#7EE8B0" strokeWidth="1" strokeDasharray="3 3" />
-            <rect x="770" y="140" width="10" height="6" fill="#7EE8B0" />
-
-            <path d="M1100 210 L1125 65 L1140 65 L1165 210 M1125 120 L1155 120" />
-            <path d="M1070 60 L1230 60 L1190 35 L1125 60" />
-
-            <path d="M1250 210 L1280 185 L1480 185 L1520 210 Z" fill="#0A1A3F" stroke="currentColor" strokeWidth="1.5" />
-            <rect x="1300" y="150" width="45" height="35" fill="rgba(30, 94, 255, 0.4)" stroke="#1E5EFF" strokeWidth="1" />
-            <rect x="1350" y="145" width="55" height="40" fill="rgba(126, 232, 176, 0.4)" stroke="#7EE8B0" strokeWidth="1" />
-            <rect x="1410" y="152" width="40" height="33" fill="rgba(30, 94, 255, 0.5)" stroke="#1E5EFF" strokeWidth="1" />
-          </g>
-
-          {/* Tiny glowing beacon lights along the dock */}
-          {[120, 260, 410, 560, 720, 890, 1040, 1200, 1370, 1500].map((bx, i) => (
-            <circle key={i} cx={bx} cy={208} r={2} fill={i % 2 === 0 ? '#7EE8B0' : '#1E5EFF'} />
-          ))}
-        </svg>
-      </div>
-
-      <Container size="xl" className="relative z-10 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center min-h-[500px]">
+      <Container size="full" className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-[1720px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center min-h-[540px] lg:min-h-[660px]">
 
           {/* LEFT COLUMN: Hero Copy */}
-          <div className="lg:col-span-5 z-10 space-y-6 text-left">
+          <div className="lg:col-span-4 xl:col-span-4 z-10 space-y-6 text-left">
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
@@ -234,9 +180,9 @@ export const GlobalTradeBanner: React.FC = () => {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Interactive 3D WebGL Maritime Network Globe */}
-          <div className="lg:col-span-7 relative w-full flex items-center justify-center">
-            <InteractiveGlobe />
+          {/* RIGHT COLUMN: World Trade Map Enlarged to 8 Cols */}
+          <div className="lg:col-span-8 xl:col-span-8 relative w-full min-h-[460px] sm:min-h-[560px] lg:min-h-[660px] xl:min-h-[740px] flex items-center justify-center">
+            <GlobalTradeMap />
           </div>
 
         </div>

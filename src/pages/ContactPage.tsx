@@ -8,24 +8,71 @@ import { Badge } from '../components/common/Badge';
 import { Button } from '../components/common/Button';
 import { COMPANY_INFO } from '../data/company';
 import { PRODUCT_CATEGORIES } from '../data/categories';
-import { Mail, Phone, MapPin, Send, CheckCircle2, ShieldCheck, Box, Clock, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, Clock, MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // Zod Validation Schema
 const quoteSchema = z.object({
   fullName: z.string().min(2, 'Contact name must be at least 2 characters'),
-  companyName: z.string().min(2, 'Company name is required for B2B trade inquiries'),
+  companyName: z.string().optional(),
   businessEmail: z.string().email('Please provide a valid corporate email'),
   phoneNumber: z.string().min(6, 'Please provide an active phone or WhatsApp number'),
   country: z.string().min(2, 'Destination country is required'),
   destinationPort: z.string().optional(),
   productCategory: z.string().optional(),
   orderVolume: z.string().min(1, 'Please specify projected container quantity'),
-  tradeTerm: z.string().min(1, 'Please select preferred Incoterms'),
+  tradeTerm: z.string().optional(),
   message: z.string().min(10, 'Please share model specifics, target specs, or questions (min 10 characters)'),
 });
 
 type QuoteFormData = z.infer<typeof quoteSchema>;
+
+export const COUNTRIES_LIST = [
+  'United States',
+  'Germany',
+  'United Kingdom',
+  'United Arab Emirates',
+  'Saudi Arabia',
+  'Australia',
+  'Brazil',
+  'Canada',
+  'France',
+  'Italy',
+  'Spain',
+  'Netherlands',
+  'Belgium',
+  'Poland',
+  'Sweden',
+  'Norway',
+  'Switzerland',
+  'Turkey',
+  'Egypt',
+  'South Africa',
+  'Mexico',
+  'Chile',
+  'Colombia',
+  'Peru',
+  'Argentina',
+  'Japan',
+  'South Korea',
+  'Singapore',
+  'Malaysia',
+  'Thailand',
+  'Vietnam',
+  'Indonesia',
+  'Philippines',
+  'India',
+  'Qatar',
+  'Kuwait',
+  'Oman',
+  'Bahrain',
+  'Jordan',
+  'Nigeria',
+  'Ghana',
+  'Kenya',
+  'New Zealand',
+  'Other / Global Destination',
+];
 
 export const ContactPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -164,19 +211,14 @@ export const ContactPage: React.FC = () => {
                     {/* Company Name */}
                     <div>
                       <label className="block text-xs font-bold text-brand-blue-navy mb-2">
-                        Company / Importer Name *
+                        Company / Importer Name
                       </label>
                       <input
                         type="text"
                         {...register('companyName')}
                         placeholder="e.g. EuroTech Appliances Ltd."
-                        className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
-                          errors.companyName ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
-                        }`}
+                        className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all min-h-[44px]"
                       />
-                      {errors.companyName && (
-                        <p className="text-[11px] text-red-500 mt-1">{errors.companyName.message}</p>
-                      )}
                     </div>
 
                     {/* Corporate Email */}
@@ -215,19 +257,24 @@ export const ContactPage: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Country */}
+                    {/* Destination Country */}
                     <div>
                       <label className="block text-xs font-bold text-brand-blue-navy mb-2">
-                        Destination Country *
+                        Country *
                       </label>
-                      <input
-                        type="text"
+                      <select
                         {...register('country')}
-                        placeholder="e.g. Germany, UAE, Brazil, Australia"
-                        className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
+                        className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all bg-white min-h-[44px] ${
                           errors.country ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
                         }`}
-                      />
+                      >
+                        <option value="">Select Destination Country</option>
+                        {COUNTRIES_LIST.map((country) => (
+                          <option key={country} value={country}>
+                            {country}
+                          </option>
+                        ))}
+                      </select>
                       {errors.country && (
                         <p className="text-[11px] text-red-500 mt-1">{errors.country.message}</p>
                       )}
@@ -285,12 +332,13 @@ export const ContactPage: React.FC = () => {
                     {/* Preferred Incoterm */}
                     <div className="sm:col-span-2">
                       <label className="block text-xs font-bold text-brand-blue-navy mb-2">
-                        Preferred Trade Term (Incoterms® 2020) *
+                        Preferred Trade Term (Incoterms® 2020)
                       </label>
                       <select
                         {...register('tradeTerm')}
                         className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white min-h-[44px]"
                       >
+                        <option value="">Select Preferred Trade Term (Optional)</option>
                         <option value="CIF (Cost, Insurance & Freight)">CIF (Cost, Insurance & Freight - Recommended)</option>
                         <option value="FOB (Free on Board - Origin Port)">FOB (Free on Board - Origin Port)</option>
                         <option value="CFR (Cost and Freight)">CFR (Cost and Freight)</option>
@@ -346,7 +394,7 @@ export const ContactPage: React.FC = () => {
           <div className="lg:col-span-4 space-y-6">
             <div className="rounded-3xl bg-brand-blue-navy text-white p-8 border border-white/10 shadow-xl space-y-6">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse"></span>
+                {/* <span className="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse"></span> */}
                 <span className="text-xs font-bold uppercase tracking-wider text-brand-green">
                   Trading Desk Online
                 </span>
@@ -412,7 +460,7 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {/* Guarantees Box */}
-            <div className="rounded-2xl bg-white p-6 border border-brand-gray-border shadow-sm space-y-3">
+            {/* <div className="rounded-2xl bg-white p-6 border border-brand-gray-border shadow-sm space-y-3">
               <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-brand-blue-navy">
                 Buyer Protection Standards
               </h4>
@@ -430,7 +478,7 @@ export const ContactPage: React.FC = () => {
                   <span>Zero-tolerance factory conflict of interest</span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
         </div>

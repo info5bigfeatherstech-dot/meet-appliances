@@ -32,7 +32,7 @@ export const HowItWorksTimeline: React.FC = () => {
             </h2>
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
-            <p className="font-subheading text-base text-brand-gray-muted mt-4 leading-relaxed">
+            <p className="font-subheading text-base text-brand-gray-muted mt-4 leading-relaxed capitalize">
               Our 6-phase global trading methodology eliminates supply chain surprises. Every container goes through structured sample approval, continuous assembly audits, and pre-loading inspection.
             </p>
           </RevealOnScroll>

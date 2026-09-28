@@ -1,67 +1,26 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Search, Box, ArrowRight } from 'lucide-react';
+import { Box, ArrowRight } from 'lucide-react';
 import { PRODUCTS_DATA } from '../data/products';
-import { PRODUCT_CATEGORIES } from '../data/categories';
 import { Container } from '../components/common/Container';
 import { Badge } from '../components/common/Badge';
 import { Button } from '../components/common/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const ProductsPage: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'all';
-
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [selectedTradeType, setSelectedTradeType] = useState<'all' | 'import' | 'export' | 'both'>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  // Sync category and search query state with URL if params exist
-  React.useEffect(() => {
-    const cat = searchParams.get('category');
-    const q = searchParams.get('q') || searchParams.get('search');
-    if (cat) {
-      setSelectedCategory(cat);
-    }
-    if (q) {
-      setSearchQuery(q);
-    }
-  }, [searchParams]);
-
-  const handleCategoryChange = (slug: string) => {
-    setSelectedCategory(slug);
-    if (slug === 'all') {
-      searchParams.delete('category');
-      setSearchParams(searchParams);
-    } else {
-      setSearchParams({ category: slug });
-    }
-  };
+  const [searchParams] = useSearchParams();
+  const selectedCategory = searchParams.get('category') || 'all';
 
   const filteredProducts = useMemo(() => {
+    if (selectedCategory === 'all') return PRODUCTS_DATA;
+    const catLower = selectedCategory.toLowerCase();
     return PRODUCTS_DATA.filter((product) => {
-      // Category check
-      const matchesCategory =
-        selectedCategory === 'all' ||
-        product.category.toLowerCase().includes(selectedCategory.toLowerCase()) ||
-        product.subCategory?.toLowerCase().includes(selectedCategory.toLowerCase());
-
-      // Trade type check
-      const matchesTradeType =
-        selectedTradeType === 'all' ||
-        product.tradeType === selectedTradeType ||
-        product.tradeType === 'both';
-
-      // Search query check
-      const matchesSearch =
-        searchQuery === '' ||
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.modelCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase());
-
-      return matchesCategory && matchesTradeType && matchesSearch;
+      return (
+        product.category.toLowerCase().includes(catLower) ||
+        product.subCategory?.toLowerCase().includes(catLower)
+      );
     });
-  }, [selectedCategory, selectedTradeType, searchQuery]);
+  }, [selectedCategory]);
 
   return (
     <div className="py-12 bg-brand-gray-bg min-h-screen">
@@ -79,87 +38,18 @@ export const ProductsPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Filter Controls Bar */}
-        <div className="bg-white rounded-3xl p-4 sm:p-6 border border-brand-gray-border/80 shadow-sm mb-10 space-y-5">
-          <div className="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
-            {/* Search Input */}
-            <div className="relative w-full md:w-96">
-              <Search className="w-4 h-4 text-brand-gray-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by appliance, model code, spec..."
-                className="w-full pl-10 pr-12 py-3 rounded-xl border border-brand-gray-border text-base sm:text-sm text-brand-blue-navy placeholder-slate-400 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all min-h-[44px]"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-1 top-1/2 -translate-y-1/2 min-w-[40px] min-h-[40px] flex items-center justify-center text-xs text-brand-gray-muted hover:text-brand-blue"
-                  aria-label="Clear Search Query"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-
-            {/* Trade Mode Toggle */}
-            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto w-full md:w-auto pb-1.5 md:pb-0 scrollbar-none">
-              <span className="text-xs font-semibold text-brand-gray-muted shrink-0 mr-1 hidden sm:inline">
-                Trade Direction:
-              </span>
-              {[
-                { id: 'all', label: 'All Modes' },
-                { id: 'export', label: 'Export Line' },
-                { id: 'import', label: 'Import Sourcing' },
-                { id: 'both', label: 'Dual-Flow' },
-              ].map((m) => (
-                <button
-                  key={m.id}
-                  onClick={() => setSelectedTradeType(m.id as any)}
-                  className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 min-h-[38px] ${
-                    selectedTradeType === m.id
-                      ? 'bg-brand-blue text-white shadow-sm'
-                      : 'bg-brand-gray-bg text-brand-gray-text hover:bg-slate-200'
-                  }`}
-                >
-                  {m.label}
-                </button>
-              ))}
-            </div>
+        {/* Category active filter indicator if routed from category */}
+        {selectedCategory !== 'all' && (
+          <div className="mb-6 flex items-center gap-2">
+            <span className="text-xs text-brand-gray-text font-medium">Category:</span>
+            <span className="px-3 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-xs font-semibold capitalize">
+              {selectedCategory}
+            </span>
+            <Link to="/products" className="text-xs text-slate-500 hover:text-brand-blue underline ml-2">
+              View all products
+            </Link>
           </div>
-
-          {/* Category Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none pt-2 border-t border-brand-gray-border/60">
-            <button
-              onClick={() => handleCategoryChange('all')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all shrink-0 min-h-[38px] ${
-                selectedCategory === 'all'
-                  ? 'bg-brand-blue-navy text-white shadow-sm'
-                  : 'bg-brand-gray-bg text-brand-gray-text hover:bg-slate-200'
-              }`}
-            >
-              All Categories ({PRODUCTS_DATA.length})
-            </button>
-
-            {PRODUCT_CATEGORIES.map((cat) => {
-              const isSelected = selectedCategory.toLowerCase() === cat.slug.toLowerCase();
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => handleCategoryChange(cat.slug)}
-                  className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all shrink-0 min-h-[38px] ${
-                    isSelected
-                      ? 'bg-brand-blue text-white shadow-sm'
-                      : 'bg-brand-gray-bg text-brand-gray-text hover:bg-slate-200'
-                  }`}
-                >
-                  {cat.name}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        )}
 
         {/* Results Count & Notice */}
         <div className="flex items-center justify-between text-xs text-brand-gray-muted mb-6">
@@ -177,18 +67,15 @@ export const ProductsPage: React.FC = () => {
             <p className="text-xs text-brand-gray-muted mt-1 max-w-sm mx-auto">
               We frequently source custom models not listed in our public catalog. Contact our trade desk with your specific requirement.
             </p>
-            <Button
-              variant="primary"
-              size="sm"
-              className="mt-6"
-              onClick={() => {
-                setSelectedCategory('all');
-                setSelectedTradeType('all');
-                setSearchQuery('');
-              }}
-            >
-              Reset Filters
-            </Button>
+            <Link to="/products">
+              <Button
+                variant="primary"
+                size="sm"
+                className="mt-6"
+              >
+                View All Products
+              </Button>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

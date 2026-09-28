@@ -219,7 +219,7 @@ export const HeroSection: React.FC = () => {
                 </span>
               </h1>
 
-              <p className="font-subheading text-sm sm:text-base text-slate-200 mt-4 leading-relaxed max-w-2xl font-normal drop-shadow-sm capitalize">
+              <p className="font-subheading text-sm sm:text-sm text-slate-200 mt-4 leading-relaxed max-w-2xl font-normal drop-shadow-sm capitalize">
                 {active.subheadline}
               </p>
             </motion.div>
