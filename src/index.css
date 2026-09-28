@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-blue: #0068B4;
+  --brand-blue-deep: #004D85;
+  --brand-blue-navy: #091B33;
+  --brand-blue-subtle: #EBF5FC;
+  --brand-green: #74C043;
+  --brand-green-soft: #D8F3C5;
+  --brand-gray-bg: #F7F9FC;
+  --brand-gray-border: #E2E8F0;
+  --brand-gray-muted: #64748B;
+  --brand-gray-text: #334155;
+}
+
+@layer base {
+  * {
+    border-color: var(--brand-gray-border);
+  }
+  
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  html, body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--brand-gray-bg);
+    color: var(--brand-gray-text);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F1F4F9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+}
+
+/* Glassmorphism Styles */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(228, 232, 238, 0.8);
+}
+
+.glass-card-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px -12px rgba(11, 58, 168, 0.12);
+  border-color: rgba(30, 94, 255, 0.3);
+}
+
+.glass-card-dark {
+  background: rgba(10, 26, 63, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(228, 232, 238, 0.7);
+}
+
+/* Gradient mesh background helper */
+.mesh-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+/* Dynamic text gradients */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #0B3AA8 0%, #1E5EFF 50%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #1E5EFF 0%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-delay: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
