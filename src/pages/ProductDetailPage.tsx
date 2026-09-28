@@ -16,7 +16,7 @@ export const ProductDetailPage: React.FC = () => {
   // Similar products in same category
   const similarProducts = PRODUCTS_DATA.filter(
     (p) => p.category === product.category && p.id !== product.id
-  ).slice(0, 3);
+  ).slice(0, 6);
 
   return (
     <div className="py-10 bg-brand-gray-bg min-h-screen">

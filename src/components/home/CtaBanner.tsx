@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Container as ContainerIcon, ShieldCheck, PhoneCall, Sparkles } from 'lucide-react';
+import { ArrowRight, Container as ContainerIcon, ShieldCheck, PhoneCall } from 'lucide-react';
 import { Button } from '../common/Button';
 import { Container } from '../common/Container';
 import { RevealOnScroll } from '../common/RevealOnScroll';
@@ -22,7 +22,7 @@ export const CtaBanner: React.FC = () => {
 
             <div className="relative z-10 max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-brand-green text-xs font-semibold mb-6 border border-white/20">
-                <Sparkles className="w-3.5 h-3.5" />
+                {/* <Sparkles className="w-3.5 h-3.5" /> */}
                 <span>Next Sourcing Cycle Now Open</span>
               </div>
 
@@ -30,7 +30,7 @@ export const CtaBanner: React.FC = () => {
                 Ready to Secure Your Next Appliance Container?
               </h2>
 
-              <p className="text-base sm:text-lg text-slate-200 mt-4 max-w-2xl leading-relaxed">
+              <p className="font-subheading text-base sm:text-lg text-slate-200 mt-4 max-w-2xl leading-relaxed">
                 Send us your target model specifications, annual volume, and required port of destination. We return a fully-costed CIF/FOB quotation and factory audit report within 24 to 48 hours.
               </p>
 

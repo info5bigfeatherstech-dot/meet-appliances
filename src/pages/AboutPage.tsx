@@ -27,7 +27,7 @@ export const AboutPage: React.FC = () => {
             <h1 className="font-heading font-semibold text-4xl sm:text-5xl text-white tracking-tight">
               An Independent Partner Advocating for the Importer
             </h1>
-            <p className="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
+            <p className="font-subheading text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
               We do not manufacture appliances. We exist to protect international brands, distributors, and retail chains from the risks, hidden costs, and quality compromises of overseas procurement.
             </p>
           </div>

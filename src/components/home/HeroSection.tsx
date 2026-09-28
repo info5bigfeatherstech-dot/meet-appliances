@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronLeft, ChevronRight, ShieldCheck, Ship, CheckCircle2, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '../common/Button';
 import { Container } from '../common/Container';
 import { AnimatedCounter } from '../common/AnimatedCounter';
@@ -28,8 +28,8 @@ const HERO_SLIDES: HeroMediaSlide[] = [
     category: 'GLOBAL MARITIME FREIGHT',
     title: 'Ocean Container Transit',
     headline: 'Global Appliances, Delivered With',
-    highlightWord: 'Confidence.',
-    subheadline: 'Connecting international distributors to 320+ vetted tier-1 factories. End-to-end AQL II quality inspections and guaranteed container allocations worldwide.',
+    highlightWord: 'Confidence',
+    subheadline: 'Connecting international distributors to 320+ vetted tier-1 factories. End-to-end AQL II quality inspections and guaranteed container allocations worldwide',
   },
   {
     id: 1,
@@ -39,8 +39,8 @@ const HERO_SLIDES: HeroMediaSlide[] = [
     category: 'TIER-1 SOURCING PORTFOLIO',
     title: 'Major Kitchen & White Goods Suites',
     headline: 'European Standard Appliances, Sourced at',
-    highlightWord: 'Volume.',
-    subheadline: 'Multi-door inverter refrigeration, built-in pyrolytic ovens, induction hobs, and BLDC washers ready for your private label distribution.',
+    highlightWord: 'Volume',
+    subheadline: 'Multi-door inverter refrigeration, built-in pyrolytic ovens, induction hobs, and BLDC washers ready for your private label distribution',
   },
   {
     id: 2,
@@ -50,28 +50,55 @@ const HERO_SLIDES: HeroMediaSlide[] = [
     category: 'QUALITY ASSURANCE & LOGISTICS',
     title: 'Container Loading & Terminal Dispatch',
     headline: 'Zero Defect Policy Before Any Container is',
-    highlightWord: 'Sealed.',
-    subheadline: 'Rigorous high-pot electrical tests, climate chamber endurance, carton drop resilience, and 100% container loading supervision (CLS).',
+    highlightWord: 'Sealed',
+    subheadline: 'Rigorous high-pot electrical tests, climate chamber endurance, carton drop resilience, and 100% container loading supervision (CLS)',
   },
 ];
 
 export const HeroSection: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const isVisibleRef = useRef<boolean>(true);
   const slideDuration = 7000; // 7 seconds per slide
 
-  // Automatic media loop
+  // Automatic media loop - only runs when hero is visible
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+      if (isVisibleRef.current) {
+        setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+      }
     }, slideDuration);
 
     return () => clearInterval(timer);
+  }, []);
+
+  // IntersectionObserver to pause video and timer when user scrolls away
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+        if (videoRef.current) {
+          if (entry.isIntersecting) {
+            videoRef.current.play().catch(() => {});
+          } else {
+            videoRef.current.pause();
+          }
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [currentSlide]);
 
-  // Video playback
+  // Video playback on slide change
   useEffect(() => {
-    if (HERO_SLIDES[currentSlide].type === 'video' && videoRef.current) {
+    if (HERO_SLIDES[currentSlide].type === 'video' && videoRef.current && isVisibleRef.current) {
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(() => {});
     }
@@ -85,17 +112,10 @@ export const HeroSection: React.FC = () => {
     setCurrentSlide((prev) => (prev === 0 ? HERO_SLIDES.length - 1 : prev - 1));
   };
 
-  const scrollToNext = () => {
-    const nextSection = document.getElementById('brands-marquee');
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const active = HERO_SLIDES[currentSlide];
 
   return (
-    <section className="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-between overflow-hidden bg-brand-blue-navy text-white">
+    <section ref={sectionRef} className="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-between overflow-hidden bg-brand-blue-navy text-white">
       
       {/* ============================================================== */}
       {/* 1. ENTIRE SCREEN BACKGROUND MEDIA (VIDEO & IMAGES ON LOOP)      */}
@@ -173,7 +193,7 @@ export const HeroSection: React.FC = () => {
           
           {/* Neutrality & Active Category Tag */}
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs text-white">
-            <span className="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse" />
+            {/* <span className="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse" /> */}
             <span className="font-heading font-bold text-brand-green uppercase tracking-wide">
               {active.category}
             </span>
@@ -192,14 +212,14 @@ export const HeroSection: React.FC = () => {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="font-heading font-semibold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-md">
+              <h1 className="font-heading font-medium text-3xl sm:text-3xl lg:text-5xl text-white tracking-tight leading-[1.12] drop-shadow-md">
                 {active.headline}{' '}
                 <span className="text-brand-green underline decoration-brand-green/40 decoration-4 underline-offset-6">
                   {active.highlightWord}
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-200 mt-4 leading-relaxed max-w-2xl font-normal drop-shadow-sm">
+              <p className="font-subheading text-base sm:text-sm text-slate-200 mt-4 leading-relaxed max-w-2xl font-normal drop-shadow-sm capitalize">
                 {active.subheadline}
               </p>
             </motion.div>
@@ -230,21 +250,7 @@ export const HeroSection: React.FC = () => {
             </Link>
           </div>
 
-          {/* Key Trust Checkmarks */}
-          <div className="pt-2 flex flex-wrap items-center gap-5 text-xs text-slate-300">
-            <span className="flex items-center gap-1.5 font-medium">
-              <ShieldCheck className="w-4 h-4 text-brand-green" />
-              Pre-Shipment Hi-Pot & Drop Testing
-            </span>
-            <span className="flex items-center gap-1.5 font-medium">
-              <Ship className="w-4 h-4 text-brand-green" />
-              Direct Port Space Allocations
-            </span>
-            <span className="flex items-center gap-1.5 font-medium">
-              <CheckCircle2 className="w-4 h-4 text-brand-green" />
-              FOB / CIF / CFR Trade Terms
-            </span>
-          </div>
+
 
         </div>
       </Container>
@@ -291,22 +297,7 @@ export const HeroSection: React.FC = () => {
             ))}
           </div>
 
-          {/* Scroll Down Indicator */}
-          <div className="flex justify-center pt-4">
-            <button
-              onClick={scrollToNext}
-              className="flex items-center gap-1 text-xs text-slate-300 hover:text-brand-green transition-colors focus:outline-none"
-              aria-label="Scroll to explore more"
-            >
-              <span>Scroll to explore</span>
-              <motion.div
-                animate={{ y: [0, 4, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-              >
-                <ChevronDown className="w-4 h-4 text-brand-green" />
-              </motion.div>
-            </button>
-          </div>
+
 
         </Container>
       </div>

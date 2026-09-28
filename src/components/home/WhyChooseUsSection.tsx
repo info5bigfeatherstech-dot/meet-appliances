@@ -59,7 +59,7 @@ export const WhyChooseUsSection: React.FC = () => {
             </h2>
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
-            <p className="text-base text-brand-gray-muted mt-4 leading-relaxed">
+            <p className="font-subheading text-base text-brand-gray-muted mt-4 leading-relaxed">
               International trade should be dependable, transparent, and profitable. We eliminate cross-border friction, language barriers, and product defect risks.
             </p>
           </RevealOnScroll>

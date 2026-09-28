@@ -27,7 +27,7 @@ export const ServicesPage: React.FC = () => {
             <h1 className="font-heading font-semibold text-4xl sm:text-5xl text-white tracking-tight">
               Sourcing, Inspection & Freight Services
             </h1>
-            <p className="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
+            <p className="font-subheading text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
               We operate as your on-the-ground international trading arm. From negotiating Tier-1 benchmark prices to conducting pre-shipment drop tests and securing ocean slots, we manage every trade phase.
             </p>
           </div>

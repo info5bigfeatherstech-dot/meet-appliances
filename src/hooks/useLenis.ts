@@ -9,21 +9,23 @@ export function useLenis() {
       return;
     }
 
+    // Set smoothWheel to false to eliminate delayed wheel lag,
+    // allowing native 60/120Hz compositor scrolling with 0 input latency
     const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.6,
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: true,
-      touchMultiplier: 1.5,
+      smoothWheel: false, // Prevents rubber-banding/dragging delay
+      touchMultiplier: 1.0,
     });
 
+    let animId: number;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      animId = requestAnimationFrame(raf);
     }
 
-    const animId = requestAnimationFrame(raf);
+    animId = requestAnimationFrame(raf);
 
     return () => {
       cancelAnimationFrame(animId);

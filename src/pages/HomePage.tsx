@@ -14,20 +14,20 @@ export const HomePage: React.FC = () => {
       {/* 1. Full Hero Section */}
       <HeroSection />
 
+      <FeaturedCategoriesSection />
       {/* 2. Trusted Brands Marquee Strip */}
       <TrustedBrandsMarquee />
 
       {/* 3. Global Sourcing Platform & Port Corridors Banner (Custom Reference Style) */}
-      <GlobalTradeBanner />
 
       {/* 4. What We Do - Core Capabilities */}
       <WhatWeDoSection />
 
       {/* 4. How It Works - Animated Progress Timeline */}
       <HowItWorksTimeline />
+      <GlobalTradeBanner />
 
       {/* 5. Featured Product Categories Grid */}
-      <FeaturedCategoriesSection />
 
       {/* 6. Global Reach - Corridors & Port Hubs */}
       {/* <GlobalReachSection /> */}

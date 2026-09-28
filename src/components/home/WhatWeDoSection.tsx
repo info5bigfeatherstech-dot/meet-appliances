@@ -65,7 +65,7 @@ export const WhatWeDoSection: React.FC = () => {
             </h2>
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
-            <p className="text-base text-brand-gray-muted mt-4 leading-relaxed">
+            <p className="font-subheading text-base text-brand-gray-muted mt-4 leading-relaxed">
               We act as your dedicated offshore procurement, quality control, and shipping department. We do not manufacture—our sole mandate is protecting your capital and ensuring your containers arrive on schedule, exactly to specification.
             </p>
           </RevealOnScroll>

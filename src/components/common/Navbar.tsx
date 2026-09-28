@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight, Globe, Shield, PhoneCall, ChevronDown } from 'lucide-react';
 import { Button } from './Button';
 import { MeetLogo } from './MeetLogo';
-import { ProductsMegaMenu, PRODUCTS_MEGA_MENU_DATA } from './ProductsMegaMenu';
+import { ProductsMegaMenu, MEGA_MENU_COLUMNS } from './ProductsMegaMenu';
+import { getProductsByCategory } from '../../data/products';
 import { COMPANY_INFO } from '../../data/company';
 import { cn } from '../../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -45,9 +46,9 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about' },
-    { label: 'Services & Sourcing', href: '/services' },
     { label: 'Products', href: '/products', hasMegaMenu: true },
-    { label: 'Contact & Quote', href: '/contact' },
+    { label: 'Services & Sourcing', href: '/services' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -177,7 +178,7 @@ export const Navbar: React.FC = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <div className="w-full max-w-4xl pointer-events-auto">
+              <div className="w-full max-w-5xl pointer-events-auto">
                 <ProductsMegaMenu onClose={() => setIsProductsMenuOpen(false)} />
               </div>
             </div>
@@ -228,65 +229,32 @@ export const Navbar: React.FC = () => {
                       {/* Mobile Accordion for Products Categories */}
                       {mobileProductsExpanded && (
                         <div className="px-4 py-3 space-y-4 bg-brand-gray-bg/60 rounded-xl mt-1 text-xs">
-                          {/* Column 1 Categories */}
-                          {PRODUCTS_MEGA_MENU_DATA.column1.map((cat, idx) => (
-                            <div key={idx} className="space-y-1.5">
-                              <span className="font-heading font-bold text-brand-blue-navy block uppercase text-[11px]">
-                                {cat.title}
-                              </span>
-                              <div className="flex flex-wrap gap-1.5">
-                                {cat.items.map((item, iIdx) => (
-                                  <Link
-                                    key={iIdx}
-                                    to={`/products?q=${encodeURIComponent(item.query || item.label)}`}
-                                    className="px-2.5 py-1 bg-white rounded-lg border border-brand-gray-border text-slate-700 hover:text-brand-blue font-medium"
-                                  >
-                                    {item.label}
-                                  </Link>
-                                ))}
+                          {MEGA_MENU_COLUMNS.flat().map((cat) => {
+                            const products = getProductsByCategory(cat.slug).slice(0, 6);
+                            return (
+                              <div key={cat.slug} className="space-y-1.5">
+                                <Link
+                                  to={`/category/${cat.slug}`}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                  className="font-heading font-bold text-brand-blue-navy block uppercase text-[11px] hover:text-brand-blue"
+                                >
+                                  {cat.title}
+                                </Link>
+                                <div className="space-y-1">
+                                  {products.map((p) => (
+                                    <Link
+                                      key={p.id}
+                                      to={`/products/${p.id}`}
+                                      onClick={() => setMobileMenuOpen(false)}
+                                      className="block px-2.5 py-1.5 bg-white rounded-lg border border-brand-gray-border text-slate-700 hover:text-brand-blue font-medium truncate"
+                                    >
+                                      {p.name}
+                                    </Link>
+                                  ))}
+                                </div>
                               </div>
-                            </div>
-                          ))}
-
-                          {/* Column 2 Categories */}
-                          {PRODUCTS_MEGA_MENU_DATA.column2.map((cat, idx) => (
-                            <div key={idx} className="space-y-1.5">
-                              <span className="font-heading font-bold text-brand-blue-navy block uppercase text-[11px]">
-                                {cat.title}
-                              </span>
-                              <div className="flex flex-wrap gap-1.5">
-                                {cat.items.map((item, iIdx) => (
-                                  <Link
-                                    key={iIdx}
-                                    to={`/products?q=${encodeURIComponent(item.query || item.label)}`}
-                                    className="px-2.5 py-1 bg-white rounded-lg border border-brand-gray-border text-slate-700 hover:text-brand-blue font-medium"
-                                  >
-                                    {item.label}
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-
-                          {/* Column 3 Categories */}
-                          {PRODUCTS_MEGA_MENU_DATA.column3.map((cat, idx) => (
-                            <div key={idx} className="space-y-1.5">
-                              <span className="font-heading font-bold text-brand-blue-navy block uppercase text-[11px]">
-                                {cat.title}
-                              </span>
-                              <div className="flex flex-wrap gap-1.5">
-                                {cat.items.map((item, iIdx) => (
-                                  <Link
-                                    key={iIdx}
-                                    to={`/products?q=${encodeURIComponent(item.query || item.label)}`}
-                                    className="px-2.5 py-1 bg-white rounded-lg border border-brand-gray-border text-slate-700 hover:text-brand-blue font-medium"
-                                  >
-                                    {item.label}
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
+                            );
+                          })}
 
                           <div className="pt-2">
                             <Link

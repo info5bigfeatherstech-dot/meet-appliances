@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { PRODUCT_CATEGORIES } from '../../data/categories';
 import { Container } from '../common/Container';
 import { RevealOnScroll } from '../common/RevealOnScroll';
@@ -25,13 +25,13 @@ export const FeaturedCategoriesSection: React.FC = () => {
               </h2>
             </RevealOnScroll>
             <RevealOnScroll direction="up" delay={0.2}>
-              <p className="text-base text-brand-gray-muted mt-3">
+              <p className="font-subheading text-base text-brand-gray-muted mt-3">
                 Pre-tested to international electrical standards (CE, CB, UL, SASO, NOM) with flexible container load optimization.
               </p>
             </RevealOnScroll>
           </div>
 
-          <RevealOnScroll direction="left" delay={0.25}>
+          {/* <RevealOnScroll direction="left" delay={0.25}>
             <Link
               to="/products"
               className="inline-flex items-center gap-2 text-sm font-bold text-brand-blue hover:text-brand-blue-deep group"
@@ -39,7 +39,7 @@ export const FeaturedCategoriesSection: React.FC = () => {
               <span>View All 8 Categories</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
-          </RevealOnScroll>
+          </RevealOnScroll> */}
         </div>
 
         {/* Categories Interactive Grid */}
@@ -80,23 +80,7 @@ export const FeaturedCategoriesSection: React.FC = () => {
                       {cat.description}
                     </p>
 
-                    {/* Highlight Specs */}
-                    <div className="pt-3 border-t border-brand-gray-border/60">
-                      <span className="text-[10px] uppercase font-bold text-brand-gray-muted tracking-wider block mb-2">
-                        Benchmark Features:
-                      </span>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {cat.highlightSpecs.map((spec, sIdx) => (
-                          <span
-                            key={sIdx}
-                            className="inline-flex items-center gap-1 text-[11px] bg-brand-gray-bg text-brand-gray-text px-2.5 py-1 rounded-md border border-brand-gray-border"
-                          >
-                            <Check className="w-3 h-3 text-brand-blue shrink-0" />
-                            {spec}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+
 
                     <div className="flex items-center justify-between pt-2 text-xs font-bold text-brand-blue group-hover:text-brand-blue-deep">
                       <span>Explore Sourcing Models</span>

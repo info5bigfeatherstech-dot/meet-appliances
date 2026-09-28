@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, ArrowRight, ShieldCheck, CheckCircle2 } from 'luci
 import { MeetLogo } from './MeetLogo';
 import { COMPANY_INFO } from '../../data/company';
 import { Container } from './Container';
+import { WavyBackground } from '@/components/ui/wavy-background';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -18,27 +19,34 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-brand-blue-navy text-white pt-20 pb-12 relative overflow-hidden">
+    <footer className="bg-brand-blue-navy text-white relative overflow-hidden">
       {/* Decorative top gradient border */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-blue via-brand-green to-brand-blue-deep" />
-      
-      {/* Subtle background glow */}
-      <div className="absolute top-1/3 -right-40 w-96 h-96 bg-brand-blue/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -left-40 w-96 h-96 bg-brand-green/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-blue via-brand-green to-brand-blue-deep z-20" />
 
-      <Container size="xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-16 border-b border-white/10">
+      {/* Interactive Wavy Canvas Background */}
+      <WavyBackground
+        className="w-full pt-8 pb-5 sm:pt-10 sm:pb-6"
+        containerClassName="w-full relative"
+        backgroundFill="#091B33"
+        colors={["#0068B4", "#74C043", "#004D85", "#38bdf8", "#5A6572"]}
+        waveWidth={45}
+        waveOpacity={0.28}
+        blur={10}
+        speed="slow"
+      >
+        <Container size="xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-8 pb-8 sm:pb-10 border-b border-white/10">
           {/* Col 1: Brand & Strict Trader Disclaimer */}
           <div className="lg:col-span-2 space-y-5">
             <Link to="/" className="inline-block focus:outline-none">
               <MeetLogo size="lg" variant="dark" />
             </Link>
             
-            <p className="text-slate-300 text-sm leading-relaxed max-w-sm">
+            <p className="font-montreal font-medium text-slate-300 text-sm leading-relaxed max-w-sm">
               Your trusted global sourcing, trading, and logistics partner for residential & commercial appliances. Connecting international distributors to audited tier-1 manufacturing hubs with end-to-end AQL II quality control.
             </p>
 
-            <div className="rounded-xl bg-white/5 border border-white/10 p-3.5 text-xs text-slate-300 leading-relaxed">
+            <div className="font-montreal font-medium rounded-xl bg-white/5 border border-white/10 p-3.5 text-xs text-slate-300 leading-relaxed">
               <span className="text-brand-green font-semibold block mb-1">Neutral Trading & Sourcing Partner</span>
               Meet Appliances is a dedicated international trader and sourcing agent. We do not manufacture; we represent global buyers and oversee factory vetting, quality inspections, and maritime container logistics.
             </div>
@@ -88,7 +96,7 @@ export const Footer: React.FC = () => {
             <h4 className="font-heading font-semibold text-white text-sm tracking-wider uppercase mb-4">
               Trade Intelligence
             </h4>
-            <p className="text-slate-300 text-xs leading-relaxed mb-4">
+            <p className="font-montreal font-medium text-slate-300 text-xs leading-relaxed mb-4">
               Receive quarterly ocean freight rate trends, appliance regulatory updates, and seasonal sourcing advisories.
             </p>
 
@@ -116,7 +124,7 @@ export const Footer: React.FC = () => {
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
-                <span className="text-[10px] text-slate-400 block">Strictly B2B trade updates. No spam.</span>
+                <span className="font-montreal text-[10px] text-slate-400 block">Strictly B2B trade updates. No spam.</span>
               </form>
             )}
 
@@ -139,7 +147,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom copyright & legal */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+        <div className="pt-5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
           <p>© {new Date().getFullYear()} {COMPANY_INFO.legalName}. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <span className="text-slate-300">Incoterms® 2020 Compliant</span>
@@ -148,6 +156,7 @@ export const Footer: React.FC = () => {
           </div>
         </div>
       </Container>
-    </footer>
+    </WavyBackground>
+  </footer>
   );
 };

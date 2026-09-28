@@ -42,7 +42,7 @@ export const TestimonialsCarousel: React.FC = () => {
             </h2>
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
-            <p className="text-base text-brand-gray-muted mt-3">
+            <p className="font-subheading text-base text-brand-gray-muted mt-3">
               Discover how our transparent sourcing and rigorous QA protocols protect global appliance distribution chains.
             </p>
           </RevealOnScroll>

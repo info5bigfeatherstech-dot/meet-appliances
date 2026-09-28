@@ -28,7 +28,7 @@ export const GlobalReachSection: React.FC = () => {
             </h2>
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
-            <p className="text-base text-slate-300 mt-4 leading-relaxed">
+            <p className="font-subheading text-base text-slate-300 mt-4 leading-relaxed">
               We contract direct ocean liner allocations across Maersk, MSC, COSCO, and CMA CGM. Whether shipping full container loads (FCL) to Europe or multi-stop consolidation to South America, your cargo moves with scheduled precision.
             </p>
           </RevealOnScroll>

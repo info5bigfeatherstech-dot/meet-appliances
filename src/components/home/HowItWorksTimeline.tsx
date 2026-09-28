@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import { HOW_IT_WORKS_TIMELINE } from '../../data/services';
 import { Container } from '../common/Container';
 import { RevealOnScroll } from '../common/RevealOnScroll';
@@ -12,12 +12,6 @@ export const HowItWorksTimeline: React.FC = () => {
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start center', 'end center'],
-  });
-
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
   });
 
   // Step icons map
@@ -38,18 +32,18 @@ export const HowItWorksTimeline: React.FC = () => {
             </h2>
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
-            <p className="text-base text-brand-gray-muted mt-4 leading-relaxed">
+            <p className="font-subheading text-base text-brand-gray-muted mt-4 leading-relaxed">
               Our 6-phase global trading methodology eliminates supply chain surprises. Every container goes through structured sample approval, continuous assembly audits, and pre-loading inspection.
             </p>
           </RevealOnScroll>
         </div>
 
         {/* Timeline Layout */}
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-5xl lg:max-w-6xl mx-auto">
           {/* Animated Connecting Progress Line */}
           <div className="absolute left-6 md:left-1/2 top-4 bottom-4 w-1 -translate-x-1/2 bg-brand-gray-border/80 rounded-full">
             <motion.div
-              style={{ scaleY }}
+              style={{ scaleY: scrollYProgress }}
               className="w-full h-full bg-gradient-to-b from-brand-blue via-brand-green to-brand-blue origin-top rounded-full shadow-[0_0_12px_rgba(30,94,255,0.6)]"
             />
           </div>
@@ -65,7 +59,7 @@ export const HowItWorksTimeline: React.FC = () => {
                   key={item.step}
                   className={`relative flex flex-col md:flex-row items-start md:items-center ${
                     isEven ? 'md:flex-row-reverse' : ''
-                  } gap-8 md:gap-14`}
+                  } gap-8 md:gap-10 lg:gap-12`}
                 >
                   {/* Center Node Marker */}
                   <div className="absolute left-6 md:left-1/2 -translate-x-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-2xl bg-white border-2 border-brand-blue shadow-lg group-hover:scale-110 transition-transform">
@@ -77,7 +71,7 @@ export const HowItWorksTimeline: React.FC = () => {
                   {/* Content Card */}
                   <div className="ml-16 md:ml-0 md:w-1/2">
                     <RevealOnScroll direction={isEven ? 'left' : 'right'} delay={0.15}>
-                      <div className="rounded-2xl bg-brand-gray-bg/70 hover:bg-white p-6 sm:p-7 border border-brand-gray-border/80 hover:border-brand-blue/30 shadow-card hover:shadow-card-hover transition-all group">
+                      <div className="rounded-2xl bg-brand-gray-bg/70 hover:bg-white p-7 sm:p-8 border border-brand-gray-border/80 hover:border-brand-blue/30 shadow-card hover:shadow-card-hover transition-all group">
                         
                         <div className="flex items-center justify-between gap-4 mb-3">
                           <span className="flex items-center gap-1.5 text-xs font-semibold text-brand-blue">

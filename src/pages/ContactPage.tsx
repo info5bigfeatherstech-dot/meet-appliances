@@ -91,7 +91,7 @@ export const ContactPage: React.FC = () => {
           <h1 className="font-heading font-semibold text-3xl sm:text-4xl text-brand-blue-navy tracking-tight">
             Request Container Pricing & Sourcing Dossier
           </h1>
-          <p className="text-base text-brand-gray-muted mt-2">
+          <p className="font-subheading text-base text-brand-gray-muted mt-2">
             Connect directly with our international appliance trading coordinators. Receive a transparent price breakdown, AQL II inspection framework, and vessel sailing options within 24 to 48 hours.
           </p>
         </div>
