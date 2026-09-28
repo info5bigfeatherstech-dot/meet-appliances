@@ -19,7 +19,7 @@ const quoteSchema = z.object({
   phoneNumber: z.string().min(6, 'Please provide an active phone or WhatsApp number'),
   country: z.string().min(2, 'Destination country is required'),
   destinationPort: z.string().optional(),
-  productCategory: z.string().min(1, 'Please select an appliance category'),
+  productCategory: z.string().optional(),
   orderVolume: z.string().min(1, 'Please specify projected container quantity'),
   tradeTerm: z.string().min(1, 'Please select preferred Incoterms'),
   message: z.string().min(10, 'Please share model specifics, target specs, or questions (min 10 characters)'),
@@ -50,7 +50,7 @@ export const ContactPage: React.FC = () => {
       phoneNumber: '',
       country: '',
       destinationPort: '',
-      productCategory: prefillCategory || 'Refrigeration & Freezers',
+      productCategory: prefillCategory || '',
       orderVolume: '1x 40HQ Container',
       tradeTerm: 'CIF (Cost, Insurance & Freight)',
       message: prefillModel
@@ -100,7 +100,7 @@ export const ContactPage: React.FC = () => {
           
           {/* Left Column: Form Card */}
           <div className="lg:col-span-8">
-            <div className="rounded-3xl bg-white p-6 sm:p-10 border border-brand-gray-border/80 shadow-card">
+            <div className="rounded-3xl bg-white p-5 sm:p-8 md:p-10 border border-brand-gray-border/80 shadow-card">
               
               {submitted ? (
                 <motion.div
@@ -142,7 +142,7 @@ export const ContactPage: React.FC = () => {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
                     {/* Full Name */}
                     <div>
                       <label className="block text-xs font-bold text-brand-blue-navy mb-2">
@@ -152,7 +152,7 @@ export const ContactPage: React.FC = () => {
                         type="text"
                         {...register('fullName')}
                         placeholder="e.g. David Mueller"
-                        className={`w-full px-4 py-2.5 rounded-xl border text-xs text-brand-blue-navy focus:outline-none transition-all ${
+                        className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
                           errors.fullName ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
                         }`}
                       />
@@ -170,7 +170,7 @@ export const ContactPage: React.FC = () => {
                         type="text"
                         {...register('companyName')}
                         placeholder="e.g. EuroTech Appliances Ltd."
-                        className={`w-full px-4 py-2.5 rounded-xl border text-xs text-brand-blue-navy focus:outline-none transition-all ${
+                        className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
                           errors.companyName ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
                         }`}
                       />
@@ -188,7 +188,7 @@ export const ContactPage: React.FC = () => {
                         type="email"
                         {...register('businessEmail')}
                         placeholder="procurement@company.com"
-                        className={`w-full px-4 py-2.5 rounded-xl border text-xs text-brand-blue-navy focus:outline-none transition-all ${
+                        className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
                           errors.businessEmail ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
                         }`}
                       />
@@ -206,7 +206,7 @@ export const ContactPage: React.FC = () => {
                         type="text"
                         {...register('phoneNumber')}
                         placeholder="+49 170 1234567"
-                        className={`w-full px-4 py-2.5 rounded-xl border text-xs text-brand-blue-navy focus:outline-none transition-all ${
+                        className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
                           errors.phoneNumber ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
                         }`}
                       />
@@ -224,7 +224,7 @@ export const ContactPage: React.FC = () => {
                         type="text"
                         {...register('country')}
                         placeholder="e.g. Germany, UAE, Brazil, Australia"
-                        className={`w-full px-4 py-2.5 rounded-xl border text-xs text-brand-blue-navy focus:outline-none transition-all ${
+                        className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
                           errors.country ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
                         }`}
                       />
@@ -242,19 +242,20 @@ export const ContactPage: React.FC = () => {
                         type="text"
                         {...register('destinationPort')}
                         placeholder="e.g. Port of Hamburg, Jebel Ali, Santos"
-                        className="w-full px-4 py-2.5 rounded-xl border border-brand-gray-border text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all"
+                        className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all min-h-[44px]"
                       />
                     </div>
 
                     {/* Appliance Category */}
                     <div>
                       <label className="block text-xs font-bold text-brand-blue-navy mb-2">
-                        Appliance Category *
+                        Appliance Category
                       </label>
                       <select
                         {...register('productCategory')}
-                        className="w-full px-4 py-2.5 rounded-xl border border-brand-gray-border text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white"
+                        className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white min-h-[44px]"
                       >
+                        <option value="">Select Category (Optional)</option>
                         {PRODUCT_CATEGORIES.map((cat) => (
                           <option key={cat.id} value={cat.name}>
                             {cat.name}
@@ -271,7 +272,7 @@ export const ContactPage: React.FC = () => {
                       </label>
                       <select
                         {...register('orderVolume')}
-                        className="w-full px-4 py-2.5 rounded-xl border border-brand-gray-border text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white"
+                        className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white min-h-[44px]"
                       >
                         <option value="1x 20GP Container">1x 20GP Container (Trial)</option>
                         <option value="1x 40HQ Container">1x 40HQ Container (Standard)</option>
@@ -288,7 +289,7 @@ export const ContactPage: React.FC = () => {
                       </label>
                       <select
                         {...register('tradeTerm')}
-                        className="w-full px-4 py-2.5 rounded-xl border border-brand-gray-border text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white"
+                        className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white min-h-[44px]"
                       >
                         <option value="CIF (Cost, Insurance & Freight)">CIF (Cost, Insurance & Freight - Recommended)</option>
                         <option value="FOB (Free on Board - Origin Port)">FOB (Free on Board - Origin Port)</option>
@@ -308,7 +309,7 @@ export const ContactPage: React.FC = () => {
                       rows={4}
                       {...register('message')}
                       placeholder="Please mention electrical specifications (voltage/Hz), desired certifications (CE, SASO, UL), custom OEM logo packaging requirements, or target FOB price..."
-                      className={`w-full px-4 py-3 rounded-xl border text-xs text-brand-blue-navy focus:outline-none transition-all ${
+                      className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all ${
                         errors.message ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
                       }`}
                     />

@@ -115,7 +115,7 @@ export const HeroSection: React.FC = () => {
   const active = HERO_SLIDES[currentSlide];
 
   return (
-    <section ref={sectionRef} className="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-between overflow-hidden bg-brand-blue-navy text-white">
+    <section ref={sectionRef} className="relative w-full min-h-[92dvh] lg:min-h-screen flex flex-col justify-between overflow-hidden bg-brand-blue-navy text-white">
       
       {/* ============================================================== */}
       {/* 1. ENTIRE SCREEN BACKGROUND MEDIA (VIDEO & IMAGES ON LOOP)      */}
@@ -167,11 +167,11 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* ============================================================== */}
-      {/* 2. LEFT AND RIGHT SCROLL ARROWS (CENTERED ON HERO SIDES)       */}
+      {/* 2. LEFT AND RIGHT SCROLL ARROWS (CENTERED ON HERO SIDES - DESKTOP/TABLET) */}
       {/* ============================================================== */}
       <button
         onClick={prevSlide}
-        className="absolute left-3 sm:left-6 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/40 hover:bg-brand-blue border border-white/20 text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-2xl active:scale-95 group focus:outline-none"
+        className="hidden sm:flex absolute left-3 sm:left-6 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/40 hover:bg-brand-blue border border-white/20 text-white items-center justify-center transition-all duration-300 backdrop-blur-md shadow-2xl active:scale-95 group focus:outline-none"
         aria-label="Previous Slide"
       >
         <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 transition-transform group-hover:-translate-x-0.5" />
@@ -179,7 +179,7 @@ export const HeroSection: React.FC = () => {
 
       <button
         onClick={nextSlide}
-        className="absolute right-3 sm:right-6 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/40 hover:bg-brand-blue border border-white/20 text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-2xl active:scale-95 group focus:outline-none"
+        className="hidden sm:flex absolute right-3 sm:right-6 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/40 hover:bg-brand-blue border border-white/20 text-white items-center justify-center transition-all duration-300 backdrop-blur-md shadow-2xl active:scale-95 group focus:outline-none"
         aria-label="Next Slide"
       >
         <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 transition-transform group-hover:translate-x-0.5" />
@@ -212,45 +212,43 @@ export const HeroSection: React.FC = () => {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="font-heading font-medium text-3xl sm:text-3xl lg:text-5xl text-white tracking-tight leading-[1.12] drop-shadow-md">
+              <h1 className="font-heading font-medium text-2xl sm:text-3xl lg:text-5xl text-white tracking-tight leading-[1.15] drop-shadow-md">
                 {active.headline}{' '}
                 <span className="text-brand-green underline decoration-brand-green/40 decoration-4 underline-offset-6">
                   {active.highlightWord}
                 </span>
               </h1>
 
-              <p className="font-subheading text-base sm:text-sm text-slate-200 mt-4 leading-relaxed max-w-2xl font-normal drop-shadow-sm capitalize">
+              <p className="font-subheading text-sm sm:text-base text-slate-200 mt-4 leading-relaxed max-w-2xl font-normal drop-shadow-sm capitalize">
                 {active.subheadline}
               </p>
             </motion.div>
           </AnimatePresence>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
-            <Link to="/contact">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 w-full sm:w-auto">
+            <Link to="/contact" className="w-full sm:w-auto">
               <Button
                 variant="accent"
                 size="lg"
                 glow
                 icon={<ArrowRight className="w-5 h-5" />}
-                className="px-8 shadow-glow-green text-brand-blue-navy font-bold text-sm sm:text-base"
+                className="w-full sm:w-auto px-6 sm:px-8 shadow-glow-green text-brand-blue-navy font-bold text-sm sm:text-base min-h-[44px]"
               >
                 Get a Container Quote
               </Button>
             </Link>
 
-            <Link to="/products">
+            <Link to="/products" className="w-full sm:w-auto">
               <Button
                 variant="secondary"
                 size="lg"
-                className="px-8 bg-white/10 hover:bg-white/25 text-white border-white/30 backdrop-blur-md text-sm sm:text-base font-semibold"
+                className="w-full sm:w-auto px-6 sm:px-8 bg-white/10 hover:bg-white/25 text-white border-white/30 backdrop-blur-md text-sm sm:text-base font-semibold min-h-[44px]"
               >
                 Explore Products
               </Button>
             </Link>
           </div>
-
-
 
         </div>
       </Container>
@@ -261,36 +259,40 @@ export const HeroSection: React.FC = () => {
       <div className="relative z-20 pb-6 pt-2">
         <Container size="xl">
           
-          {/* Subtle Slide Indicators */}
-          <div className="flex items-center justify-center gap-2.5 mb-6">
+          {/* Slide Indicators with accessible touch padding */}
+          <div className="flex items-center justify-center gap-1.5 mb-4 sm:mb-6">
             {HERO_SLIDES.map((s, idx) => (
               <button
                 key={s.id}
                 onClick={() => setCurrentSlide(idx)}
-                className={`transition-all duration-300 rounded-full ${
-                  currentSlide === idx
-                    ? 'w-8 h-2 bg-brand-green shadow-glow-green/60'
-                    : 'w-2.5 h-2.5 bg-white/30 hover:bg-white/60'
-                }`}
+                className="p-2 min-h-[44px] flex items-center justify-center focus:outline-none"
                 aria-label={`Go to slide ${idx + 1}`}
-              />
+              >
+                <span
+                  className={`transition-all duration-300 rounded-full block ${
+                    currentSlide === idx
+                      ? 'w-8 h-2 bg-brand-green shadow-glow-green/60'
+                      : 'w-2.5 h-2.5 bg-white/30 hover:bg-white/60'
+                  }`}
+                />
+              </button>
             ))}
           </div>
 
           {/* Four Animated Metric Counters */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
             {HERO_STATS.map((stat) => (
               <div
                 key={stat.id}
-                className="rounded-2xl bg-black/35 backdrop-blur-md p-4 sm:p-5 border border-white/10"
+                className="rounded-2xl bg-black/35 backdrop-blur-md p-3 sm:p-5 border border-white/10 flex flex-col justify-between"
               >
-                <div className="font-heading font-semibold text-2xl sm:text-3xl text-white tracking-tight">
+                <div className="font-heading font-semibold text-xl sm:text-2xl lg:text-3xl text-white tracking-tight">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} prefix={stat.prefix} />
                 </div>
-                <div className="text-xs sm:text-sm font-bold text-brand-green mt-0.5">
+                <div className="text-xs sm:text-sm font-bold text-brand-green mt-0.5 truncate">
                   {stat.label}
                 </div>
-                <div className="text-[11px] text-slate-300 mt-0.5 truncate">
+                <div className="text-[10px] sm:text-[11px] text-slate-300 mt-0.5 line-clamp-1">
                   {stat.description}
                 </div>
               </div>

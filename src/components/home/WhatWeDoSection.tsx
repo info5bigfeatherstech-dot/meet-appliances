@@ -138,8 +138,8 @@ export const WhatWeDoSection: React.FC = () => {
               Submit your engineering drawings or target specs. We return verified factory quotes in 5 business days.
             </p>
           </div>
-          <Link to="/contact" className="shrink-0">
-            <button className="px-6 py-3 rounded-xl bg-brand-green text-brand-blue-navy font-bold text-xs hover:bg-[#6edba0] transition-colors flex items-center gap-2">
+          <Link to="/contact" className="w-full sm:w-auto shrink-0">
+            <button className="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-green text-brand-blue-navy font-bold text-xs sm:text-sm hover:bg-[#6edba0] transition-colors flex items-center justify-center gap-2 min-h-[44px]">
               <span>Submit Sourcing Spec</span>
               <ArrowRight className="w-4 h-4" />
             </button>

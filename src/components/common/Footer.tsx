@@ -114,32 +114,32 @@ export const Footer: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter corporate email"
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-all"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-base sm:text-xs text-white placeholder-slate-400 focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-all min-h-[44px]"
                   />
                   <button
                     type="submit"
                     aria-label="Subscribe to Trade Report"
-                    className="absolute right-1.5 top-1.5 bottom-1.5 px-3 bg-brand-green text-brand-blue-navy rounded-lg hover:bg-white transition-colors flex items-center justify-center"
+                    className="absolute right-1 top-1 bottom-1 px-4 bg-brand-green text-brand-blue-navy rounded-lg hover:bg-white transition-colors flex items-center justify-center min-w-[44px]"
                   >
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
-                <span className="font-montreal text-[10px] text-slate-400 block">Strictly B2B trade updates. No spam.</span>
+                <span className="font-montreal text-[11px] text-slate-400 block">Strictly B2B trade updates. No spam.</span>
               </form>
             )}
 
             {/* Direct Contact info */}
-            <div className="mt-6 pt-4 border-t border-white/10 space-y-2 text-xs text-slate-300">
+            <div className="mt-6 pt-4 border-t border-white/10 space-y-2.5 text-xs text-slate-300">
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-brand-green shrink-0" />
-                <span>{COMPANY_INFO.email}</span>
+                <Mail className="w-4 h-4 text-brand-green shrink-0" />
+                <span className="break-all">{COMPANY_INFO.email}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-brand-green shrink-0" />
+                <Phone className="w-4 h-4 text-brand-green shrink-0" />
                 <span>{COMPANY_INFO.phone}</span>
               </div>
               <div className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-brand-green shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-brand-green shrink-0 mt-0.5" />
                 <span>{COMPANY_INFO.address}</span>
               </div>
             </div>
@@ -147,12 +147,12 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom copyright & legal */}
-        <div className="pt-5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+        <div className="pt-5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4 text-center sm:text-left">
           <p>© {new Date().getFullYear()} {COMPANY_INFO.legalName}. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <span className="text-slate-300">Incoterms® 2020 Compliant</span>
             <span className="text-slate-300">B2B Trade Only</span>
-            <Link to="/contact" className="hover:text-white transition-colors">Inquiry Desk</Link>
+            <Link to="/contact" className="hover:text-white transition-colors py-1">Inquiry Desk</Link>
           </div>
         </div>
       </Container>

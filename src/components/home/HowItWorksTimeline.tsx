@@ -41,7 +41,7 @@ export const HowItWorksTimeline: React.FC = () => {
         {/* Timeline Layout */}
         <div className="relative max-w-5xl lg:max-w-6xl mx-auto">
           {/* Animated Connecting Progress Line */}
-          <div className="absolute left-6 md:left-1/2 top-4 bottom-4 w-1 -translate-x-1/2 bg-brand-gray-border/80 rounded-full">
+          <div className="absolute left-4 sm:left-6 md:left-1/2 top-4 bottom-4 w-1 -translate-x-1/2 bg-brand-gray-border/80 rounded-full">
             <motion.div
               style={{ scaleY: scrollYProgress }}
               className="w-full h-full bg-gradient-to-b from-brand-blue via-brand-green to-brand-blue origin-top rounded-full shadow-[0_0_12px_rgba(30,94,255,0.6)]"
@@ -49,7 +49,7 @@ export const HowItWorksTimeline: React.FC = () => {
           </div>
 
           {/* Timeline Nodes */}
-          <div className="space-y-12 md:space-y-16">
+          <div className="space-y-10 sm:space-y-12 md:space-y-16">
             {HOW_IT_WORKS_TIMELINE.map((item, index) => {
               const Icon = stepIcons[index] || CheckCircle2;
               const isEven = index % 2 === 0;
@@ -59,19 +59,19 @@ export const HowItWorksTimeline: React.FC = () => {
                   key={item.step}
                   className={`relative flex flex-col md:flex-row items-start md:items-center ${
                     isEven ? 'md:flex-row-reverse' : ''
-                  } gap-8 md:gap-10 lg:gap-12`}
+                  } gap-6 sm:gap-8 md:gap-10 lg:gap-12`}
                 >
                   {/* Center Node Marker */}
-                  <div className="absolute left-6 md:left-1/2 -translate-x-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-2xl bg-white border-2 border-brand-blue shadow-lg group-hover:scale-110 transition-transform">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-blue text-white font-heading font-bold text-xs">
+                  <div className="absolute left-4 sm:left-6 md:left-1/2 -translate-x-1/2 z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-white border-2 border-brand-blue shadow-lg group-hover:scale-110 transition-transform">
+                    <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl bg-brand-blue text-white font-heading font-bold text-xs">
                       {item.step}
                     </div>
                   </div>
 
                   {/* Content Card */}
-                  <div className="ml-16 md:ml-0 md:w-1/2">
+                  <div className="ml-11 sm:ml-16 md:ml-0 md:w-1/2 w-[calc(100%-2.75rem)] sm:w-[calc(100%-4rem)] md:w-1/2">
                     <RevealOnScroll direction={isEven ? 'left' : 'right'} delay={0.15}>
-                      <div className="rounded-2xl bg-brand-gray-bg/70 hover:bg-white p-7 sm:p-8 border border-brand-gray-border/80 hover:border-brand-blue/30 shadow-card hover:shadow-card-hover transition-all group">
+                      <div className="rounded-2xl bg-brand-gray-bg/70 hover:bg-white p-5 sm:p-7 md:p-8 border border-brand-gray-border/80 hover:border-brand-blue/30 shadow-card hover:shadow-card-hover transition-all group">
                         
                         <div className="flex items-center justify-between gap-4 mb-3">
                           <span className="flex items-center gap-1.5 text-xs font-semibold text-brand-blue">

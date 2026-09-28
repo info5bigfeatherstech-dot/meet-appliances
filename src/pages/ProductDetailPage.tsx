@@ -33,12 +33,12 @@ export const ProductDetailPage: React.FC = () => {
         </div>
 
         {/* Main Product Showcase Card */}
-        <div className="rounded-3xl bg-white p-6 sm:p-10 border border-brand-gray-border/80 shadow-card mb-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="rounded-3xl bg-white p-4 sm:p-6 md:p-10 border border-brand-gray-border/80 shadow-card mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             
             {/* Left Column: Gallery */}
             <div className="lg:col-span-6 space-y-4">
-              <div className="relative rounded-2xl overflow-hidden bg-slate-100 h-80 sm:h-[420px] border border-brand-gray-border/80">
+              <div className="relative rounded-2xl overflow-hidden bg-slate-100 h-64 sm:h-80 md:h-[420px] border border-brand-gray-border/80">
                 <img
                   src={selectedImage}
                   alt={product.name}
@@ -161,7 +161,7 @@ export const ProductDetailPage: React.FC = () => {
                   </Button>
                 </Link>
 
-                <a
+                {/* <a
                   href={`https://wa.me/18005829471?text=${encodeURIComponent(`Hi Meet Appliances, please send commercial pricing & spec dossier for model: ${product.modelCode} (${product.name}).`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -170,7 +170,7 @@ export const ProductDetailPage: React.FC = () => {
                   <Button variant="secondary" size="lg" className="w-full justify-center">
                     Instant WhatsApp Spec
                   </Button>
-                </a>
+                </a> */}
               </div>
             </div>
 
@@ -246,11 +246,11 @@ export const ProductDetailPage: React.FC = () => {
         {/* Similar Appliances */}
         {similarProducts.length > 0 && (
           <div>
-            <h3 className="font-heading font-bold text-2xl text-brand-blue-navy mb-6">
+            <h3 className="font-heading font-bold text-xl sm:text-2xl text-brand-blue-navy mb-6">
               Alternative Models in {product.category}
             </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {similarProducts.map((p) => (
                 <Link
                   key={p.id}

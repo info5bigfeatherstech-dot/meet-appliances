@@ -45,9 +45,9 @@ export const ServicesPage: React.FC = () => {
               <div
                 id={srv.id}
                 key={srv.id}
-                className="rounded-3xl bg-white p-8 sm:p-12 border border-brand-gray-border/80 shadow-card"
+                className="rounded-3xl bg-white p-5 sm:p-8 md:p-12 border border-brand-gray-border/80 shadow-card"
               >
-                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-10 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
+                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
                   
                   {/* Left Column: Details */}
                   <div className="lg:col-span-7 space-y-6">
@@ -87,8 +87,8 @@ export const ServicesPage: React.FC = () => {
                     </div>
 
                     <div className="pt-4 flex items-center gap-4">
-                      <Link to="/contact">
-                        <Button variant="primary" size="md" glow icon={<ArrowRight className="w-4 h-4" />}>
+                      <Link to="/contact" className="w-full sm:w-auto">
+                        <Button variant="primary" size="md" glow icon={<ArrowRight className="w-4 h-4" />} className="w-full sm:w-auto min-h-[44px]">
                           Inquire for {srv.title.split(' ')[0]}
                         </Button>
                       </Link>
@@ -96,7 +96,7 @@ export const ServicesPage: React.FC = () => {
                   </div>
 
                   {/* Right Column: Deliverables Box */}
-                  <div className="lg:col-span-5 bg-brand-gray-bg/80 rounded-2xl p-6 sm:p-8 border border-brand-gray-border/80 space-y-5">
+                  <div className="lg:col-span-5 bg-brand-gray-bg/80 rounded-2xl p-5 sm:p-8 border border-brand-gray-border/80 space-y-5">
                     <div className="flex items-center justify-between pb-3 border-b border-brand-gray-border">
                       <span className="text-xs font-bold text-brand-blue-navy uppercase tracking-wider">
                         Certified Deliverables

@@ -2,6 +2,56 @@ import type { ProductCategory } from '../types';
 
 export const PRODUCT_CATEGORIES: ProductCategory[] = [
   {
+    id: 'kitchen',
+    name: 'Kitchen',
+    slug: 'kitchen',
+    iconName: 'Flame',
+    itemCount: 45,
+    description: 'Precision kitchen appliances including smart dual-zone air fryers, commercial blenders, temperature-controlled kettles, and smart IH rice cookers.',
+    image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
+    highlightSpecs: ['Rapid Air Convection', 'BPA-Free Food Grade', 'Digital LED Touch Panels', 'AQL Level II Standard']
+  },
+  {
+    id: 'home-care',
+    name: 'Home Care',
+    slug: 'home-care',
+    iconName: 'Sparkles',
+    itemCount: 38,
+    description: 'High-performance cleaning technology including multi-cyclone cordless stick vacuums, steam cleaners, wet & dry floor washers, and window robots.',
+    image: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80',
+    highlightSpecs: ['Brushless Digital Motor', 'HEPA Multi-Stage Filtration', 'Dual Roller Auto-Wash', 'Ergonomic Lightweight']
+  },
+  {
+    id: 'personal-care',
+    name: 'Personal Care',
+    slug: 'personal-care',
+    iconName: 'Sparkles',
+    itemCount: 42,
+    description: 'Professional personal styling and grooming equipment featuring 110,000 RPM high-speed hair dryers, tourmaline straighteners, and waterproof trimmers.',
+    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+    highlightSpecs: ['110,000 RPM BLDC Motor', 'Ionic Negative Ion Anti-Frizz', 'IPX7 Full Body Waterproof', 'Ceramic Tourmaline']
+  },
+  {
+    id: 'cooling-air',
+    name: 'Cooling & Air',
+    slug: 'cooling-air',
+    iconName: 'Wind',
+    itemCount: 36,
+    description: 'Air treatment and seasonal climate appliances including ultra-quiet DC inverter pedestal fans, medical H13 HEPA air purifiers, and humidifiers.',
+    image: 'https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=800&q=80',
+    highlightSpecs: ['DC Inverter Ultra Silent', 'H13 Medical HEPA Filtration', 'Smart WiFi App Control', 'Low Energy Consumption']
+  },
+  {
+    id: 'home-comfort',
+    name: 'Home Comfort',
+    slug: 'home-comfort',
+    iconName: 'Coffee',
+    itemCount: 30,
+    description: 'Atmospheric living appliances including fast-heating ceramic PTC oscillating heaters, ambient humidifiers, and flame aroma diffusers.',
+    image: 'https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=800&q=80',
+    highlightSpecs: ['PTC Ceramic Instant Heat', 'Realistic Flame Simulation', 'Whisper-Quiet Operation', 'Overheat Tip-Over Safety']
+  },
+  {
     id: 'refrigeration',
     name: 'Refrigeration & Freezers',
     slug: 'refrigeration',

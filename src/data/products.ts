@@ -1667,13 +1667,858 @@ export const PRODUCTS_DATA: Product[] = [
     gallery: [
       'https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=800&q=80'
     ]
+  },
+  // ==========================================
+  // 9. KITCHEN
+  // ==========================================
+  {
+    id: 'prod-air-fryers',
+    name: 'Smart Dual-Zone Digital Air Fryer 8.5L',
+    category: 'Kitchen',
+    subCategory: 'Air Fryers',
+    modelCode: 'AT-KTC-AF85',
+    badge: 'Best Volume Seller',
+    description: 'High-capacity 8.5L dual-basket digital air fryer with independent zone synchronization, 360-degree rapid heat circulation, and non-stick ceramic crisper plates.',
+    features: [
+      'Dual independent cooking chambers with Sync-Finish technology',
+      'Rapid 360° cyclone vortex heating system up to 220°C',
+      'Smart digital touchscreen with 10 one-touch culinary presets',
+      'Food-grade non-stick PTFE/PFOA-free dishwasher safe baskets',
+      'High container loading yield: 680 units per 40HQ'
+    ],
+    specs: {
+      capacity: '8.5 Liters (4.25L + 4.25L Dual Basket)',
+      power: '2400W High Efficiency Heating',
+      energyRating: 'ERP Class A+ Eco Standard',
+      dimensions: '415 x 385 x 315 mm',
+      voltage: '220-240V ~ 50/60Hz or 120V 60Hz',
+      weight: '7.8 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'GS', 'FDA', 'ETL Sanitation']
+    },
+    tradeTerms: ['FOB Ningbo / Shenzhen', 'CIF Hamburg', 'CIF Jebel Ali'],
+    moq: '680 Units (1x 40HQ Container)',
+    leadTime: '25-30 Working Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-blenders',
+    name: 'High-Speed Commercial Grade Blender 2200W',
+    category: 'Kitchen',
+    subCategory: 'Blenders',
+    modelCode: 'AT-KTC-BL22',
+    badge: 'Heavy Duty Motor',
+    description: 'Heavy-duty 2200W commercial blender featuring Japanese hardened stainless steel 6-leaf blades, 32,000 RPM pure copper motor, and 2.0L BPA-free Tritan jar.',
+    features: [
+      'Industrial pure copper wire motor reaching 32,000 RPM peak velocity',
+      'Hardened Japanese stainless steel blades with wave serration',
+      'Variable stepless speed dial and instant pulse lever control',
+      'Heavy-duty 2.0L shock-resistant Tritan pitcher with tamper tool',
+      'Dual thermal overload and current surge protection circuit'
+    ],
+    specs: {
+      capacity: '2.0 Liters Unbreakable Tritan Jug',
+      power: '2200W Pure Copper High-Torque Motor',
+      energyRating: 'High-Speed Commercial Duty',
+      dimensions: '220 x 240 x 490 mm',
+      voltage: '220-240V ~ 50/60Hz',
+      weight: '5.2 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'LFGB', 'FDA']
+    },
+    tradeTerms: ['FOB Shunde', 'CIF Rotterdam', 'CIF Santos'],
+    moq: '800 Units (1x 40HQ Container)',
+    leadTime: '25-30 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-kettles',
+    name: 'Precision Temperature Gooseneck Electric Kettle',
+    category: 'Kitchen',
+    subCategory: 'Kettles',
+    modelCode: 'AT-KTC-KT17',
+    badge: 'Barista Precision',
+    description: '1.7L barista-grade gooseneck electric kettle with Strix thermostat, 1-degree precision digital temperature dial, and stainless steel interior.',
+    features: [
+      'British Strix temperature controller with auto shut-off & boil-dry protection',
+      'Balanced counterweighted ergonomic handle with gooseneck spout',
+      'LED base displaying real-time Celsius/Fahrenheit with 120-min keep-warm',
+      '100% Food-grade SUS304 seamless inner cavity without plastic contact',
+      'Ultra-fast 1800W rapid boiling element boils full kettle in 3.5 minutes'
+    ],
+    specs: {
+      capacity: '1.7 Liters Full SUS304 Capacity',
+      power: '1800W Rapid Boil Element',
+      energyRating: 'Eco Rapid Thermostat',
+      dimensions: '280 x 210 x 245 mm',
+      voltage: '220-240V ~ 50/60Hz or 110V 60Hz',
+      weight: '1.4 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'LFGB', 'UL']
+    },
+    tradeTerms: ['FOB Ningbo', 'CIF Valencia', 'CIF Dubai'],
+    moq: '1200 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-rice-cookers',
+    name: 'Smart Induction Heating (IH) Fuzzy Logic Rice Cooker',
+    category: 'Kitchen',
+    subCategory: 'Rice Cookers',
+    modelCode: 'AT-KTC-RC50',
+    badge: 'Smart IH Heating',
+    description: '5.0L smart induction heating rice cooker with microcomputer fuzzy logic temperature curves, 3D electromagnetic coil, and 3mm spherical iron pot.',
+    features: [
+      '360-degree electromagnetic induction heating ensures uniform boiling',
+      'Heavyweight 3.0mm multi-layer non-stick spherical Daikin inner pot',
+      'Multi-grain, brown rice, quick boil, steam, soup, and cake multi-menus',
+      'Touch LED control panel with 24-hour preset delay timer',
+      'Removable stainless steel steam valve and condensation collector'
+    ],
+    specs: {
+      capacity: '5.0 Liters (10 Cups Raw / 20 Bowls Cooked)',
+      power: '1300W Induction Coil Power',
+      energyRating: 'Class 1 Energy Efficiency standard',
+      dimensions: '380 x 280 x 260 mm',
+      voltage: '220-240V ~ 50Hz',
+      weight: '5.8 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'SASO', 'NOM']
+    },
+    tradeTerms: ['FOB Shunde / Foshan', 'CIF Singapore', 'CIF Jeddah'],
+    moq: '900 Units (1x 40HQ Container)',
+    leadTime: '25-30 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-toasters',
+    name: '4-Slice Stainless Steel Digital Smart Toaster',
+    category: 'Kitchen',
+    subCategory: 'Toasters',
+    modelCode: 'AT-KTC-TS04',
+    badge: 'Extra Wide Slots',
+    description: 'Premium brushed stainless steel 4-slice toaster with extra-wide 38mm self-centering slots, independent dual-zone levers, and countdown timer display.',
+    features: [
+      'Dual independent crumb trays and dual-zone control levers',
+      '38mm extra-wide slots accommodating artisanal breads and bagels',
+      '7-stage precision browning dial with LED countdown timer bar',
+      'Bagel, Defrost, Reheat, and instant Cancel micro-switch buttons',
+      'High-lift lever ensures easy retrieval of smaller bread slices'
+    ],
+    specs: {
+      capacity: '4-Slice Extra Wide (38mm slot width)',
+      power: '1800W Dual High-Speed Elements',
+      energyRating: 'A-Class Heat Retention',
+      dimensions: '300 x 275 x 195 mm',
+      voltage: '220-240V ~ 50/60Hz or 120V 60Hz',
+      weight: '2.9 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'GS', 'ETL']
+    },
+    tradeTerms: ['FOB Ningbo', 'CIF Southampton', 'CIF Los Angeles'],
+    moq: '1100 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+
+  // ==========================================
+  // 10. HOME CARE
+  // ==========================================
+  {
+    id: 'prod-vacuum-cleaners',
+    name: 'Cordless Multi-Cyclone Smart Stick Vacuum Cleaner',
+    category: 'Home Care',
+    subCategory: 'Vacuum Cleaners',
+    modelCode: 'AT-HMC-VC35',
+    badge: '30kPa Powerful Suction',
+    description: 'High-torque cordless stick vacuum cleaner powered by a 450W digital brushless motor delivering 30kPa suction, smart dust sensor, and 65-min runtime.',
+    features: [
+      '450W digital BLDC brushless motor producing 30,000 Pa suction',
+      'Smart infrared particle sensor automatically regulates motor speed',
+      'Detachable 8-cell 2500mAh lithium battery pack with 65-minute runtime',
+      '5-layer HEPA filtration capturing 99.97% of microdust down to 0.3 microns',
+      'LED motorized roller brush with anti-tangle V-shaped comb'
+    ],
+    specs: {
+      capacity: '0.8L One-Touch Eject Dust Cup',
+      power: '450W BLDC Motor / 30kPa Suction',
+      energyRating: 'High-Density Lithium Ion Pack',
+      dimensions: '1180 x 250 x 215 mm',
+      voltage: '29.6V Li-ion Battery System',
+      weight: '2.6 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'UN38.3', 'MSDS']
+    },
+    tradeTerms: ['FOB Suzhou / Shanghai', 'CIF Hamburg', 'CIF Dubai'],
+    moq: '750 Units (1x 40HQ Container)',
+    leadTime: '25-30 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-steam-cleaners',
+    name: 'High-Pressure Sanitizing Handheld Steam Cleaner',
+    category: 'Home Care',
+    subCategory: 'Steam Cleaners',
+    modelCode: 'AT-HMC-SC15',
+    badge: '105°C Chemical-Free',
+    description: '1050W multipurpose pressurized handheld steam cleaner generating 3.2 bar dry steam in 3 minutes for 99.9% biological sanitization without detergents.',
+    features: [
+      '3.2 Bar high-pressure steam jet eliminates greases, germs, and bedbugs',
+      'Rapid boiler heating element generates continuous dry steam in 180 seconds',
+      'Safety lock trigger and pressure-release safety valve cap',
+      'Full 9-piece multi-surface accessories set for tiles, glass, and grout',
+      'High-grade explosion-proof aluminum alloy boiler chamber'
+    ],
+    specs: {
+      capacity: '350ml Pressurized Aluminum Boiler',
+      power: '1050W Fast-Boil Circuit',
+      energyRating: 'Chemical-Free 105°C Sanitization',
+      dimensions: '255 x 140 x 220 mm',
+      voltage: '220-240V ~ 50Hz / 110V 60Hz',
+      weight: '1.8 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'GS', 'EMC']
+    },
+    tradeTerms: ['FOB Ningbo', 'CIF Rotterdam', 'CIF Santos'],
+    moq: '1200 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-floor-cleaners',
+    name: 'Smart Wet & Dry Dual-Roller Cordless Floor Washer',
+    category: 'Home Care',
+    subCategory: 'Floor Cleaners',
+    modelCode: 'AT-HMC-FC28',
+    badge: 'Self-Cleaning Station',
+    description: 'All-in-one vacuum, mop, and self-cleaning wet & dry hard floor washer with dual counter-rotating rollers, clean/dirty water separation, and hot-air drying base.',
+    features: [
+      'Simultaneous wet vacuuming and scrubbing on hardwood, marble, and tile',
+      'Intelligent LED voice assistant announces dirty water full and filter clean',
+      'Dual tank separation: 850ml clean water + 700ml dirty water system',
+      'Base station features one-touch auto roller self-cleaning and centrifugal drying',
+      'Edge-to-edge cleaning head cleans tight along wall baseboards'
+    ],
+    specs: {
+      capacity: '850ml Clean Water / 700ml Sewage Tank',
+      power: '220W BLDC Suction Motor',
+      energyRating: 'High-Capacity Lithium Li-Ion 4000mAh',
+      dimensions: '1100 x 270 x 250 mm',
+      voltage: '21.6V Cordless Battery Pack',
+      weight: '4.5 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'UN38.3', 'EMC']
+    },
+    tradeTerms: ['FOB Suzhou', 'CIF Hamburg', 'CIF Singapore'],
+    moq: '600 Units (1x 40HQ Container)',
+    leadTime: '30-35 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-window-cleaners',
+    name: 'Intelligent Automatic Robotic Window Cleaner',
+    category: 'Home Care',
+    subCategory: 'Window Cleaners',
+    modelCode: 'AT-HMC-WC08',
+    badge: 'Dual Ultrasonic Spray',
+    description: 'High-rise smart window cleaning robot equipped with dual ultrasonic water spray nozzles, 3800Pa vacuum adsorption, laser edge detection, and remote control.',
+    features: [
+      '3800Pa strong vacuum suction holds up to 7kg vertical pull force',
+      'Dual ultrasonic mist atomization nozzles moisten glass without streaking',
+      'Smart AI path calculation (Z-shape and N-shape coverage modes)',
+      'Built-in UPS emergency battery backup maintains suction for 25 mins if power cuts',
+      'Safety climbing rope tested to withstand 150kg tensile resistance'
+    ],
+    specs: {
+      capacity: '50ml Dual Automatic Water Reservoirs',
+      power: '80W Ultra-Low Energy Brushless Motor',
+      energyRating: 'Laser Frame Edge Detection',
+      dimensions: '295 x 145 x 90 mm',
+      voltage: '100-240V ~ 50/60Hz Global Adaptor',
+      weight: '1.1 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'FCC', 'UL']
+    },
+    tradeTerms: ['FOB Shenzhen', 'CIF Antwerp', 'CIF Miami'],
+    moq: '1000 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-carpet-cleaners',
+    name: 'Deep Spot & Stain Portable Upholstery Carpet Cleaner',
+    category: 'Home Care',
+    subCategory: 'Carpet Cleaners',
+    modelCode: 'AT-HMC-CC12',
+    badge: '12kPa Deep Suction',
+    description: 'Compact spot-cleaning carpet and fabric extractor featuring high-pressure pressurized spray, rotating motorized brush, and 12kPa powerful fluid extraction.',
+    features: [
+      '12,000 Pa high-vacuum fluid extraction pulls embedded stains out of fibers',
+      'Dual water tank system separating clean formulation from extracted wastewater',
+      'Extended 1.7m wire-reinforced flexible hose with precision spray brush head',
+      'Self-cleaning hose flush cap cleans internal line after usage',
+      'Compact carry handle with integrated power cord wrap'
+    ],
+    specs: {
+      capacity: '1400ml Clean Water / 1200ml Dirty Water Tank',
+      power: '650W High-Efficiency Motor',
+      energyRating: 'Deep Fabric Spot Extraction',
+      dimensions: '330 x 245 x 350 mm',
+      voltage: '220-240V ~ 50Hz / 120V 60Hz',
+      weight: '4.1 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'GS', 'ETL']
+    },
+    tradeTerms: ['FOB Ningbo', 'CIF Hamburg', 'CIF Sydney'],
+    moq: '850 Units (1x 40HQ Container)',
+    leadTime: '25-30 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+
+  // ==========================================
+  // 11. PERSONAL CARE
+  // ==========================================
+  {
+    id: 'prod-hair-dryers',
+    name: 'High-Speed 110,000 RPM Negative Ionic Hair Dryer',
+    category: 'Personal Care',
+    subCategory: 'Hair Dryers',
+    modelCode: 'AT-PSC-HD16',
+    badge: '110K RPM Brushless',
+    description: 'Aerodynamic salon-grade high-speed hair dryer powered by a 110,000 RPM brushless motor, 200 million negative ion emitter, and intelligent thermal sensor.',
+    features: [
+      '110,000 RPM high-speed digital brushless motor generates 68m/s wind speed',
+      '200 Million negative ions/cm³ neutralizes static electricity and locks moisture',
+      'NTC microchip monitors airflow temperature 100 times per second',
+      '3-Color LED temperature ring (Blue: Cold / Yellow: Warm / Red: Hot)',
+      'Ultra-quiet acoustic noise reduction below 59 decibels'
+    ],
+    specs: {
+      capacity: 'Airflow Velocity: 68 m/s',
+      power: '1600W High Speed BLDC',
+      energyRating: 'Fast 2-Minute Quick Drying',
+      dimensions: '277 x 70 x 89 mm',
+      voltage: '220-240V ~ 50/60Hz or 110V 60Hz',
+      weight: '407 g (Ultra-light body)',
+      certifications: ['CE', 'CB', 'RoHS', 'FCC', 'PSE']
+    },
+    tradeTerms: ['FOB Shenzhen / Ningbo', 'CIF London', 'CIF Dubai'],
+    moq: '1500 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-hair-straighteners',
+    name: 'Tourmaline Ceramic Floating Plate Hair Straightener',
+    category: 'Personal Care',
+    subCategory: 'Hair Straighteners',
+    modelCode: 'AT-PSC-HS45',
+    badge: '15-Sec Fast Heat',
+    description: 'Professional styling iron featuring 3D floating tourmaline ceramic plates, PTC instant heat elements reaching 230°C in 15 seconds, and auto safety shut-off.',
+    features: [
+      'MCH dual heating elements provide instant 15-second temperature recovery',
+      '3D floating ceramic tourmaline plates eliminate hair snagging and split ends',
+      'Digital LCD display with 11 heat stages (130°C to 230°C) for all hair textures',
+      '360-degree professional tangle-free swivel cord with hanging loop',
+      '60-Minute automatic safety sleep mode shuts power down if unattended'
+    ],
+    specs: {
+      capacity: 'Plate Width: 25 x 100 mm Floating Ceramic',
+      power: '50W Instant MCH Elements',
+      energyRating: 'Digital LCD Multi-Heat Control',
+      dimensions: '295 x 35 x 30 mm',
+      voltage: '100-240V Dual Voltage Global Use',
+      weight: '380 g',
+      certifications: ['CE', 'CB', 'RoHS', 'ETL', 'GS']
+    },
+    tradeTerms: ['FOB Shenzhen', 'CIF Paris', 'CIF Toronto'],
+    moq: '1800 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-trimmers',
+    name: 'Zero-Gapped Professional Cordless Beard & Hair Trimmer',
+    category: 'Personal Care',
+    subCategory: 'Trimmers',
+    modelCode: 'AT-PSC-TR20',
+    badge: 'Titanium T-Blade',
+    description: 'Full-metal skeleton body hair & beard detail trimmer with zero-gapped carbon titanium T-blade, 7000 RPM high-torque motor, and Type-C quick charging.',
+    features: [
+      'Zero-gapped self-sharpening titanium carbon steel T-blade for crisp lining',
+      '7,000 RPM micro-rotary motor cuts through thick coarse hair effortlessly',
+      'LED smart digital display monitors remaining battery percentage',
+      '1400mAh Li-ion battery delivers 180 minutes of continuous precision trimming',
+      'USB Type-C universal fast charge interface with universal worldwide voltage'
+    ],
+    specs: {
+      capacity: '180 Minutes Continuous Cordless Run Time',
+      power: '7000 RPM Heavy-Torque Motor',
+      energyRating: '1400mAh Quick Charge Li-Ion',
+      dimensions: '150 x 40 x 30 mm',
+      voltage: '5V Type-C Charging (100-240V Input)',
+      weight: '210 g (Solid Zinc Alloy Body)',
+      certifications: ['CE', 'CB', 'RoHS', 'UN38.3', 'FCC']
+    },
+    tradeTerms: ['FOB Ningbo / Yiwu', 'CIF Rotterdam', 'CIF Jebel Ali'],
+    moq: '2000 Units (1x 40HQ Container)',
+    leadTime: '18-22 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-shavers',
+    name: '3D Rotary Floating Head Wet & Dry Electric Shaver',
+    category: 'Personal Care',
+    subCategory: 'Shavers',
+    modelCode: 'AT-PSC-SH03',
+    badge: 'IPX7 100% Waterproof',
+    description: 'Ergonomic 3D independent floating triple-head electric rotary shaver with double-track ultra-thin steel foil, pop-up trimmer, and IPX7 full immersion washability.',
+    features: [
+      '3D Floating contour flex head automatically adapts to jawline and neck curves',
+      'Dual-ring ultra-thin surgical stainless steel blades increase shaving surface by 50%',
+      'IPX7 100% waterproof construction allows wet shaving with foam in the shower',
+      'Pop-up precision trimmer for sideburns and mustache detailing',
+      'Smart anti-pinch system guarantees consistent blade speed even when battery is low'
+    ],
+    specs: {
+      capacity: '90 Minutes Shaving Time / 60 Min Charge',
+      power: '8W High-Efficiency Motor',
+      energyRating: 'IPX7 Waterproof Submersible',
+      dimensions: '160 x 60 x 55 mm',
+      voltage: 'USB-C 5V / 100-240V Compatible',
+      weight: '185 g',
+      certifications: ['CE', 'CB', 'RoHS', 'IPX7 Certified', 'FDA']
+    },
+    tradeTerms: ['FOB Shenzhen', 'CIF Hamburg', 'CIF Santos'],
+    moq: '1600 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1508380702597-707c1b00a394?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1508380702597-707c1b00a394?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-grooming',
+    name: 'All-in-One IPX7 Waterproof Full Body Grooming Kit',
+    category: 'Personal Care',
+    subCategory: 'Grooming',
+    modelCode: 'AT-PSC-GR10',
+    badge: '10-in-1 Complete Kit',
+    description: 'Complete 10-in-1 cordless multi-grooming kit with interchangeable heads for beard, body hair, nose/ear detailer, foil shaver, and hair clipper with 5 guide combs.',
+    features: [
+      'Interchangeable magnetic heads: Full Size Trimmer, Body Groomer, Nose Trimmer, Foil',
+      'Self-sharpening stainless steel blades maintain zero-pull cutting sharpness',
+      'IPX7 whole body waterproof design for easy cleaning under the tap',
+      'LED battery power percentage display and travel lock indicator',
+      'Includes premium molded storage base station and oil bottle accessories'
+    ],
+    specs: {
+      capacity: '10 Attachments / 120-Min Run Time',
+      power: '5W Micro Torque Motor',
+      energyRating: 'Lithium Li-Ion 1200mAh',
+      dimensions: '165 x 42 x 38 mm',
+      voltage: '5V Type-C USB Rechargeable',
+      weight: '190 g',
+      certifications: ['CE', 'CB', 'RoHS', 'REACH', 'EMC']
+    },
+    tradeTerms: ['FOB Ningbo', 'CIF Southampton', 'CIF Los Angeles'],
+    moq: '1500 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+
+  // ==========================================
+  // 12. COOLING & AIR
+  // ==========================================
+  {
+    id: 'prod-fans',
+    name: 'DC Inverter Ultra-Silent 12-Speed Smart Pedestal Fan',
+    category: 'Cooling & Air',
+    subCategory: 'Fans',
+    modelCode: 'AT-CLA-FN16',
+    badge: '13dB Whisper Quiet',
+    description: '16-inch smart convertible pedestal & desk fan powered by a high-efficiency DC inverter brushless motor with 9 bionic blades, 3D oscillation, and remote app control.',
+    features: [
+      'Brushless DC inverter motor consumes only 24W at maximum airflow',
+      '9-Blade bionic aerodynamic fan blades produce gentle natural wind simulation',
+      'Ultra-quiet operation at only 13 decibels on sleep mode',
+      '3D 120-degree horizontal + 90-degree vertical multi-axis oscillation',
+      'Magnetic remote control docks securely on top of motor housing'
+    ],
+    specs: {
+      capacity: '16-Inch (400mm) 9-Blade Airflow Sweep',
+      power: '24W Ultra-Low Energy DC Motor',
+      energyRating: 'A+++ Low Power Eco Standard',
+      dimensions: '400 x 380 x 1250 mm (Adjustable Height)',
+      voltage: '100-240V ~ 50/60Hz Universal Adaptor',
+      weight: '4.8 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'ERP', 'NOM']
+    },
+    tradeTerms: ['FOB Zhongshan / Foshan', 'CIF Hamburg', 'CIF Dubai'],
+    moq: '900 Units (1x 40HQ Container)',
+    leadTime: '25-30 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1618941716939-553df3c6c278?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1618941716939-553df3c6c278?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-air-purifiers',
+    name: 'Medical-Grade H13 True HEPA Smart Room Air Purifier',
+    category: 'Cooling & Air',
+    subCategory: 'Air Purifiers',
+    modelCode: 'AT-CLA-AP50',
+    badge: 'CADR 500 m³/h',
+    description: 'High-performance smart air purifier with 360-degree cylindrical True HEPA H13 filter, laser PM2.5 particle sensor, UV-C germicidal LED, and CADR of 500 m³/h.',
+    features: [
+      'High CADR of 500 m³/h purifies a 60m² master room in under 12 minutes',
+      'H13 True HEPA filter + activated carbon removes 99.97% of smoke, pollen, and VOCs',
+      'Real-time PM2.5 numerical display with 4-color air quality ambient ring',
+      'Internal UV-C wavelength sterilization neutralizes airborne bacteria and viruses',
+      'Smart WiFi smartphone app enables remote scheduling and filter lifespan tracking'
+    ],
+    specs: {
+      capacity: 'CADR: 500 m³/h (Coverage up to 65 m²)',
+      power: '45W BLDC Motor',
+      energyRating: 'Energy Star / AHAM Certified',
+      dimensions: '290 x 290 x 580 mm',
+      voltage: '220-240V ~ 50Hz / 120V 60Hz',
+      weight: '6.2 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'AHAM', 'CARB']
+    },
+    tradeTerms: ['FOB Ningbo / Shanghai', 'CIF Rotterdam', 'CIF Halifax'],
+    moq: '550 Units (1x 40HQ Container)',
+    leadTime: '25-30 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-cooling-humidifiers',
+    name: 'Cool Mist Ultrasonic Quiet Air Humidifier 4.5L',
+    category: 'Cooling & Air',
+    subCategory: 'Humidifiers',
+    modelCode: 'AT-CLA-HM45',
+    badge: 'Top-Fill Ultrasonic',
+    description: '4.5L large capacity top-fill ultrasonic cool mist humidifier with silver ion antimicrobial water tank, dual 360° rotating nozzles, and 30-hour continuous run time.',
+    features: [
+      'Convenient top-fill design allows pouring water directly without detaching tank',
+      'High-frequency ultrasonic atomization disc produces micron-sized micro mist',
+      'Ag+ silver ion antibacterial material prevents bacterial growth in water tank',
+      'Adjustable mist dial produces up to 300 ml/h with automatic dry shut-off safety',
+      'Built-in essential oil aroma sponge drawer for ambient room fragrance'
+    ],
+    specs: {
+      capacity: '4.5 Liters Water Reservoir',
+      power: '25W Ultrasonic High-Frequency Transducer',
+      energyRating: 'Low-Wattage Whisper Circuit',
+      dimensions: '200 x 200 x 310 mm',
+      voltage: '100-240V ~ 50/60Hz',
+      weight: '1.6 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'ETL', 'FCC']
+    },
+    tradeTerms: ['FOB Shunde', 'CIF Valencia', 'CIF Santos'],
+    moq: '1200 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+
+  // ==========================================
+  // 13. LAUNDRY
+  // ==========================================
+  {
+    id: 'prod-garment-steamers',
+    name: 'Dual-Bar Professional Heavy-Duty Garment Steamer',
+    category: 'Laundry',
+    subCategory: 'Garment Steamers',
+    modelCode: 'AT-LND-GS20',
+    badge: 'Dual Aluminum Poles',
+    description: 'Professional 2000W standing fabric steamer with dual reinforced aluminum support poles, 2.5L transparent water tank, and multi-angle rotatable ironing board.',
+    features: [
+      'Heavy-duty 2000W brass heater delivers continuous 45g/min high-penetration steam',
+      'Double adjustable telescopic aluminum poles provide steady wobble-free hanging',
+      '90-Degree multi-angle tilting ironing board for both vertical and flat steaming',
+      'Large 2.5L removable water reservoir allows 75 minutes of uninterrupted steaming',
+      'Triple insulated anti-kink steam hose with anti-scalding ceramic soleplate'
+    ],
+    specs: {
+      capacity: '2.5 Liters Transparent Tank (75 Mins Steam)',
+      power: '2000W High-Pressure Steam Boiler',
+      energyRating: 'Rapid 45-Second Steam Output',
+      dimensions: '350 x 300 x 1650 mm (Max Height)',
+      voltage: '220-240V ~ 50/60Hz',
+      weight: '6.4 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'GS', 'SASO']
+    },
+    tradeTerms: ['FOB Ningbo / Cixi', 'CIF Hamburg', 'CIF Jeddah'],
+    moq: '650 Units (1x 40HQ Container)',
+    leadTime: '25-30 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-steam-irons',
+    name: 'Titanium Ceramic Soleplate Electronic Steam Iron',
+    category: 'Laundry',
+    subCategory: 'Steam Irons',
+    modelCode: 'AT-LND-SI24',
+    badge: 'Anti-Drip & Anti-Calc',
+    description: '2400W premium corded steam iron with diamond-ceramic glide soleplate, 180g steam shot burst, anti-drip electronic valve, and self-cleaning calc collector.',
+    features: [
+      'High-velocity 2400W heating element produces instant steam burst up to 180g/min',
+      'Diamond-infused ceramic soleplate with 420 micro steam holes for seamless glide',
+      'Anti-calc self-cleaning cartridge prevents limescale and mineral deposits',
+      'Smart 3-way auto shut-off turns iron off if left upright or face-down',
+      '350ml transparent water tank with extra-large ergonomic filling gate'
+    ],
+    specs: {
+      capacity: '350ml Water Reservoir',
+      power: '2400W Fast-Heat Coil',
+      energyRating: 'Precision Fabric Thermostat',
+      dimensions: '310 x 130 x 160 mm',
+      voltage: '220-240V ~ 50/60Hz',
+      weight: '1.45 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'GS', 'ETL']
+    },
+    tradeTerms: ['FOB Ningbo', 'CIF Rotterdam', 'CIF Santos'],
+    moq: '1400 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1489274495757-95c7c837b101?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1489274495757-95c7c837b101?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-drying-appliances',
+    name: 'Portable Folding Constant-Temperature Clothes Dryer',
+    category: 'Laundry',
+    subCategory: 'Drying Appliances',
+    modelCode: 'AT-LND-DA10',
+    badge: 'Folding Compact Dryer',
+    description: 'Space-saving folding portable warm-air clothes dryer with 1000W PTC ceramic blower, UV sanitization lamp, and 15kg load capacity for apartments and travel.',
+    features: [
+      '1000W PTC ceramic heat generator circulates 65°C gentle temperature air',
+      'Integrated UV-C germicidal lamp sanitizes garments and kills dust mites',
+      'Sturdy stainless steel frame supports up to 15kg of damp hanging laundry',
+      'High-density Oxford cloth canopy retains heat and resists water condensation',
+      'Foldable frame collapses in 30 seconds for under-bed or closet storage'
+    ],
+    specs: {
+      capacity: '15 kg Hanging Weight Capacity',
+      power: '1000W PTC Air Generator',
+      energyRating: 'Energy-Saving Thermostat Timer',
+      dimensions: '720 x 480 x 1480 mm (Assembled)',
+      voltage: '220-240V ~ 50Hz / 120V 60Hz',
+      weight: '3.6 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'EMC']
+    },
+    tradeTerms: ['FOB Shunde', 'CIF Southampton', 'CIF Los Angeles'],
+    moq: '800 Units (1x 40HQ Container)',
+    leadTime: '25-30 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+
+  // ==========================================
+  // 14. HOME COMFORT
+  // ==========================================
+  {
+    id: 'prod-heaters',
+    name: 'PTC Ceramic Fast-Heating Oscillating Tower Heater',
+    category: 'Home Comfort',
+    subCategory: 'Heaters',
+    modelCode: 'AT-HMC-HT22',
+    badge: '2-Second Instant Warmth',
+    description: '2200W ceramic PTC oscillating vertical tower space heater with digital thermostat, 70-degree wide sweep, ECO energy saving mode, and tip-over sensor.',
+    features: [
+      'Advanced PTC ceramic heating element heats up to comfort warmth in 2 seconds',
+      '70-Degree motorized wide oscillation spreads uniform heat across 30m² space',
+      'Intelligent digital thermostat regulates room temperature between 15°C and 35°C',
+      'Dual safety protection: Built-in tip-over switch and thermal overheat sensor',
+      'Touch control LED panel with 12-hour timer and remote control'
+    ],
+    specs: {
+      capacity: 'Coverage: 25 - 35 m² Living Space',
+      power: '2200W High / 1200W Low Ceramic Element',
+      energyRating: 'ECO Smart Temperature Regulation',
+      dimensions: '210 x 210 x 680 mm',
+      voltage: '220-240V ~ 50Hz / 120V 60Hz',
+      weight: '2.8 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'GS', 'ETL']
+    },
+    tradeTerms: ['FOB Ningbo / Cixi', 'CIF Hamburg', 'CIF Montreal'],
+    moq: '950 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-comfort-humidifiers',
+    name: 'Whisper-Quiet Large Capacity Smart Ambient Humidifier 6L',
+    category: 'Home Comfort',
+    subCategory: 'Humidifiers',
+    modelCode: 'AT-HMC-HM60',
+    badge: '6L Ultra Runtime',
+    description: '6.0L intelligent room humidifier with built-in digital humidistat, warm and cool mist dual modes, remote control, and whisper-quiet 24dB operation.',
+    features: [
+      'Extra-large 6.0L water reservoir provides up to 50 hours of continuous humidification',
+      'Dual hybrid mode: Cool mist for summer and warm soothing mist for winter dry air',
+      'Automatic digital humidistat maintains target relative humidity between 40% and 80%',
+      'Ultra-quiet acoustic sound dampening design runs below 24dB in night mode',
+      'Wide top-fill opening allows easy cleaning and descaling'
+    ],
+    specs: {
+      capacity: '6.0 Liters Water Capacity (Up to 50 Hours)',
+      power: '30W Cool / 110W Warm Mist Mode',
+      energyRating: 'Smart Humidistat Auto-Off',
+      dimensions: '240 x 180 x 340 mm',
+      voltage: '100-240V Universal Power Supply',
+      weight: '2.2 kg',
+      certifications: ['CE', 'CB', 'RoHS', 'FCC', 'UL']
+    },
+    tradeTerms: ['FOB Shenzhen', 'CIF Rotterdam', 'CIF Jebel Ali'],
+    moq: '1100 Units (1x 40HQ Container)',
+    leadTime: '20-25 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1517142089942-ba376ce32a2e?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1517142089942-ba376ce32a2e?auto=format&fit=crop&w=800&q=80'
+    ]
+  },
+  {
+    id: 'prod-aroma-diffusers',
+    name: 'Ultrasonic Essential Oil Realistic Flame Aroma Diffuser',
+    category: 'Home Comfort',
+    subCategory: 'Aroma Diffusers',
+    modelCode: 'AT-HMC-AD30',
+    badge: 'Realistic Flame Effect',
+    description: 'Aesthetic ultrasonic essential oil aromatherapy diffuser combining ultrasonic mist with warm amber LED light to simulate a realistic cozy fireplace flame.',
+    features: [
+      'Patented optical flame simulation combines ultrasonic fog with amber lighting',
+      'Ultra-quiet 20dB acoustic operation perfect for bedroom, office, and yoga studio',
+      'Waterless auto shut-off protection automatically powers down when empty',
+      'BPA-free medical-grade PP material safe for babies and essential oils',
+      'Multi-color ambient mood light with breathing and solid light modes'
+    ],
+    specs: {
+      capacity: '300ml Water Tank (10 Hours Continuous)',
+      power: '12W Ultrasonic High-Frequency Transducer',
+      energyRating: 'Energy-Saving USB-C 5V / 2A Input',
+      dimensions: '170 x 75 x 100 mm',
+      voltage: '5V Type-C USB Interface',
+      weight: '290 g',
+      certifications: ['CE', 'CB', 'RoHS', 'FCC', 'EMC']
+    },
+    tradeTerms: ['FOB Shenzhen / Yiwu', 'CIF Southampton', 'CIF Los Angeles'],
+    moq: '2500 Units (1x 40HQ Container)',
+    leadTime: '15-20 Days',
+    tradeType: 'both',
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80'
+    ]
   }
 ];
 
 export const getCategoryBySlug = (slug: string): string => {
   const map: Record<string, string> = {
+    'kitchen': 'Kitchen',
+    'home-care': 'Home Care',
+    'personal-care': 'Personal Care',
+    'cooling-air': 'Cooling & Air',
+    'laundry': 'Laundry',
+    'home-comfort': 'Home Comfort',
     'refrigeration': 'Refrigeration & Freezers',
-    'laundry': 'Washing Machines & Dryers',
     'climate': 'Air Conditioning & HVAC',
     'cooking': 'Cooking & Built-in Ovens',
     'small-appliances': 'Smart Small Kitchenware',
@@ -1687,5 +2532,9 @@ export const getCategoryBySlug = (slug: string): string => {
 export const getProductsByCategory = (categorySlugOrName: string): Product[] => {
   const directName = getCategoryBySlug(categorySlugOrName);
   const target = (directName || categorySlugOrName).toLowerCase();
-  return PRODUCTS_DATA.filter((p) => p.category.toLowerCase() === target);
+  return PRODUCTS_DATA.filter((p) => 
+    p.category.toLowerCase() === target ||
+    p.subCategory?.toLowerCase() === target ||
+    p.category.toLowerCase().includes(target)
+  );
 };

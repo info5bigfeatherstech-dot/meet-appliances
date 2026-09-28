@@ -7,7 +7,6 @@ import { useLenis } from './hooks/useLenis';
 // Common Components
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
-import { WhatsAppButton } from './components/common/WhatsAppButton';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -74,8 +73,6 @@ export const AppContent: React.FC = () => {
         </Routes>
       </PageTransitionWrapper>
 
-      {/* Persistent WhatsApp Trade Desk launcher */}
-      <WhatsAppButton />
 
       {/* Comprehensive Multi-column Footer */}
       <Footer />

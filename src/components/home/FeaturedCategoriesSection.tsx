@@ -50,7 +50,7 @@ export const FeaturedCategoriesSection: React.FC = () => {
                 <div className="relative rounded-3xl overflow-hidden bg-white border border-brand-gray-border/80 shadow-card group-hover:shadow-card-hover group-hover:border-brand-blue/30 transition-all duration-500">
                   
                   {/* Category Image with Zoom & Dark Gradient */}
-                  <div className="relative h-64 w-full overflow-hidden bg-slate-900">
+                  <div className="relative h-52 sm:h-64 w-full overflow-hidden bg-slate-900">
                     <img
                       src={cat.image}
                       alt={cat.name}
@@ -67,15 +67,15 @@ export const FeaturedCategoriesSection: React.FC = () => {
                     </div>
 
                     {/* Category Title on Image */}
-                    <div className="absolute bottom-4 left-6 right-6">
-                      <h3 className="font-heading font-bold text-2xl text-white group-hover:text-brand-green transition-colors">
+                    <div className="absolute bottom-4 left-5 right-5 sm:left-6 sm:right-6">
+                      <h3 className="font-heading font-bold text-xl sm:text-2xl text-white group-hover:text-brand-green transition-colors">
                         {cat.name}
                       </h3>
                     </div>
                   </div>
 
                   {/* Body Content */}
-                  <div className="p-6">
+                  <div className="p-5 sm:p-6">
                     <p className="text-xs text-brand-gray-text/90 leading-relaxed mb-4">
                       {cat.description}
                     </p>

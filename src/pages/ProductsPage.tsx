@@ -80,22 +80,23 @@ export const ProductsPage: React.FC = () => {
         </div>
 
         {/* Filter Controls Bar */}
-        <div className="bg-white rounded-3xl p-6 border border-brand-gray-border/80 shadow-sm mb-10 space-y-6">
-          <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
+        <div className="bg-white rounded-3xl p-4 sm:p-6 border border-brand-gray-border/80 shadow-sm mb-10 space-y-5">
+          <div className="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
             {/* Search Input */}
             <div className="relative w-full md:w-96">
-              <Search className="w-4 h-4 text-brand-gray-muted absolute left-3.5 top-3.5" />
+              <Search className="w-4 h-4 text-brand-gray-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by appliance, model code, spec..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-brand-gray-border text-sm text-brand-blue-navy placeholder-slate-400 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all"
+                className="w-full pl-10 pr-12 py-3 rounded-xl border border-brand-gray-border text-base sm:text-sm text-brand-blue-navy placeholder-slate-400 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all min-h-[44px]"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-3 text-xs text-brand-gray-muted hover:text-brand-blue"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 min-w-[40px] min-h-[40px] flex items-center justify-center text-xs text-brand-gray-muted hover:text-brand-blue"
+                  aria-label="Clear Search Query"
                 >
                   Clear
                 </button>
@@ -103,8 +104,8 @@ export const ProductsPage: React.FC = () => {
             </div>
 
             {/* Trade Mode Toggle */}
-            <div className="flex items-center gap-2 self-start md:self-auto overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
-              <span className="text-xs font-semibold text-brand-gray-muted shrink-0 mr-1">
+            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto w-full md:w-auto pb-1.5 md:pb-0 scrollbar-none">
+              <span className="text-xs font-semibold text-brand-gray-muted shrink-0 mr-1 hidden sm:inline">
                 Trade Direction:
               </span>
               {[
@@ -116,7 +117,7 @@ export const ProductsPage: React.FC = () => {
                 <button
                   key={m.id}
                   onClick={() => setSelectedTradeType(m.id as any)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${
+                  className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 min-h-[38px] ${
                     selectedTradeType === m.id
                       ? 'bg-brand-blue text-white shadow-sm'
                       : 'bg-brand-gray-bg text-brand-gray-text hover:bg-slate-200'
@@ -132,7 +133,7 @@ export const ProductsPage: React.FC = () => {
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none pt-2 border-t border-brand-gray-border/60">
             <button
               onClick={() => handleCategoryChange('all')}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all shrink-0 min-h-[38px] ${
                 selectedCategory === 'all'
                   ? 'bg-brand-blue-navy text-white shadow-sm'
                   : 'bg-brand-gray-bg text-brand-gray-text hover:bg-slate-200'
@@ -147,7 +148,7 @@ export const ProductsPage: React.FC = () => {
                 <button
                   key={cat.id}
                   onClick={() => handleCategoryChange(cat.slug)}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 ${
+                  className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all shrink-0 min-h-[38px] ${
                     isSelected
                       ? 'bg-brand-blue text-white shadow-sm'
                       : 'bg-brand-gray-bg text-brand-gray-text hover:bg-slate-200'

@@ -3,8 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight, Globe, Shield, PhoneCall, ChevronDown } from 'lucide-react';
 import { Button } from './Button';
 import { MeetLogo } from './MeetLogo';
-import { ProductsMegaMenu, MEGA_MENU_COLUMNS } from './ProductsMegaMenu';
-import { getProductsByCategory } from '../../data/products';
+import { ProductsMegaMenu, ALL_MEGA_MENU_CATEGORIES } from './ProductsMegaMenu';
 import { COMPANY_INFO } from '../../data/company';
 import { cn } from '../../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -31,6 +30,30 @@ export const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
     setIsProductsMenuOpen(false);
   }, [location.pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
+  // Close menus on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        setIsProductsMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -161,8 +184,9 @@ export const Navbar: React.FC = () => {
             <div className="flex items-center gap-2 md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-xl text-brand-blue-navy hover:bg-gray-100 transition-colors"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-xl text-brand-blue-navy hover:bg-gray-100 transition-colors focus-visible:outline-2 focus-visible:outline-brand-blue"
                 aria-label="Toggle Navigation Menu"
+                aria-expanded={mobileMenuOpen}
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -194,7 +218,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden fixed inset-x-0 top-[65px] z-40 bg-white/95 backdrop-blur-xl border-b border-brand-gray-border shadow-xl px-6 py-6 max-h-[85vh] overflow-y-auto"
+            className="md:hidden fixed inset-x-0 top-[65px] z-40 bg-white/95 backdrop-blur-xl border-b border-brand-gray-border shadow-xl px-4 sm:px-6 py-6 max-h-[calc(100dvh-70px)] overflow-y-auto pb-[calc(2rem+var(--sab,0px))]"
           >
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => {
@@ -228,38 +252,36 @@ export const Navbar: React.FC = () => {
 
                       {/* Mobile Accordion for Products Categories */}
                       {mobileProductsExpanded && (
-                        <div className="px-4 py-3 space-y-4 bg-brand-gray-bg/60 rounded-xl mt-1 text-xs">
-                          {MEGA_MENU_COLUMNS.flat().map((cat) => {
-                            const products = getProductsByCategory(cat.slug).slice(0, 6);
-                            return (
-                              <div key={cat.slug} className="space-y-1.5">
-                                <Link
-                                  to={`/category/${cat.slug}`}
-                                  onClick={() => setMobileMenuOpen(false)}
-                                  className="font-heading font-bold text-brand-blue-navy block uppercase text-[11px] hover:text-brand-blue"
-                                >
-                                  {cat.title}
-                                </Link>
-                                <div className="space-y-1">
-                                  {products.map((p) => (
-                                    <Link
-                                      key={p.id}
-                                      to={`/products/${p.id}`}
-                                      onClick={() => setMobileMenuOpen(false)}
-                                      className="block px-2.5 py-1.5 bg-white rounded-lg border border-brand-gray-border text-slate-700 hover:text-brand-blue font-medium truncate"
-                                    >
-                                      {p.name}
-                                    </Link>
-                                  ))}
-                                </div>
+                        <div className="px-4 py-3 space-y-4 bg-brand-gray-bg/60 rounded-xl mt-1 text-xs font-mono">
+                          {ALL_MEGA_MENU_CATEGORIES.map((cat) => (
+                            <div key={cat.title} className="space-y-1.5">
+                              <Link
+                                to={`/products?category=${cat.categorySlug}`}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="font-mono font-bold text-gray-900 block uppercase text-[11px] hover:text-brand-blue"
+                              >
+                                {cat.title}
+                              </Link>
+                              <div className="space-y-1">
+                                {cat.items.map((item) => (
+                                  <Link
+                                    key={item.productId}
+                                    to={`/products/${item.productId}`}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="block px-2.5 py-1.5 bg-white rounded-lg border border-brand-gray-border text-slate-700 hover:text-brand-blue font-medium truncate"
+                                  >
+                                    • {item.name}
+                                  </Link>
+                                ))}
                               </div>
-                            );
-                          })}
+                            </div>
+                          ))}
 
                           <div className="pt-2">
                             <Link
                               to="/products"
-                              className="inline-flex w-full items-center justify-center gap-1.5 py-2.5 rounded-xl bg-brand-blue text-white font-heading font-bold text-xs uppercase"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="inline-flex w-full items-center justify-center gap-1.5 py-2.5 rounded-xl bg-gray-900 text-white font-mono font-bold text-xs uppercase"
                             >
                               [ ALL PRODUCTS → ]
                             </Link>

@@ -132,14 +132,14 @@ export const AboutPage: React.FC = () => {
             </h2>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-6">
+          <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
             {milestones.map((m, idx) => (
-              <div key={idx} className="flex gap-6 p-6 rounded-2xl bg-white border border-brand-gray-border shadow-sm">
-                <div className="font-heading font-semibold text-xl text-brand-blue shrink-0 w-20">
+              <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-white border border-brand-gray-border shadow-sm">
+                <div className="font-heading font-semibold text-lg sm:text-xl text-brand-blue shrink-0 w-auto sm:w-20">
                   {m.year}
                 </div>
                 <div>
-                  <h4 className="font-heading font-bold text-base text-brand-blue-navy mb-1">{m.title}</h4>
+                  <h4 className="font-heading font-bold text-sm sm:text-base text-brand-blue-navy mb-1">{m.title}</h4>
                   <p className="text-xs text-brand-gray-muted leading-relaxed">{m.desc}</p>
                 </div>
               </div>
@@ -147,8 +147,8 @@ export const AboutPage: React.FC = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/contact">
-              <Button variant="primary" size="lg" glow icon={<ArrowRight className="w-4 h-4" />}>
+            <Link to="/contact" className="inline-block w-full sm:w-auto">
+              <Button variant="primary" size="lg" glow icon={<ArrowRight className="w-4 h-4" />} className="w-full sm:w-auto min-h-[44px]">
                 Partner with Meet Appliances Today
               </Button>
             </Link>

@@ -11,7 +11,7 @@ export const CtaBanner: React.FC = () => {
     <section className="py-20 relative overflow-hidden bg-brand-gray-bg">
       <Container size="xl">
         <RevealOnScroll direction="up">
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-brand-blue-deep via-brand-blue to-[#082a7a] text-white p-8 sm:p-14 lg:p-16 shadow-2xl">
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-brand-blue-deep via-brand-blue to-[#082a7a] text-white p-6 sm:p-10 lg:p-16 shadow-2xl">
             {/* Background Floating Decorative Blobs & Shapes */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-brand-green/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20 animate-pulse-subtle" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-blue/30 rounded-full blur-2xl pointer-events-none -ml-20 -mb-20" />
@@ -26,22 +26,22 @@ export const CtaBanner: React.FC = () => {
                 <span>Next Sourcing Cycle Now Open</span>
               </div>
 
-              <h2 className="font-heading font-semibold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15]">
+              <h2 className="font-heading font-medium text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-[1.15]">
                 Ready to Secure Your Next Appliance Container?
               </h2>
 
-              <p className="font-subheading text-base sm:text-lg text-slate-200 mt-4 max-w-2xl leading-relaxed">
+              <p className="font-subheading text-sm sm:text-base text-slate-200 mt-4 max-w-2xl leading-relaxed">
                 Send us your target model specifications, annual volume, and required port of destination. We return a fully-costed CIF/FOB quotation and factory audit report within 24 to 48 hours.
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 mt-8">
-                <Link to="/contact">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-8">
+                <Link to="/contact" className="w-full sm:w-auto">
                   <Button
                     variant="accent"
                     size="lg"
                     glow
                     icon={<ArrowRight className="w-5 h-5" />}
-                    className="px-8 shadow-xl text-brand-blue-navy font-bold"
+                    className="w-full sm:w-auto px-6 sm:px-8 shadow-xl text-brand-blue-navy font-bold min-h-[44px]"
                   >
                     Request a Custom Quote
                   </Button>
@@ -49,7 +49,7 @@ export const CtaBanner: React.FC = () => {
 
                 <a
                   href={`tel:${COMPANY_INFO.phone}`}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-white text-sm font-semibold border border-white/20 transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-white text-sm font-semibold border border-white/20 transition-all min-h-[44px]"
                 >
                   <PhoneCall className="w-4 h-4 text-brand-green" />
                   <span>Call Trade Desk: {COMPANY_INFO.phone}</span>
