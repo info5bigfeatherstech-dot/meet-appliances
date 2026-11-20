@@ -1,20 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Star, Quote, ShieldCheck, Box } from 'lucide-react';
-import { TESTIMONIALS } from '../../data/testimonials';
-import { Container } from '../common/Container';
-import { RevealOnScroll } from '../common/RevealOnScroll';
-import { Badge } from '../common/Badge';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Star,
+  Quote,
+  ShieldCheck,
+  Box,
+} from "lucide-react";
+import { TESTIMONIALS } from "../../data/testimonials";
+import { Container } from "../common/Container";
+import { RevealOnScroll } from "../common/RevealOnScroll";
+import { Badge } from "../common/Badge";
 
 export const TestimonialsCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? TESTIMONIALS.length - 1 : prev - 1));
+    setCurrentIndex((prev) =>
+      prev === 0 ? TESTIMONIALS.length - 1 : prev - 1,
+    );
   };
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === TESTIMONIALS.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) =>
+      prev === TESTIMONIALS.length - 1 ? 0 : prev + 1,
+    );
   };
 
   // Optional auto-slide
@@ -43,7 +54,8 @@ export const TestimonialsCarousel: React.FC = () => {
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
             <p className="font-subheading text-base text-brand-gray-muted mt-3">
-              Discover how our transparent sourcing and rigorous QA protocols protect global appliance distribution chains.
+              Discover how our transparent sourcing and rigorous QA protocols
+              protect global appliance distribution chains.
             </p>
           </RevealOnScroll>
         </div>
@@ -56,7 +68,7 @@ export const TestimonialsCarousel: React.FC = () => {
               initial={{ opacity: 0, x: 25 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -25 }}
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               className="rounded-3xl bg-white p-8 sm:p-12 border border-brand-gray-border/80 shadow-card relative"
             >
               <Quote className="absolute top-6 right-8 w-16 h-16 text-brand-blue/10 pointer-events-none" />
@@ -64,7 +76,10 @@ export const TestimonialsCarousel: React.FC = () => {
               {/* Rating stars */}
               <div className="flex items-center gap-1 mb-6">
                 {[...Array(current.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                  <Star
+                    key={i}
+                    className="w-5 h-5 fill-amber-400 text-amber-400"
+                  />
                 ))}
               </div>
 
@@ -92,7 +107,10 @@ export const TestimonialsCarousel: React.FC = () => {
                       {current.name}
                     </h4>
                     <p className="text-xs text-brand-gray-muted">
-                      {current.role} • <span className="font-medium text-slate-700">{current.company}</span>
+                      {current.role} •{" "}
+                      <span className="font-medium text-slate-700">
+                        {current.company}
+                      </span>
                     </p>
                     <span className="text-[11px] font-semibold text-brand-blue uppercase tracking-wider">
                       {current.country}
@@ -117,7 +135,9 @@ export const TestimonialsCarousel: React.FC = () => {
                   key={idx}
                   onClick={() => setCurrentIndex(idx)}
                   className={`h-2.5 rounded-full transition-all ${
-                    currentIndex === idx ? 'w-8 bg-brand-blue' : 'w-2.5 bg-brand-gray-border hover:bg-slate-400'
+                    currentIndex === idx
+                      ? "w-8 bg-brand-blue"
+                      : "w-2.5 bg-brand-gray-border hover:bg-slate-400"
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />

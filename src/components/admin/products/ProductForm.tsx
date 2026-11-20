@@ -13,15 +13,30 @@ import { compactInfoSections, mergeInfoSections } from "@/lib/catalog/infoSectio
 import { Plus, Trash2 } from "lucide-react";
 
 const DEFAULT_LISTING_ATTRIBUTES: ProductAttribute[] = [
-  { key: "Production Time", value: "" },
-  { key: "Sample Turnaround", value: "" },
+  { key: "Capacity", value: "" },
+  { key: "Power", value: "" },
+  { key: "Voltage", value: "220-240V ~ 50/60Hz" },
+  { key: "Dimensions", value: "" },
+  { key: "Weight", value: "" },
+  { key: "Certifications", value: "CE, CB, RoHS, LFGB" },
+  { key: "Production Time", value: "25-35 Days" },
+  { key: "Sample Turnaround", value: "7-10 Days" },
+];
+
+const QUICK_SPEC_CHIPS = [
+  { key: "Housing Material", value: "Brushed Stainless Steel & BPA-free PP" },
+  { key: "Control Type", value: "Digital LED Touchscreen" },
+  { key: "Temperature Range", value: "40°C - 220°C" },
+  { key: "Noise Level", value: "< 55 dB" },
+  { key: "Energy Rating", value: "Class A+ Commercial" },
+  { key: "Container Loading (40HQ)", value: "680 Units" },
 ];
 
 function listingAttributes(existing?: ProductAttribute[]): ProductAttribute[] {
   const current = (existing || []).map((item) => ({ key: item.key, value: item.value }));
   const seen = new Set(current.map((item) => item.key.trim().toLowerCase()));
   const missing = DEFAULT_LISTING_ATTRIBUTES.filter((item) => !seen.has(item.key.toLowerCase()));
-  const merged = [...missing, ...current];
+  const merged = [...current, ...missing];
   return merged.length ? merged : [{ key: "", value: "" }];
 }
 
@@ -53,46 +68,9 @@ export function ProductForm({
   const [images, setImages] = useState<ImageDraft[]>(
     (initial?.images || []).map((url) => ({ kind: "existing" as const, url }))
   );
-  const [liveCategories, setLiveCategories] = useState<Category[]>(categories);
-  const [showQuickCategoryModal, setShowQuickCategoryModal] = useState(false);
-  const [quickCatName, setQuickCatName] = useState("");
-  const [quickCatParentId, setQuickCatParentId] = useState("");
-  const [quickCatSaving, setQuickCatSaving] = useState(false);
-  const [quickCatError, setQuickCatError] = useState("");
   const [factories, setFactories] = useState<Factory[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [localError, setLocalError] = useState("");
-
-  useEffect(() => {
-    setLiveCategories(categories);
-  }, [categories]);
-
-  const handleQuickCreateCategory = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (quickCatName.trim().length < 2) {
-      setQuickCatError("Category name must be at least 2 characters");
-      return;
-    }
-    setQuickCatSaving(true);
-    setQuickCatError("");
-    try {
-      const res = await adminApi.createCategory({
-        name: quickCatName.trim(),
-        parentId: quickCatParentId || null,
-        description: "",
-      });
-      const fresh = await adminApi.listCategories();
-      setLiveCategories(fresh);
-      setField("category", res.id);
-      setQuickCatName("");
-      setQuickCatParentId("");
-      setShowQuickCategoryModal(false);
-    } catch (err) {
-      setQuickCatError(err instanceof Error ? err.message : "Failed to create category");
-    } finally {
-      setQuickCatSaving(false);
-    }
-  };
 
   useEffect(() => {
     let cancelled = false;
@@ -182,10 +160,10 @@ export function ProductForm({
             required
             maxLength={60}
             className="w-full h-10 px-3 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-            placeholder="MG-001"
+            placeholder="e.g. AT-KTC-AF85"
           />
           <span className="text-[11px] text-slate-500">
-            Family code for the whole product. Primary variant is always the next field.
+            Family code for the whole appliance model. Primary variant is always the next field.
           </span>
         </label>
         <label className="block space-y-1.5">
@@ -203,35 +181,16 @@ export function ProductForm({
             . Extra variants continue as -2, -3.
           </span>
         </label>
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-600">Category</span>
-            <button
-              type="button"
-              onClick={() => setShowQuickCategoryModal(true)}
-              className="text-xs text-blue-600 hover:text-blue-700 font-semibold inline-flex items-center gap-1 cursor-pointer"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>+ Create your own category</span>
-            </button>
-          </div>
+        <label className="block space-y-1.5">
+          <span className="text-xs font-semibold text-slate-600">Category</span>
           <select
             value={values.category}
-            onChange={(event) => {
-              if (event.target.value === "__create_new__") {
-                setShowQuickCategoryModal(true);
-                return;
-              }
-              setField("category", event.target.value);
-            }}
+            onChange={(event) => setField("category", event.target.value)}
             required
             className="w-full h-10 px-3 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 cursor-pointer"
           >
             <option value="">Select category</option>
-            <option value="__create_new__" className="font-semibold text-blue-600 bg-blue-50">
-              ✨ + Create new category on your own...
-            </option>
-            {flattenCategories(liveCategories).map((category) => (
+            {flattenCategories(categories).map((category) => (
               <option key={category.id} value={category.id} disabled={category.childCount > 0}>
                 {category.path || category.name}
                 {category.childCount > 0 ? " (open a subcategory)" : ""}
@@ -239,9 +198,9 @@ export function ProductForm({
             ))}
           </select>
           <span className="text-[11px] text-slate-500">
-            Pick an existing category or click &quot;+ Create your own category&quot; above.
+            Select the specific category or subcategory for this product.
           </span>
-        </div>
+        </label>
         <label className="block space-y-1.5">
           <span className="text-xs font-semibold text-slate-600">Name</span>
           <input
@@ -250,18 +209,18 @@ export function ProductForm({
             required
             maxLength={120}
             className="w-full h-10 px-3 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-            placeholder="Varsity Baseball Jacket"
+            placeholder="e.g. Digital Air Fryer"
           />
         </label>
         <label className="block space-y-1.5 md:col-span-2">
-          <span className="text-xs font-semibold text-slate-600">Title</span>
+          <span className="text-xs font-semibold text-slate-600">Title / Showcase Headline</span>
           <input
             value={values.title}
             onChange={(event) => setField("title", event.target.value)}
             required
             maxLength={160}
             className="w-full h-10 px-3 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-            placeholder="Premium leather varsity jacket"
+            placeholder="e.g. Smart Digital Air Fryer 8.5L"
           />
         </label>
       </div>
@@ -273,19 +232,23 @@ export function ProductForm({
           onChange={(event) => setField("description", event.target.value)}
           required
           maxLength={4000}
-          rows={5}
+          rows={4}
           className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-          placeholder="Short description for the product page. Optional: put each manufacturing spec on its own extra line."
+          placeholder="Product overview (extra lines become feature bullet points)"
         />
         <span className="text-[11px] text-slate-500">
-          First line is the public description. Extra lines become Manufacturing & Design Specifications on the
-          product page.
+          First line is the public summary. Extra lines automatically become Standard Factory Features bullet points on the product page.
         </span>
       </label>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold text-slate-600">Website listing details</span>
+          <div>
+            <span className="text-xs font-semibold text-slate-700">Appliance Specifications & Listing Details</span>
+            <p className="text-[11px] text-slate-500 mt-0.5">
+              Capacity, Power, Voltage, Dimensions, Weight, and Certifications automatically populate the Engineering Specifications sheet on the product page.
+            </p>
+          </div>
           <button
             type="button"
             onClick={() =>
@@ -300,24 +263,48 @@ export function ProductForm({
             Add attribute
           </button>
         </div>
-        <p className="text-[11px] text-slate-500">
-          These show on the public product page after listing, same as the original catalog cards. Production
-          Time and Sample Turnaround fill the three metric boxes. MOQ, fabric, sizes, colors, and FOB port also
-          come from the product master below. Factory prices stay admin-only.
-        </p>
+
+        {/* Quick Add Spec Chips */}
+        <div className="flex flex-wrap items-center gap-1.5 p-2 rounded-lg bg-slate-50 border border-slate-200">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mr-1">Quick Add:</span>
+          {QUICK_SPEC_CHIPS.map((chip) => {
+            const alreadyAdded = values.attributes.some((a) => a.key.toLowerCase().trim() === chip.key.toLowerCase().trim());
+            return (
+              <button
+                key={chip.key}
+                type="button"
+                disabled={alreadyAdded}
+                onClick={() => {
+                  setValues((current) => ({
+                    ...current,
+                    attributes: [...current.attributes, { key: chip.key, value: chip.value }],
+                  }));
+                }}
+                className={`text-[11px] px-2 py-0.5 rounded-md border font-medium transition-colors ${
+                  alreadyAdded
+                    ? "bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed"
+                    : "bg-white text-slate-700 border-slate-200 hover:border-blue-300 hover:text-blue-600 cursor-pointer"
+                }`}
+              >
+                + {chip.key}
+              </button>
+            );
+          })}
+        </div>
+
         <div className="space-y-2">
           {values.attributes.map((item, index) => (
             <div key={`attr-${index}`} className="grid grid-cols-[1fr_1fr_auto] gap-2">
               <input
                 value={item.key}
                 onChange={(event) => setAttribute(index, "key", event.target.value)}
-                placeholder={index === 0 ? "Production Time" : index === 1 ? "Sample Turnaround" : "Key"}
+                placeholder="Spec Name"
                 className="h-10 px-3 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
               <input
                 value={item.value}
                 onChange={(event) => setAttribute(index, "value", event.target.value)}
-                placeholder={index === 0 ? "35-45 days" : index === 1 ? "7-10 Days" : "Value"}
+                placeholder="Value"
                 className="h-10 px-3 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
               <button
@@ -387,82 +374,6 @@ export function ProductForm({
           {submitting ? "Saving..." : initial ? "Update product" : "Create product"}
         </button>
       </div>
-
-      {/* Quick Category Creator Modal */}
-      {showQuickCategoryModal && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-semibold text-sm text-slate-900">Create Category on Your Own</h3>
-              <button
-                type="button"
-                onClick={() => setShowQuickCategoryModal(false)}
-                className="text-slate-400 hover:text-slate-600 text-sm font-semibold cursor-pointer"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="space-y-4">
-              <label className="block space-y-1.5">
-                <span className="text-xs font-semibold text-slate-700">Category Name *</span>
-                <input
-                  type="text"
-                  value={quickCatName}
-                  onChange={(e) => setQuickCatName(e.target.value)}
-                  placeholder="e.g. Appliances, Vacuum Cleaners, Kitchen"
-                  required
-                  autoFocus
-                  className="w-full h-10 px-3 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                />
-              </label>
-
-              <label className="block space-y-1.5">
-                <span className="text-xs font-semibold text-slate-700">Placement</span>
-                <select
-                  value={quickCatParentId}
-                  onChange={(e) => setQuickCatParentId(e.target.value)}
-                  className="w-full h-10 px-3 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-blue-500 cursor-pointer"
-                >
-                  <option value="">📁 Main Root Category (Independent / on its own)</option>
-                  {flattenCategories(liveCategories).map((c) => (
-                    <option key={c.id} value={c.id}>
-                      📂 Subcategory under: {c.path || c.name}
-                    </option>
-                  ))}
-                </select>
-                <span className="text-[11px] text-slate-500">
-                  Leave on &quot;Main Root Category&quot; to create your own independent category.
-                </span>
-              </label>
-
-              {quickCatError && (
-                <p className="text-xs text-red-600 bg-red-50 p-2.5 rounded-lg border border-red-200">
-                  {quickCatError}
-                </p>
-              )}
-
-              <div className="flex items-center justify-end gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowQuickCategoryModal(false)}
-                  className="px-3 py-2 text-xs font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => void handleQuickCreateCategory(e)}
-                  disabled={quickCatSaving}
-                  className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-60 shadow-xs cursor-pointer"
-                >
-                  {quickCatSaving ? "Creating..." : "Create & Select Category"}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </form>
   );
 }

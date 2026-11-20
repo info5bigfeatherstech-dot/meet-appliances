@@ -121,12 +121,12 @@ export function transformBackendProduct(raw: any): DynamicStorefrontProduct {
     : ["CE", "CB", "RoHS", "ISO9001"];
 
   const specs: Product["specs"] = {
-    capacity: attrMap.get("capacity") || attrMap.get("volume") || (raw.fabric ? `${raw.fabric} Fabric` : undefined),
-    power: attrMap.get("power") || attrMap.get("wattage") || (raw.gsm ? `${raw.gsm} GSM` : undefined),
+    capacity: attrMap.get("capacity") || attrMap.get("volume") || undefined,
+    power: attrMap.get("power") || attrMap.get("wattage") || undefined,
     energyRating: attrMap.get("energyrating") || attrMap.get("energy rating") || attrMap.get("energy") || "Class A+ Commercial",
     dimensions: attrMap.get("dimensions") || attrMap.get("size") || raw.sizeRange || undefined,
-    voltage: attrMap.get("voltage") || attrMap.get("voltage/frequency") || "100-240V Multi-Market",
-    weight: attrMap.get("weight") || (raw.gsm ? `${raw.gsm} g/m²` : undefined),
+    voltage: attrMap.get("voltage") || attrMap.get("voltage/frequency") || "220-240V ~ 50/60Hz",
+    weight: attrMap.get("weight") || undefined,
     certifications,
   };
 

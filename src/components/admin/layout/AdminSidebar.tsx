@@ -6,8 +6,6 @@ import {
   Building2,
   Users,
   X,
-  PlusCircle,
-  Upload,
 } from "lucide-react";
 
 const mainLinks = [
@@ -16,11 +14,6 @@ const mainLinks = [
   { to: "/admin/categories", label: "Categories Tree", icon: FolderTree, exact: false },
   { to: "/admin/factories", label: "Partner Factories", icon: Building2, exact: false },
   { to: "/admin/customers", label: "Buyers & Customers", icon: Users, exact: false },
-];
-
-const quickLinks = [
-  { to: "/admin/products/new", label: "Add New Product", icon: PlusCircle },
-  { to: "/admin/products/import", label: "Bulk CSV & ZIP Import", icon: Upload },
 ];
 
 interface AdminSidebarProps {
@@ -87,37 +80,10 @@ export function AdminSidebar({ mobileOpen, onClose }: AdminSidebarProps) {
               })}
             </div>
           </div>
-
-          <div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">
-              Quick Operations
-            </div>
-            <div className="space-y-1">
-              {quickLinks.map((link) => {
-                const active = pathname === link.to;
-                const Icon = link.icon;
-                return (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    onClick={onClose}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition ${
-                      active
-                        ? "bg-blue-50 text-blue-700 font-semibold border border-blue-100 shadow-2xs"
-                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4 shrink-0 text-slate-400" />
-                    <span>{link.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
         </nav>
 
         <div className="p-4 border-t border-slate-100 text-slate-400 text-[11px] text-center">
-          Maya Exports Admin Panel
+          Meet Appliances Admin Panel
         </div>
       </aside>
     </>

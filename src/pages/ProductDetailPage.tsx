@@ -425,17 +425,9 @@ export const ProductDetailPage: React.FC = () => {
                   {dynamicProd.fabric && (
                     <tr className="bg-brand-gray-bg/60">
                       <td className="py-3 px-4 font-semibold text-brand-blue-navy">
-                        Fabric / Material Composition
+                        Housing / Enclosure Material
                       </td>
                       <td className="py-3 px-4">{dynamicProd.fabric}</td>
-                    </tr>
-                  )}
-                  {dynamicProd.gsm && (
-                    <tr>
-                      <td className="py-3 px-4 font-semibold text-brand-blue-navy">
-                        Material Weight / GSM
-                      </td>
-                      <td className="py-3 px-4">{dynamicProd.gsm} GSM</td>
                     </tr>
                   )}
                   {extraAttributes.map((attr, idx) => (

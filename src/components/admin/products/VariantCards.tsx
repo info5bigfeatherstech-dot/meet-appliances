@@ -68,14 +68,14 @@ function AttributeEditor({
             onChange={(event) => update(index, { key: event.target.value })}
             maxLength={80}
             className={inputClass}
-            placeholder="Field name — Color, Size, Plating, Fit"
+            placeholder="Field name — Color, Capacity, Voltage, Plug Type"
           />
           <input
             value={item.value}
             onChange={(event) => update(index, { value: event.target.value })}
             maxLength={200}
             className={inputClass}
-            placeholder="Value, or XS, SM, L for sub-variants"
+            placeholder="Value, or EU Plug, US Plug, UK Plug for sub-variants"
           />
           <button
             type="button"
@@ -117,7 +117,7 @@ function SubVariantEditor({
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-wider text-indigo-600">Sub-variants</p>
           <p className="text-[11px] text-slate-500 mt-0.5">
-            Comma lists on the parent (Size=XS, SM, L) fill these automatically. They reuse {parentLabel} images
+            Comma lists on the parent (e.g. Color=Matte Black, Inox Silver or Plug=EU, UK, US) fill these automatically. They reuse {parentLabel} images
             unless you upload replacements.
           </p>
         </div>

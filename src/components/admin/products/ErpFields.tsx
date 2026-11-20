@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Plus, Trash2 } from "lucide-react";
 import {
-  AGE_GROUPS,
   COLLECTION_PRESETS,
-  GENDERS,
   MARKETS,
   MAX_CUSTOMERS,
   MONTHS,
@@ -13,7 +11,6 @@ import {
   QUANTITY_UNITS,
   REPEAT_NUMBERS,
   SEASON_PRESETS,
-  SIZE_PRESETS,
   emptyCustomerLink,
   parseColors,
   yearOptions,
@@ -91,19 +88,17 @@ export function ErpFields({ values, factories, customers, onChange, variantSlot 
   return (
     <div className="space-y-4">
       <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Inventory</p>
-        <h2 className="text-sm font-semibold text-slate-900 mt-0.5">ERP product master</h2>
+        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Inventory & ERP</p>
+        <h2 className="text-sm font-semibold text-slate-900 mt-0.5">Appliance ERP & Export Master</h2>
         <p className="text-[11px] text-slate-500 mt-1">
-          Internal inventory record. Fabric, colors, and sizes below apply to the whole product. Extra
-          variants come after that block so they can copy those values. Factory prices, customer codes,
-          and stock stay admin-only.
+          Internal inventory and export record. Materials, finishes, factory pricing, customer links, and stock stay admin-only.
         </p>
       </div>
 
       <Section title="1. Identification & status" description="Purchase code and live status. The parent product code is set at the top of this form.">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field label="Purchase code">
-            <input value={values.purchaseCode} onChange={(event) => set("purchaseCode", event.target.value)} maxLength={60} className={inputClass} />
+          <Field label="Purchase / PO code">
+            <input value={values.purchaseCode} onChange={(event) => set("purchaseCode", event.target.value)} maxLength={60} className={inputClass} placeholder="e.g. PO-2026-001" />
           </Field>
           <Field label="Product status">
             <select value={values.productStatus} onChange={(event) => set("productStatus", event.target.value as ErpFormValues["productStatus"])} className={inputClass}>
@@ -117,8 +112,8 @@ export function ErpFields({ values, factories, customers, onChange, variantSlot 
         </div>
       </Section>
 
-      <Section title="2. Classification" description="Website Category at the top is the public menu. These fields are extra inventory labels only.">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <Section title="2. Classification & Series" description="Appliance manufacturing classification, product line series, and production/delivery cycle.">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Field label="Product type">
             <select value={values.productType} onChange={(event) => set("productType", event.target.value)} className={inputClass}>
               <option value="">Select type</option>
@@ -135,29 +130,10 @@ export function ErpFields({ values, factories, customers, onChange, variantSlot 
               <input value={values.productTypeCustom} onChange={(event) => set("productTypeCustom", event.target.value)} maxLength={80} className={inputClass} />
             </Field>
           ) : null}
-          <Field label="Gender">
-            <select value={values.gender} onChange={(event) => set("gender", event.target.value)} className={inputClass}>
-              <option value="">Select gender</option>
-              {GENDERS.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label="Age group">
-            <select value={values.ageGroup} onChange={(event) => set("ageGroup", event.target.value)} className={inputClass}>
-              <option value="">Select age group</option>
-              {AGE_GROUPS.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label="Collection">
+
+          <Field label="Series / Collection">
             <select value={values.collection} onChange={(event) => set("collection", event.target.value)} className={inputClass}>
-              <option value="">Select collection</option>
+              <option value="">Select series</option>
               {COLLECTION_PRESETS.map((item) => (
                 <option key={item} value={item}>
                   {item}
@@ -167,13 +143,14 @@ export function ErpFields({ values, factories, customers, onChange, variantSlot 
             </select>
           </Field>
           {values.collection === "Custom" ? (
-            <Field label="Custom collection">
+            <Field label="Custom series">
               <input value={values.collectionCustom} onChange={(event) => set("collectionCustom", event.target.value)} maxLength={80} className={inputClass} />
             </Field>
           ) : null}
-          <Field label="Season">
+
+          <Field label="Production / Delivery Window">
             <select value={values.season} onChange={(event) => set("season", event.target.value)} className={inputClass}>
-              <option value="">Select season</option>
+              <option value="">Select window</option>
               {SEASON_PRESETS.map((item) => (
                 <option key={item} value={item}>
                   {item}
@@ -183,14 +160,14 @@ export function ErpFields({ values, factories, customers, onChange, variantSlot 
             </select>
           </Field>
           {values.season === "Custom" ? (
-            <Field label="Custom season">
+            <Field label="Custom delivery window">
               <input value={values.seasonCustom} onChange={(event) => set("seasonCustom", event.target.value)} maxLength={40} className={inputClass} />
             </Field>
           ) : null}
         </div>
       </Section>
 
-      <Section title="3. Dates" description="Development and shipment month / year.">
+      <Section title="3. Dates" description="Product development (NPI) and shipment target month / year.">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Field label="Development month">
             <select value={values.developmentMonth} onChange={(event) => set("developmentMonth", event.target.value)} className={inputClass}>
@@ -235,42 +212,20 @@ export function ErpFields({ values, factories, customers, onChange, variantSlot 
         </div>
       </Section>
 
-      <Section title="4. Fabric & sizes" description="These catalog specs can show on the public product page as Fabric / Material, Available Sizing, and Stock / Lab-Dips.">
+      <Section title="4. Materials, Finish & Colorways" description="Cabinet housing materials, surface treatment, and finish colorways shown on the product page.">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field label="Fabric">
-            <input value={values.fabric} onChange={(event) => set("fabric", event.target.value)} maxLength={80} className={inputClass} placeholder="Cotton / Viscose / Linen" />
+          <Field label="Housing / Body Material" hint="Enclosure, cavity, or exterior cabinet material.">
+            <input value={values.fabric} onChange={(event) => set("fabric", event.target.value)} maxLength={80} className={inputClass} placeholder="e.g. Stainless Steel / PP" />
           </Field>
-          <Field label="Fabric composition">
-            <input value={values.fabricComposition} onChange={(event) => set("fabricComposition", event.target.value)} maxLength={120} className={inputClass} placeholder="100% Cotton" />
+          <Field label="Surface Finish / Coating" hint="Exterior surface treatment or cavity non-stick coating.">
+            <input value={values.pattern} onChange={(event) => set("pattern", event.target.value)} maxLength={80} className={inputClass} placeholder="e.g. Matte / Anti-Fingerprint" />
           </Field>
-          <Field label="GSM">
-            <input value={values.gsm} onChange={(event) => set("gsm", event.target.value)} maxLength={20} className={inputClass} placeholder="120" />
+          <Field label="Primary Color / Finish" hint="Primary catalog colorway displayed on storefront.">
+            <input value={values.color} onChange={(event) => set("color", event.target.value)} maxLength={40} className={inputClass} placeholder="e.g. Matte Black" />
           </Field>
-          <Field label="Pattern">
-            <input value={values.pattern} onChange={(event) => set("pattern", event.target.value)} maxLength={80} className={inputClass} placeholder="Solid / Printed / Floral" />
-          </Field>
-          <Field label="Primary color" hint="Listing fact for the public page. Variant color lives in Catalog variants below.">
-            <input value={values.color} onChange={(event) => set("color", event.target.value)} maxLength={40} className={inputClass} placeholder="Blue" />
-          </Field>
-          <Field label="Size range" hint="Public available sizing. This does not auto-create variants.">
-            <select value={values.sizeRange} onChange={(event) => set("sizeRange", event.target.value)} className={inputClass}>
-              <option value="">Select size range</option>
-              {SIZE_PRESETS.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-              <option value="Custom">Custom</option>
-            </select>
-          </Field>
-          {values.sizeRange === "Custom" ? (
-            <Field label="Custom size range" hint="Comma-separated, for example 2, 4, 6, 8.">
-              <input value={values.sizeRangeCustom} onChange={(event) => set("sizeRangeCustom", event.target.value)} maxLength={120} className={inputClass} />
-            </Field>
-          ) : null}
           <div className="md:col-span-2">
-            <Field label="Available colors" hint="Comma-separated listing colorways for the public page. This does not auto-create variants.">
-              <input value={values.availableColorsInput} onChange={(event) => set("availableColorsInput", event.target.value)} className={inputClass} placeholder="Blue, Pink, Green" />
+            <Field label="Available Colors & Finishes" hint="Comma-separated listing colorways for the public page (e.g. Matte Black, Inox Silver, Glossy White).">
+              <input value={values.availableColorsInput} onChange={(event) => set("availableColorsInput", event.target.value)} className={inputClass} placeholder="e.g. Black, Silver, White" />
             </Field>
             {colors.length > 0 ? (
               <div className="flex flex-wrap gap-1.5 mt-2">
@@ -312,16 +267,16 @@ export function ErpFields({ values, factories, customers, onChange, variantSlot 
             </Link>
           </div>
           <Field label="Factory price EXW">
-            <input value={values.factoryPriceEXW} onChange={(event) => set("factoryPriceEXW", event.target.value)} maxLength={40} className={inputClass} placeholder="7.20" />
+            <input value={values.factoryPriceEXW} onChange={(event) => set("factoryPriceEXW", event.target.value)} maxLength={40} className={inputClass} placeholder="28.50" />
           </Field>
           <Field label="Sale price">
-            <input value={values.salePrice} onChange={(event) => set("salePrice", event.target.value)} maxLength={40} className={inputClass} placeholder="8.50" />
+            <input value={values.salePrice} onChange={(event) => set("salePrice", event.target.value)} maxLength={40} className={inputClass} placeholder="34.00" />
           </Field>
           <Field label="FOB price">
-            <input value={values.fobPrice} onChange={(event) => set("fobPrice", event.target.value)} maxLength={40} className={inputClass} placeholder="8.00" />
+            <input value={values.fobPrice} onChange={(event) => set("fobPrice", event.target.value)} maxLength={40} className={inputClass} placeholder="32.50" />
           </Field>
           <Field label="FOB port">
-            <input value={values.fobPort} onChange={(event) => set("fobPort", event.target.value)} maxLength={80} className={inputClass} placeholder="Karachi / Shanghai" />
+            <input value={values.fobPort} onChange={(event) => set("fobPort", event.target.value)} maxLength={80} className={inputClass} placeholder="Ningbo / Shenzhen / Shanghai / Qingdao" />
           </Field>
           <Field label="MOQ">
             <input value={values.moq} onChange={(event) => set("moq", event.target.value)} maxLength={40} className={inputClass} placeholder="500" />

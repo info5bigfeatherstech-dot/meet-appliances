@@ -1,46 +1,59 @@
-import React from 'react';
-import { DollarSign, ShieldCheck, CheckCircle2, Clock, FileText, Scale } from 'lucide-react';
-import { Container } from '../common/Container';
-import { RevealOnScroll } from '../common/RevealOnScroll';
-import { Badge } from '../common/Badge';
+import React from "react";
+import {
+  DollarSign,
+  ShieldCheck,
+  CheckCircle2,
+  Clock,
+  FileText,
+  Scale,
+} from "lucide-react";
+import { Container } from "../common/Container";
+import { RevealOnScroll } from "../common/RevealOnScroll";
+import { Badge } from "../common/Badge";
 
 export const WhyChooseUsSection: React.FC = () => {
   const pillars = [
     {
       icon: DollarSign,
-      title: 'Tier-1 Benchmark Pricing',
-      description: 'By pooling multi-buyer container volumes across global ports, we secure wholesale manufacturing tariffs that individual importers cannot achieve alone.',
-      highlight: 'Up to 12% Cost Advantage',
+      title: "Tier-1 Benchmark Pricing",
+      description:
+        "By pooling multi-buyer container volumes across global ports, we secure wholesale manufacturing tariffs that individual importers cannot achieve alone.",
+      highlight: "Up to 12% Cost Advantage",
     },
     {
       icon: Scale,
-      title: '100% Neutral Sourcing Advocate',
-      description: 'Unlike factory sales reps who conceal production defects, we represent YOU. If a batch fails Hi-Pot insulation or drop tests, it does not leave the factory floor.',
-      highlight: 'Zero Factory Bias',
+      title: "100% Neutral Sourcing Advocate",
+      description:
+        "Unlike factory sales reps who conceal production defects, we represent YOU. If a batch fails Hi-Pot insulation or drop tests, it does not leave the factory floor.",
+      highlight: "Zero Factory Bias",
     },
     {
       icon: ShieldCheck,
-      title: 'Audited Supplier Network',
-      description: 'We maintain an active registry of 320+ pre-vetted OEM/ODM manufacturers, with verified ISO 9001, BSCI ethical labor, and automated robotic stamping facilities.',
-      highlight: 'Strict 5-Point Vetting',
+      title: "Audited Supplier Network",
+      description:
+        "We maintain an active registry of 320+ pre-vetted OEM/ODM manufacturers, with verified ISO 9001, BSCI ethical labor, and automated robotic stamping facilities.",
+      highlight: "Strict 5-Point Vetting",
     },
     {
       icon: CheckCircle2,
-      title: 'Zero-Tolerance AQL II QA',
-      description: 'Our resident engineers test electrical safety, temperature pull-down curves, noise decibels, and packaging drop resilience before release.',
-      highlight: '99.4% Pre-Shipment Pass Rate',
+      title: "Zero-Tolerance AQL II QA",
+      description:
+        "Our resident engineers test electrical safety, temperature pull-down curves, noise decibels, and packaging drop resilience before release.",
+      highlight: "99.4% Pre-Shipment Pass Rate",
     },
     {
       icon: Clock,
-      title: 'Guaranteed Container Sailing',
-      description: 'Direct slot agreements with top container ocean carriers minimize rolled cargo and demurrage penalties, keeping your retail shelves consistently stocked.',
-      highlight: '98.7% On-Time Voyage',
+      title: "Guaranteed Container Sailing",
+      description:
+        "Direct slot agreements with top container ocean carriers minimize rolled cargo and demurrage penalties, keeping your retail shelves consistently stocked.",
+      highlight: "98.7% On-Time Voyage",
     },
     {
       icon: FileText,
-      title: 'Comprehensive Trade Documentation',
-      description: 'From Letters of Credit (L/C) compliance to Certificate of Origin, Saber filings, and CE/CB test verification, we handle every piece of customs bureaucracy.',
-      highlight: 'Full Incoterms 2020 Compliance',
+      title: "Comprehensive Trade Documentation",
+      description:
+        "From Letters of Credit (L/C) compliance to Certificate of Origin, Saber filings, and CE/CB test verification, we handle every piece of customs bureaucracy.",
+      highlight: "Full Incoterms 2020 Compliance",
     },
   ];
 
@@ -60,7 +73,9 @@ export const WhyChooseUsSection: React.FC = () => {
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
             <p className="font-subheading text-base text-brand-gray-muted mt-4 leading-relaxed">
-              International trade should be dependable, transparent, and profitable. We eliminate cross-border friction, language barriers, and product defect risks.
+              International trade should be dependable, transparent, and
+              profitable. We eliminate cross-border friction, language barriers,
+              and product defect risks.
             </p>
           </RevealOnScroll>
         </div>
@@ -71,7 +86,12 @@ export const WhyChooseUsSection: React.FC = () => {
             const Icon = item.icon;
 
             return (
-              <RevealOnScroll key={index} direction="up" delay={0.1 * index} className="h-full">
+              <RevealOnScroll
+                key={index}
+                direction="up"
+                delay={0.1 * index}
+                className="h-full"
+              >
                 <div className="h-full rounded-2xl bg-brand-gray-bg/60 hover:bg-white p-7 border border-brand-gray-border/80 hover:border-brand-blue/30 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between group">
                   <div>
                     <div className="flex items-center justify-between mb-5">

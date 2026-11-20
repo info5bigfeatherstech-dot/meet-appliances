@@ -5,7 +5,12 @@ import { adminApi, AdminApiError } from "@/lib/admin/api";
 import { MeetLogo } from "@/components/common/MeetLogo";
 
 function getSafeRedirectUrl(raw: string | null): string {
-  if (!raw || !raw.startsWith("/admin") || raw.startsWith("//") || raw === "/admin/login") {
+  if (
+    !raw ||
+    !raw.startsWith("/admin") ||
+    raw.startsWith("//") ||
+    raw === "/admin/login"
+  ) {
     return "/admin";
   }
   return raw;
@@ -74,7 +79,9 @@ export function LoginForm() {
       if (err instanceof AdminApiError) {
         setError(err.message || "Invalid email or password.");
       } else {
-        setError("Unable to authenticate. Please check your credentials and try again.");
+        setError(
+          "Unable to authenticate. Please check your credentials and try again.",
+        );
       }
     } finally {
       setSubmitting(false);

@@ -1,12 +1,15 @@
-import React from 'react';
-import { Marquee } from '../common/Marquee';
-import { BRAND_PARTNERS } from '../../data/brands';
-import { Container } from '../common/Container';
-import { Award } from 'lucide-react';
+import React from "react";
+import { Marquee } from "../common/Marquee";
+import { BRAND_PARTNERS } from "../../data/brands";
+import { Container } from "../common/Container";
+import { Award } from "lucide-react";
 
 export const TrustedBrandsMarquee: React.FC = () => {
   return (
-    <section id="brands-marquee" className="py-12 bg-white border-y border-brand-gray-border/80">
+    <section
+      id="brands-marquee"
+      className="py-12 bg-white border-y border-brand-gray-border/80"
+    >
       <Container size="xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8 text-center md:text-left">
           <div>
@@ -19,7 +22,8 @@ export const TrustedBrandsMarquee: React.FC = () => {
             </h3>
           </div>
           <p className="text-xs text-brand-gray-muted max-w-md">
-            We partner with premier distributors and OEM brand licensors across Europe, the Americas, GCC, and Asia-Pacific.
+            We partner with premier distributors and OEM brand licensors across
+            Europe, the Americas, GCC, and Asia-Pacific.
           </p>
         </div>
 

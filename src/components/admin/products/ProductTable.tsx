@@ -54,7 +54,7 @@ export function ProductTable({ products, onDelete }: ProductTableProps) {
               <th className="px-4 py-3 font-semibold">Product</th>
               <th className="px-4 py-3 font-semibold">Product code</th>
               <th className="px-4 py-3 font-semibold">Category</th>
-              <th className="px-4 py-3 font-semibold">Type / Gender</th>
+              <th className="px-4 py-3 font-semibold">Type / Series</th>
               <th className="px-4 py-3 font-semibold">Factory</th>
               <th className="px-4 py-3 font-semibold">Customer</th>
               <th className="px-4 py-3 font-semibold">Status</th>
@@ -112,7 +112,7 @@ export function ProductTable({ products, onDelete }: ProductTableProps) {
                     <td className="px-4 py-3 text-slate-600">
                       <div>{product.productType || "—"}</div>
                       <div className="text-xs text-slate-400">
-                        {[product.gender, product.ageGroup].filter(Boolean).join(" / ") || "—"}
+                        {[product.collection, product.season].filter(Boolean).join(" / ") || "—"}
                       </div>
                     </td>
                     <td className="px-4 py-3 text-slate-600">

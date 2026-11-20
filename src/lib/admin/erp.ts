@@ -10,9 +10,10 @@ import type {
 export const YES_NO = ["Yes", "No"] as const;
 export const PRODUCT_STATUSES = ["Active", "Inactive"] as const;
 export const PRODUCT_TYPES = [
-  "New Developed",
-  "Shipment Sample",
+  "Mass Production",
+  "New Developed (NPI)",
   "Customer Sample",
+  "Shipment / Golden Sample",
 ] as const;
 export const GENDERS = ["Women", "Men", "Unisex"] as const;
 export const AGE_GROUPS = [
@@ -24,25 +25,31 @@ export const AGE_GROUPS = [
   "Adult",
 ] as const;
 export const GARMENT_CATEGORIES = [
-  "Dress",
-  "Top",
-  "Shirt",
-  "Trousers",
-  "Outerwear",
-  "Knitwear",
+  "Kitchen",
+  "Home Living",
+  "Cleaning",
+  "Personal Care",
+  "Commercial",
   "Other",
 ] as const;
 export const QUANTITY_UNITS = [
+  "Units",
   "Pcs",
   "Sets",
-  "Dozens",
-  "Pairs",
-  "Yards",
-  "Meters",
-  "Packs",
   "Cartons",
+  "Pallets",
+  "1x20GP Container",
+  "1x40HQ Container",
 ] as const;
-export const MARKETS = ["USA", "UK", "Europe", "UAE"] as const;
+export const MARKETS = [
+  "Europe",
+  "USA & North America",
+  "UK",
+  "UAE & Middle East",
+  "Australia & Oceania",
+  "Southeast Asia",
+  "Latin America",
+] as const;
 export const MONTHS = [
   "January",
   "February",
@@ -64,17 +71,25 @@ export const VARIANT_STATUSES = [
 ] as const;
 export const REPEAT_NUMBERS = ["None", "1st", "2nd", "3rd"] as const;
 export const SIZE_PRESETS = [
-  "S, M, L, XL",
-  "XS, S, M, L, XL, XXL",
-  "28, 30, 32, 34, 36",
-  "Free Size",
+  "Compact",
+  "Standard",
+  "Pro / Large",
+  "Commercial",
 ] as const;
-export const SEASON_PRESETS = ["SS26", "AW26", "Resort", "Holiday"] as const;
+export const SEASON_PRESETS = [
+  "2026 Q1",
+  "2026 Q2",
+  "2026 Q3",
+  "2026 Q4",
+  "Year-Round Core",
+  "Immediate Stock",
+] as const;
 export const COLLECTION_PRESETS = [
-  "Summer Collection",
-  "Winter Collection",
-  "Resort",
-  "Core",
+  "Smart Living Series",
+  "Pro Commercial Series",
+  "Culinary Master Series",
+  "Compact & Tabletop",
+  "Core Standard",
 ] as const;
 export const CUSTOMER_TIERS = [
   "Key Account",

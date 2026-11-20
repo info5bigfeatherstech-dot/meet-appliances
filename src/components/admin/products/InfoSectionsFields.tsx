@@ -67,7 +67,7 @@ export function InfoSectionsFields({ sections, onChange }: InfoSectionsFieldsPro
                         updateSection(meta.key, next);
                       }}
                       maxLength={120}
-                      placeholder="Heading, e.g. Embroidery & Custom Printing"
+                      placeholder="Heading, e.g. Rapid 360° Cyclone Vortex Heating"
                       className="flex-1 h-10 px-3 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                     />
                     <button
@@ -92,7 +92,7 @@ export function InfoSectionsFields({ sections, onChange }: InfoSectionsFieldsPro
                     }}
                     maxLength={1000}
                     rows={3}
-                    placeholder="Short content shown under that heading"
+                    placeholder="e.g. Industrial-grade heating element paired with high-velocity brushless fan delivers balanced convective heat transfer up to 220°C."
                     className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                   />
                 </div>
