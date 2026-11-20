@@ -1,48 +1,55 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { HelmetProvider } from 'react-helmet-async';
-import { useLenis } from './hooks/useLenis';
+import React, { useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { HelmetProvider } from "react-helmet-async";
+import { useLenis } from "./hooks/useLenis";
 
 // Common Components
-import { Navbar } from './components/common/Navbar';
-import { Footer } from './components/common/Footer';
+import { Navbar } from "./components/common/Navbar";
+import { Footer } from "./components/common/Footer";
 
 // Pages
-import { HomePage } from './pages/HomePage';
-import { AboutPage } from './pages/AboutPage';
-import { ProductsPage } from './pages/ProductsPage';
-import { ProductDetailPage } from './pages/ProductDetailPage';
-import { CategoryPage } from './pages/CategoryPage';
-import { ServicesPage } from './pages/ServicesPage';
-import { ContactPage } from './pages/ContactPage';
-import { NotFoundPage } from './pages/NotFoundPage';
+import { HomePage } from "./pages/HomePage";
+import { AboutPage } from "./pages/AboutPage";
+import { ProductsPage } from "./pages/ProductsPage";
+import { ProductDetailPage } from "./pages/ProductDetailPage";
+import { CategoryPage } from "./pages/CategoryPage";
+import { ServicesPage } from "./pages/ServicesPage";
+import { ContactPage } from "./pages/ContactPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 // Admin Components & Pages
-import { AdminLoginPage } from './pages/admin/AdminLoginPage';
-import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
-import { AdminCategoriesPage } from './pages/admin/AdminCategoriesPage';
-import { AdminProductsPage } from './pages/admin/AdminProductsPage';
-import { AdminProductNewPage } from './pages/admin/AdminProductNewPage';
-import { AdminProductEditPage } from './pages/admin/AdminProductEditPage';
-import { AdminProductImportPage } from './pages/admin/AdminProductImportPage';
-import { AdminFactoriesPage } from './pages/admin/AdminFactoriesPage';
-import { AdminCustomersPage } from './pages/admin/AdminCustomersPage';
-import { AdminShell } from './components/admin/layout/AdminShell';
+import { AdminLoginPage } from "./pages/admin/AdminLoginPage";
+import { AdminDashboardPage } from "./pages/admin/AdminDashboardPage";
+import { AdminCategoriesPage } from "./pages/admin/AdminCategoriesPage";
+import { AdminProductsPage } from "./pages/admin/AdminProductsPage";
+import { AdminProductNewPage } from "./pages/admin/AdminProductNewPage";
+import { AdminProductEditPage } from "./pages/admin/AdminProductEditPage";
+import { AdminProductImportPage } from "./pages/admin/AdminProductImportPage";
+import { AdminFactoriesPage } from "./pages/admin/AdminFactoriesPage";
+import { AdminCustomersPage } from "./pages/admin/AdminCustomersPage";
+import { AdminShell } from "./components/admin/layout/AdminShell";
 
 // Scroll to top helper on route transition
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [pathname]);
 
   return null;
 };
 
 // Animated Page Wrapper
-const PageTransitionWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const PageTransitionWrapper: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const location = useLocation();
 
   return (
@@ -52,7 +59,7 @@ const PageTransitionWrapper: React.FC<{ children: React.ReactNode }> = ({ childr
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.35, ease: 'easeInOut' }}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
         className="flex-grow"
       >
         {children}
@@ -63,7 +70,7 @@ const PageTransitionWrapper: React.FC<{ children: React.ReactNode }> = ({ childr
 
 export const AppContent: React.FC = () => {
   const { pathname } = useLocation();
-  const isAdminRoute = pathname.startsWith('/admin');
+  const isAdminRoute = pathname.startsWith("/admin");
 
   // Initialize Lenis smooth scroll for storefront
   useLenis();

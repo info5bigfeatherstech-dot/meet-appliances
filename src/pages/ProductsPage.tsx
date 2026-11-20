@@ -1,20 +1,23 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
-import { Box, ArrowRight, Search } from 'lucide-react';
-import { PRODUCTS_DATA } from '../data/products';
-import { fetchAllStorefrontProducts, matchesCategory } from '../lib/catalog/storefrontProducts';
-import { Container } from '../components/common/Container';
-import { Badge } from '../components/common/Badge';
-import { Button } from '../components/common/Button';
-import { motion, AnimatePresence } from 'framer-motion';
-import type { Product } from '../types';
+import React, { useMemo, useState, useEffect } from "react";
+import { useSearchParams, Link } from "react-router-dom";
+import { Box, ArrowRight, Search } from "lucide-react";
+import { PRODUCTS_DATA } from "../data/products";
+import {
+  fetchAllStorefrontProducts,
+  matchesCategory,
+} from "../lib/catalog/storefrontProducts";
+import { Container } from "../components/common/Container";
+import { Badge } from "../components/common/Badge";
+import { Button } from "../components/common/Button";
+import { motion, AnimatePresence } from "framer-motion";
+import type { Product } from "../types";
 
 export const ProductsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const selectedCategory = searchParams.get('category') || 'all';
+  const selectedCategory = searchParams.get("category") || "all";
   const [products, setProducts] = useState<Product[]>(PRODUCTS_DATA);
   const [_loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Fetch dynamic products from the backend on mount
   useEffect(() => {
@@ -27,7 +30,7 @@ export const ProductsPage: React.FC = () => {
           setProducts(dynamicList);
         }
       } catch (err) {
-        console.warn('Using default products due to load error:', err);
+        console.warn("Using default products due to load error:", err);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -40,17 +43,20 @@ export const ProductsPage: React.FC = () => {
 
   const filteredProducts = useMemo(() => {
     let list = products;
-    if (selectedCategory !== 'all') {
-      list = list.filter((product) => matchesCategory(product, selectedCategory));
+    if (selectedCategory !== "all") {
+      list = list.filter((product) =>
+        matchesCategory(product, selectedCategory),
+      );
     }
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
-      list = list.filter((p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.modelCode.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q)
+      list = list.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.modelCode.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q),
       );
     }
 
@@ -69,7 +75,9 @@ export const ProductsPage: React.FC = () => {
             Appliance Sourcing Portfolio
           </h1>
           <p className="font-subheading text-base text-brand-gray-muted mt-2 max-w-2xl">
-            Explore container-optimized residential and commercial appliances ready for private label OEM/ODM branding, accredited certifications, and worldwide ocean delivery.
+            Explore container-optimized residential and commercial appliances
+            ready for private label OEM/ODM branding, accredited certifications,
+            and worldwide ocean delivery.
           </p>
         </div>
 
@@ -87,7 +95,7 @@ export const ProductsPage: React.FC = () => {
             {searchQuery && (
               <button
                 type="button"
-                onClick={() => setSearchQuery('')}
+                onClick={() => setSearchQuery("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
               >
                 Clear
@@ -95,13 +103,18 @@ export const ProductsPage: React.FC = () => {
             )}
           </div>
 
-          {selectedCategory !== 'all' && (
+          {selectedCategory !== "all" && (
             <div className="flex items-center gap-2">
-              <span className="text-xs text-brand-gray-text font-medium">Category:</span>
+              <span className="text-xs text-brand-gray-text font-medium">
+                Category:
+              </span>
               <span className="px-3 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-xs font-semibold capitalize">
                 {selectedCategory}
               </span>
-              <Link to="/products" className="text-xs text-slate-500 hover:text-brand-blue underline ml-2">
+              <Link
+                to="/products"
+                className="text-xs text-slate-500 hover:text-brand-blue underline ml-2"
+              >
                 View all products
               </Link>
             </div>
@@ -111,25 +124,30 @@ export const ProductsPage: React.FC = () => {
         {/* Results Count & Notice */}
         <div className="flex items-center justify-between text-xs text-brand-gray-muted mb-6">
           <span>
-            Showing <strong className="text-brand-blue-navy">{filteredProducts.length}</strong> appliances ready for volume container dispatch
+            Showing{" "}
+            <strong className="text-brand-blue-navy">
+              {filteredProducts.length}
+            </strong>{" "}
+            appliances ready for volume container dispatch
           </span>
-          <span className="hidden sm:inline">All models tested under AQL II inspection protocols</span>
+          <span className="hidden sm:inline">
+            All models tested under AQL II inspection protocols
+          </span>
         </div>
 
         {/* Product Cards Grid */}
         {filteredProducts.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-3xl border border-brand-gray-border">
             <Box className="w-12 h-12 text-brand-gray-muted mx-auto mb-3" />
-            <h3 className="font-heading font-bold text-lg text-brand-blue-navy">No appliances match your criteria</h3>
+            <h3 className="font-heading font-bold text-lg text-brand-blue-navy">
+              No appliances match your criteria
+            </h3>
             <p className="text-xs text-brand-gray-muted mt-1 max-w-sm mx-auto">
-              We frequently source custom models not listed in our public catalog. Contact our trade desk with your specific requirement.
+              We frequently source custom models not listed in our public
+              catalog. Contact our trade desk with your specific requirement.
             </p>
             <Link to="/products">
-              <Button
-                variant="primary"
-                size="sm"
-                className="mt-6"
-              >
+              <Button variant="primary" size="sm" className="mt-6">
                 View All Products
               </Button>
             </Link>

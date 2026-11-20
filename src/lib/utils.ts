@@ -1,20 +1,22 @@
-export function cn(...inputs: (string | boolean | null | undefined | Record<string, boolean>)[]) {
+export function cn(
+  ...inputs: (string | boolean | null | undefined | Record<string, boolean>)[]
+) {
   const classes: string[] = [];
 
   for (const input of inputs) {
     if (!input) continue;
-    if (typeof input === 'string') {
+    if (typeof input === "string") {
       classes.push(input);
-    } else if (typeof input === 'object') {
+    } else if (typeof input === "object") {
       for (const [key, value] of Object.entries(input)) {
         if (value) classes.push(key);
       }
     }
   }
 
-  return classes.join(' ');
+  return classes.join(" ");
 }
 
 export function formatNumberWithCommas(num: number): string {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

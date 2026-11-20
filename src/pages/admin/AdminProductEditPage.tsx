@@ -23,11 +23,16 @@ export function AdminProductEditPage() {
         setProduct(nextProduct);
         setCategories(nextCategories);
       })
-      .catch((err) => setError(err instanceof Error ? err.message : "Unable to load product"))
+      .catch((err) =>
+        setError(err instanceof Error ? err.message : "Unable to load product"),
+      )
       .finally(() => setReady(true));
   }, [id]);
 
-  const handleSubmit = async (values: ProductFormValues, images: ImageDraft[]) => {
+  const handleSubmit = async (
+    values: ProductFormValues,
+    images: ImageDraft[],
+  ) => {
     if (!id) return;
     setSubmitting(true);
     setError("");
@@ -37,7 +42,9 @@ export function AdminProductEditPage() {
       await adminApi.updateProduct(id, form);
       navigate("/admin/products", { replace: true });
     } catch (err) {
-      setError(err instanceof AdminApiError ? err.message : "Unable to update product");
+      setError(
+        err instanceof AdminApiError ? err.message : "Unable to update product",
+      );
       setSubmitting(false);
     }
   };
@@ -47,7 +54,9 @@ export function AdminProductEditPage() {
       <div className="space-y-2">
         <AdminBackLink href="/admin/products" label="Back to products" />
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Edit Product: {product?.productCode || id}</h1>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            Edit Product: {product?.productCode || id}
+          </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Update catalog details, ERP fields, variants, and product imagery.
           </p>
@@ -55,7 +64,9 @@ export function AdminProductEditPage() {
       </div>
       <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-xs">
         {!ready ? (
-          <p className="text-sm text-slate-500 p-8 text-center">Loading product data...</p>
+          <p className="text-sm text-slate-500 p-8 text-center">
+            Loading product data...
+          </p>
         ) : product ? (
           <ProductForm
             categories={categories}

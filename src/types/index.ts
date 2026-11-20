@@ -1,4 +1,4 @@
-export type TradeMode = 'import' | 'export' | 'both';
+export type TradeMode = "import" | "export" | "both";
 
 export interface Product {
   id: string;

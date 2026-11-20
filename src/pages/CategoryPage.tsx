@@ -1,19 +1,22 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { 
-  ArrowRight, 
-  CheckCircle2, 
-  ShieldCheck, 
-  Box, 
-  FileText, 
-  Sparkles
-} from 'lucide-react';
-import { PRODUCT_CATEGORIES } from '../data/categories';
-import { getProductsByCategory } from '../data/products';
-import { fetchAllStorefrontProducts, matchesCategory } from '../lib/catalog/storefrontProducts';
-import { Container } from '../components/common/Container';
-import { Button } from '../components/common/Button';
-import type { Product } from '../types';
+import React, { useState, useEffect, useMemo } from "react";
+import { useParams, Link } from "react-router-dom";
+import {
+  ArrowRight,
+  CheckCircle2,
+  ShieldCheck,
+  Box,
+  FileText,
+  Sparkles,
+} from "lucide-react";
+import { PRODUCT_CATEGORIES } from "../data/categories";
+import { getProductsByCategory } from "../data/products";
+import {
+  fetchAllStorefrontProducts,
+  matchesCategory,
+} from "../lib/catalog/storefrontProducts";
+import { Container } from "../components/common/Container";
+import { Button } from "../components/common/Button";
+import type { Product } from "../types";
 
 export const CategoryPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -21,9 +24,9 @@ export const CategoryPage: React.FC = () => {
 
   // Initial category resolution from static config or dynamic synthesis
   const category = useMemo(() => {
-    const s = (slug || '').toLowerCase();
+    const s = (slug || "").toLowerCase();
     const found = PRODUCT_CATEGORIES.find(
-      (c) => c.slug.toLowerCase() === s || c.id.toLowerCase() === s
+      (c) => c.slug.toLowerCase() === s || c.id.toLowerCase() === s,
     );
     if (found) return found;
 
@@ -33,11 +36,16 @@ export const CategoryPage: React.FC = () => {
       id: s,
       name: capitalized,
       slug: s,
-      iconName: 'Box',
+      iconName: "Box",
       itemCount: 0,
       description: `Comprehensive export and private-label manufacturing portfolio for ${capitalized}.`,
-      image: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80',
-      highlightSpecs: ['Private Label OEM/ODM', 'AQL II Pre-Shipment Inspection', 'Worldwide Ocean Freight'],
+      image:
+        "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80",
+      highlightSpecs: [
+        "Private Label OEM/ODM",
+        "AQL II Pre-Shipment Inspection",
+        "Worldwide Ocean Freight",
+      ],
     };
   }, [slug]);
 
@@ -51,7 +59,7 @@ export const CategoryPage: React.FC = () => {
           setAllProducts(list);
         }
       } catch (err) {
-        console.warn('Could not load dynamic products for category:', err);
+        console.warn("Could not load dynamic products for category:", err);
       }
     }
     load();
@@ -73,7 +81,6 @@ export const CategoryPage: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-brand-gray-bg select-none">
-      
       {/* 1. Category Hero Banner */}
       <section className="relative bg-brand-blue-navy text-white py-16 sm:py-20 lg:py-24 overflow-hidden border-b border-white/10">
         {/* Background Image with Dark Vignette */}
@@ -92,12 +99,14 @@ export const CategoryPage: React.FC = () => {
         <div className="absolute bottom-10 left-10 w-80 h-80 bg-brand-blue/20 rounded-full blur-3xl pointer-events-none" />
 
         <Container size="xl" className="relative z-10">
-
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-green/20 text-brand-green border border-brand-green/30 text-xs font-semibold">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Audited B2B Sourcing Portfolio • {category.itemCount}+ Factory Models</span>
+                <span>
+                  Audited B2B Sourcing Portfolio • {category.itemCount}+ Factory
+                  Models
+                </span>
               </div>
 
               <h1 className="font-heading font-semibold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15]">
@@ -105,7 +114,9 @@ export const CategoryPage: React.FC = () => {
               </h1>
 
               <p className="font-subheading text-sm text-slate-300 max-w-2xl leading-relaxed">
-                {category.description} Sourced directly from pre-vetted OEM/ODM manufacturing hubs with strict AQL II pre-shipment inspections and container load optimization.
+                {category.description} Sourced directly from pre-vetted OEM/ODM
+                manufacturing hubs with strict AQL II pre-shipment inspections
+                and container load optimization.
               </p>
 
               {/* Benchmark Feature Tags */}
@@ -127,25 +138,40 @@ export const CategoryPage: React.FC = () => {
               <h3 className="font-heading font-semibold text-sm uppercase tracking-wider text-brand-green">
                 Category Trade Guarantee
               </h3>
-              
+
               <ul className="space-y-3 text-xs text-slate-200">
                 <li className="flex items-start gap-2.5">
                   <ShieldCheck className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
-                  <span><strong>100% Pre-Shipment Audit:</strong> Electrical Hi-Pot, functional stress test, and cosmetic inspection before dispatch.</span>
+                  <span>
+                    <strong>100% Pre-Shipment Audit:</strong> Electrical Hi-Pot,
+                    functional stress test, and cosmetic inspection before
+                    dispatch.
+                  </span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Box className="w-4 h-4 text-brand-green shrink-0 mt-0.5" />
-                  <span><strong>Container Maximization:</strong> Computer-modeled 3D pallet and carton loading for maximum freight yield.</span>
+                  <span>
+                    <strong>Container Maximization:</strong> Computer-modeled 3D
+                    pallet and carton loading for maximum freight yield.
+                  </span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <FileText className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
-                  <span><strong>Private Label Ready:</strong> Full OEM/ODM branding, silk-screen UI, and bilingual retail packaging.</span>
+                  <span>
+                    <strong>Private Label Ready:</strong> Full OEM/ODM branding,
+                    silk-screen UI, and bilingual retail packaging.
+                  </span>
                 </li>
               </ul>
 
               <div className="pt-3 border-t border-white/10">
                 <Link to="/contact">
-                  <Button variant="accent" size="sm" className="w-full justify-center" icon={<ArrowRight className="w-4 h-4" />}>
+                  <Button
+                    variant="accent"
+                    size="sm"
+                    className="w-full justify-center"
+                    icon={<ArrowRight className="w-4 h-4" />}
+                  >
                     Request Sourcing Dossier
                   </Button>
                 </Link>
@@ -158,7 +184,6 @@ export const CategoryPage: React.FC = () => {
       {/* 2. Products Showcase Section */}
       <section className="py-12 sm:py-16">
         <Container size="xl">
-          
           {/* Header Controls: Subcategory filter & View mode switcher */}
           {/* Header */}
           <div className="mb-10 pb-6 border-b border-brand-gray-border/80">
@@ -166,9 +191,11 @@ export const CategoryPage: React.FC = () => {
               Featured {category.name} Models
             </h2>
             <p className="font-subheading text-xs sm:text-sm text-brand-gray-muted mt-1">
-              Showing {products.length} verified commercial models ready for containerized volume allocation.
+              Showing {products.length} verified commercial models ready for
+              containerized volume allocation.
             </p>
-          </div>          {/* PRODUCT CARDS */}
+          </div>{" "}
+          {/* PRODUCT CARDS */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((prod) => (
               <Link
@@ -226,10 +253,8 @@ export const CategoryPage: React.FC = () => {
               </Link>
             ))}
           </div>
-
         </Container>
       </section>
-
     </div>
   );
 };

@@ -18,11 +18,18 @@ export function AdminProductNewPage() {
     adminApi
       .listCategories()
       .then(setCategories)
-      .catch((err) => setError(err instanceof Error ? err.message : "Unable to load categories"))
+      .catch((err) =>
+        setError(
+          err instanceof Error ? err.message : "Unable to load categories",
+        ),
+      )
       .finally(() => setReady(true));
   }, []);
 
-  const handleSubmit = async (values: ProductFormValues, images: ImageDraft[]) => {
+  const handleSubmit = async (
+    values: ProductFormValues,
+    images: ImageDraft[],
+  ) => {
     setSubmitting(true);
     setError("");
     const form = buildProductFormData(values, images, "create");
@@ -31,7 +38,9 @@ export function AdminProductNewPage() {
       await adminApi.createProduct(form);
       navigate("/admin/products", { replace: true });
     } catch (err) {
-      setError(err instanceof AdminApiError ? err.message : "Unable to create product");
+      setError(
+        err instanceof AdminApiError ? err.message : "Unable to create product",
+      );
       setSubmitting(false);
     }
   };
@@ -41,9 +50,12 @@ export function AdminProductNewPage() {
       <div className="space-y-2">
         <AdminBackLink href="/admin/products" label="Back to products" />
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Create Export Product</h1>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            Create Export Product
+          </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Fill core product information, ERP specifications, multi-SKU variants, and upload gallery imagery.
+            Fill core product information, ERP specifications, multi-SKU
+            variants, and upload gallery imagery.
           </p>
         </div>
       </div>
@@ -56,7 +68,9 @@ export function AdminProductNewPage() {
             onSubmit={handleSubmit}
           />
         ) : (
-          <p className="text-sm text-slate-500 p-8 text-center">Loading product form...</p>
+          <p className="text-sm text-slate-500 p-8 text-center">
+            Loading product form...
+          </p>
         )}
       </div>
     </div>

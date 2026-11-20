@@ -24,7 +24,10 @@ export function AdminCategoriesPage() {
     setLoading(true);
     load()
       .catch((err) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : "Unable to load categories");
+        if (!cancelled)
+          setError(
+            err instanceof Error ? err.message : "Unable to load categories",
+          );
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -51,7 +54,9 @@ export function AdminCategoriesPage() {
       await load();
       closeForm();
     } catch (err) {
-      throw err instanceof AdminApiError ? err : new Error("Unable to save category");
+      throw err instanceof AdminApiError
+        ? err
+        : new Error("Unable to save category");
     } finally {
       setSubmitting(false);
     }
@@ -64,7 +69,9 @@ export function AdminCategoriesPage() {
       await adminApi.deleteCategory(category.id);
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to delete category");
+      setError(
+        err instanceof Error ? err.message : "Unable to delete category",
+      );
     }
   };
 
@@ -72,9 +79,12 @@ export function AdminCategoriesPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Export Categories Hierarchy</h1>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            Export Categories Hierarchy
+          </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Organize catalog taxonomy into root divisions and subcategories with automatic slugification.
+            Organize catalog taxonomy into root divisions and subcategories with
+            automatic slugification.
           </p>
         </div>
         <button
@@ -93,13 +103,19 @@ export function AdminCategoriesPage() {
       </div>
 
       {error ? (
-        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>
+        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+          {error}
+        </p>
       ) : null}
 
       {formOpen ? (
         <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
           <h2 className="text-sm font-semibold text-slate-900 mb-4">
-            {editing ? `Edit category: ${editing.name}` : parentId ? "New subcategory" : "New root category"}
+            {editing
+              ? `Edit category: ${editing.name}`
+              : parentId
+                ? "New subcategory"
+                : "New root category"}
           </h2>
           <CategoryForm
             categories={categories}
@@ -113,7 +129,9 @@ export function AdminCategoriesPage() {
       ) : null}
 
       {loading ? (
-        <div className="p-8 text-center text-sm text-slate-500">Loading categories taxonomy...</div>
+        <div className="p-8 text-center text-sm text-slate-500">
+          Loading categories taxonomy...
+        </div>
       ) : (
         <CategoryTable
           categories={categories}

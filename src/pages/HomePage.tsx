@@ -1,12 +1,12 @@
-import React from 'react';
-import { HeroSection } from '../components/home/HeroSection';
-import { TrustedBrandsMarquee } from '../components/home/TrustedBrandsMarquee';
-import { GlobalTradeBanner } from '../components/home/GlobalTradeBanner';
-import { WhatWeDoSection } from '../components/home/WhatWeDoSection';
-import { HowItWorksTimeline } from '../components/home/HowItWorksTimeline';
-import { FeaturedCategoriesSection } from '../components/home/FeaturedCategoriesSection';
-import { WhyChooseUsSection } from '../components/home/WhyChooseUsSection';
-import { CtaBanner } from '../components/home/CtaBanner';
+import React from "react";
+import { HeroSection } from "../components/home/HeroSection";
+import { TrustedBrandsMarquee } from "../components/home/TrustedBrandsMarquee";
+import { GlobalTradeBanner } from "../components/home/GlobalTradeBanner";
+import { WhatWeDoSection } from "../components/home/WhatWeDoSection";
+import { HowItWorksTimeline } from "../components/home/HowItWorksTimeline";
+import { FeaturedCategoriesSection } from "../components/home/FeaturedCategoriesSection";
+import { WhyChooseUsSection } from "../components/home/WhyChooseUsSection";
+import { CtaBanner } from "../components/home/CtaBanner";
 
 export const HomePage: React.FC = () => {
   return (

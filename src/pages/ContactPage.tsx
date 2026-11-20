@@ -1,86 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Container } from '../components/common/Container';
-import { Badge } from '../components/common/Badge';
-import { Button } from '../components/common/Button';
-import { COMPANY_INFO } from '../data/company';
-import { PRODUCT_CATEGORIES } from '../data/categories';
-import { Mail, Phone, MapPin, Send, CheckCircle2, Clock, MessageSquare } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Container } from "../components/common/Container";
+import { Badge } from "../components/common/Badge";
+import { Button } from "../components/common/Button";
+import { COMPANY_INFO } from "../data/company";
+import { PRODUCT_CATEGORIES } from "../data/categories";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle2,
+  Clock,
+  MessageSquare,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 // Zod Validation Schema
 const quoteSchema = z.object({
-  fullName: z.string().min(2, 'Contact name must be at least 2 characters'),
+  fullName: z.string().min(2, "Contact name must be at least 2 characters"),
   companyName: z.string().optional(),
-  businessEmail: z.string().email('Please provide a valid corporate email'),
-  phoneNumber: z.string().min(6, 'Please provide an active phone or WhatsApp number'),
-  country: z.string().min(2, 'Destination country is required'),
+  businessEmail: z.string().email("Please provide a valid corporate email"),
+  phoneNumber: z
+    .string()
+    .min(6, "Please provide an active phone or WhatsApp number"),
+  country: z.string().min(2, "Destination country is required"),
   destinationPort: z.string().optional(),
   productCategory: z.string().optional(),
-  orderVolume: z.string().min(1, 'Please specify projected container quantity'),
+  orderVolume: z.string().min(1, "Please specify projected container quantity"),
   tradeTerm: z.string().optional(),
-  message: z.string().min(10, 'Please share model specifics, target specs, or questions (min 10 characters)'),
+  message: z
+    .string()
+    .min(
+      10,
+      "Please share model specifics, target specs, or questions (min 10 characters)",
+    ),
 });
 
 type QuoteFormData = z.infer<typeof quoteSchema>;
 
 export const COUNTRIES_LIST = [
-  'United States',
-  'Germany',
-  'United Kingdom',
-  'United Arab Emirates',
-  'Saudi Arabia',
-  'Australia',
-  'Brazil',
-  'Canada',
-  'France',
-  'Italy',
-  'Spain',
-  'Netherlands',
-  'Belgium',
-  'Poland',
-  'Sweden',
-  'Norway',
-  'Switzerland',
-  'Turkey',
-  'Egypt',
-  'South Africa',
-  'Mexico',
-  'Chile',
-  'Colombia',
-  'Peru',
-  'Argentina',
-  'Japan',
-  'South Korea',
-  'Singapore',
-  'Malaysia',
-  'Thailand',
-  'Vietnam',
-  'Indonesia',
-  'Philippines',
-  'India',
-  'Qatar',
-  'Kuwait',
-  'Oman',
-  'Bahrain',
-  'Jordan',
-  'Nigeria',
-  'Ghana',
-  'Kenya',
-  'New Zealand',
-  'Other / Global Destination',
+  "United States",
+  "Germany",
+  "United Kingdom",
+  "United Arab Emirates",
+  "Saudi Arabia",
+  "Australia",
+  "Brazil",
+  "Canada",
+  "France",
+  "Italy",
+  "Spain",
+  "Netherlands",
+  "Belgium",
+  "Poland",
+  "Sweden",
+  "Norway",
+  "Switzerland",
+  "Turkey",
+  "Egypt",
+  "South Africa",
+  "Mexico",
+  "Chile",
+  "Colombia",
+  "Peru",
+  "Argentina",
+  "Japan",
+  "South Korea",
+  "Singapore",
+  "Malaysia",
+  "Thailand",
+  "Vietnam",
+  "Indonesia",
+  "Philippines",
+  "India",
+  "Qatar",
+  "Kuwait",
+  "Oman",
+  "Bahrain",
+  "Jordan",
+  "Nigeria",
+  "Ghana",
+  "Kenya",
+  "New Zealand",
+  "Other / Global Destination",
 ];
 
 export const ContactPage: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const prefillModel = searchParams.get('model');
-  const prefillCategory = searchParams.get('category');
+  const prefillModel = searchParams.get("model");
+  const prefillCategory = searchParams.get("category");
 
   const [submitted, setSubmitted] = useState(false);
-  const [inquiryCode, setInquiryCode] = useState('');
+  const [inquiryCode, setInquiryCode] = useState("");
 
   const {
     register,
@@ -91,40 +106,40 @@ export const ContactPage: React.FC = () => {
   } = useForm<QuoteFormData>({
     resolver: zodResolver(quoteSchema),
     defaultValues: {
-      fullName: '',
-      companyName: '',
-      businessEmail: '',
-      phoneNumber: '',
-      country: '',
-      destinationPort: '',
-      productCategory: prefillCategory || '',
-      orderVolume: '1x 40HQ Container',
-      tradeTerm: 'CIF (Cost, Insurance & Freight)',
+      fullName: "",
+      companyName: "",
+      businessEmail: "",
+      phoneNumber: "",
+      country: "",
+      destinationPort: "",
+      productCategory: prefillCategory || "",
+      orderVolume: "1x 40HQ Container",
+      tradeTerm: "CIF (Cost, Insurance & Freight)",
       message: prefillModel
         ? `Inquiring for container volume quotation regarding model code: ${prefillModel}. Please provide FOB & CIF unit pricing and lead times.`
-        : '',
+        : "",
     },
   });
 
   useEffect(() => {
     if (prefillCategory) {
-      setValue('productCategory', prefillCategory);
+      setValue("productCategory", prefillCategory);
     }
     if (prefillModel) {
       setValue(
-        'message',
-        `Inquiring for container volume quotation regarding model code: ${prefillModel}. Please provide FOB & CIF unit pricing and lead times.`
+        "message",
+        `Inquiring for container volume quotation regarding model code: ${prefillModel}. Please provide FOB & CIF unit pricing and lead times.`,
       );
     }
   }, [prefillCategory, prefillModel, setValue]);
 
   const onSubmit = (data: QuoteFormData) => {
     // Generate inquiry reference number
-    const code = 'AT-RFQ-' + Math.floor(100000 + Math.random() * 900000);
+    const code = "AT-RFQ-" + Math.floor(100000 + Math.random() * 900000);
     setInquiryCode(code);
     setSubmitted(true);
     // In production this connects to API or CRM
-    console.log('Submitted B2B RFQ:', { ...data, inquiryCode: code });
+    console.log("Submitted B2B RFQ:", { ...data, inquiryCode: code });
   };
 
   return (
@@ -139,16 +154,17 @@ export const ContactPage: React.FC = () => {
             Request Container Pricing & Sourcing Dossier
           </h1>
           <p className="font-subheading text-base text-brand-gray-muted mt-2">
-            Connect directly with our international appliance trading coordinators. Receive a transparent price breakdown, AQL II inspection framework, and vessel sailing options within 24 to 48 hours.
+            Connect directly with our international appliance trading
+            coordinators. Receive a transparent price breakdown, AQL II
+            inspection framework, and vessel sailing options within 24 to 48
+            hours.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          
           {/* Left Column: Form Card */}
           <div className="lg:col-span-8">
             <div className="rounded-3xl bg-white p-5 sm:p-8 md:p-10 border border-brand-gray-border/80 shadow-card">
-              
               {submitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -158,20 +174,24 @@ export const ContactPage: React.FC = () => {
                   <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
-                  
+
                   <h3 className="font-heading font-semibold text-2xl text-brand-blue-navy">
                     Trade Inquiry Submitted Successfully
                   </h3>
-                  
+
                   <p className="text-xs text-brand-gray-muted max-w-md mx-auto leading-relaxed">
-                    Thank you for reaching out to Meet Appliances. Your inquiry dossier has been assigned to our senior appliance procurement team.
+                    Thank you for reaching out to Meet Appliances. Your inquiry
+                    dossier has been assigned to our senior appliance
+                    procurement team.
                   </p>
 
                   <div className="inline-block p-4 rounded-2xl bg-brand-gray-bg border border-brand-gray-border text-center">
                     <span className="text-[11px] uppercase font-bold text-brand-gray-muted tracking-wider block">
                       Inquiry Tracking Reference:
                     </span>
-                    <span className="font-mono font-bold text-base text-brand-blue">{inquiryCode}</span>
+                    <span className="font-mono font-bold text-base text-brand-blue">
+                      {inquiryCode}
+                    </span>
                   </div>
 
                   <div className="pt-6">
@@ -197,14 +217,18 @@ export const ContactPage: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        {...register('fullName')}
+                        {...register("fullName")}
                         placeholder="e.g. David Mueller"
                         className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
-                          errors.fullName ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
+                          errors.fullName
+                            ? "border-red-500 focus:ring-1 focus:ring-red-500"
+                            : "border-brand-gray-border focus:border-brand-blue"
                         }`}
                       />
                       {errors.fullName && (
-                        <p className="text-[11px] text-red-500 mt-1">{errors.fullName.message}</p>
+                        <p className="text-[11px] text-red-500 mt-1">
+                          {errors.fullName.message}
+                        </p>
                       )}
                     </div>
 
@@ -215,7 +239,7 @@ export const ContactPage: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        {...register('companyName')}
+                        {...register("companyName")}
                         placeholder="e.g. EuroTech Appliances Ltd."
                         className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all min-h-[44px]"
                       />
@@ -228,14 +252,18 @@ export const ContactPage: React.FC = () => {
                       </label>
                       <input
                         type="email"
-                        {...register('businessEmail')}
+                        {...register("businessEmail")}
                         placeholder="procurement@company.com"
                         className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
-                          errors.businessEmail ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
+                          errors.businessEmail
+                            ? "border-red-500 focus:ring-1 focus:ring-red-500"
+                            : "border-brand-gray-border focus:border-brand-blue"
                         }`}
                       />
                       {errors.businessEmail && (
-                        <p className="text-[11px] text-red-500 mt-1">{errors.businessEmail.message}</p>
+                        <p className="text-[11px] text-red-500 mt-1">
+                          {errors.businessEmail.message}
+                        </p>
                       )}
                     </div>
 
@@ -246,14 +274,18 @@ export const ContactPage: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        {...register('phoneNumber')}
+                        {...register("phoneNumber")}
                         placeholder="+49 170 1234567"
                         className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all min-h-[44px] ${
-                          errors.phoneNumber ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
+                          errors.phoneNumber
+                            ? "border-red-500 focus:ring-1 focus:ring-red-500"
+                            : "border-brand-gray-border focus:border-brand-blue"
                         }`}
                       />
                       {errors.phoneNumber && (
-                        <p className="text-[11px] text-red-500 mt-1">{errors.phoneNumber.message}</p>
+                        <p className="text-[11px] text-red-500 mt-1">
+                          {errors.phoneNumber.message}
+                        </p>
                       )}
                     </div>
 
@@ -263,9 +295,11 @@ export const ContactPage: React.FC = () => {
                         Country *
                       </label>
                       <select
-                        {...register('country')}
+                        {...register("country")}
                         className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all bg-white min-h-[44px] ${
-                          errors.country ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
+                          errors.country
+                            ? "border-red-500 focus:ring-1 focus:ring-red-500"
+                            : "border-brand-gray-border focus:border-brand-blue"
                         }`}
                       >
                         <option value="">Select Destination Country</option>
@@ -276,7 +310,9 @@ export const ContactPage: React.FC = () => {
                         ))}
                       </select>
                       {errors.country && (
-                        <p className="text-[11px] text-red-500 mt-1">{errors.country.message}</p>
+                        <p className="text-[11px] text-red-500 mt-1">
+                          {errors.country.message}
+                        </p>
                       )}
                     </div>
 
@@ -287,7 +323,7 @@ export const ContactPage: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        {...register('destinationPort')}
+                        {...register("destinationPort")}
                         placeholder="e.g. Port of Hamburg, Jebel Ali, Santos"
                         className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all min-h-[44px]"
                       />
@@ -299,7 +335,7 @@ export const ContactPage: React.FC = () => {
                         Appliance Category
                       </label>
                       <select
-                        {...register('productCategory')}
+                        {...register("productCategory")}
                         className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white min-h-[44px]"
                       >
                         <option value="">Select Category (Optional)</option>
@@ -308,7 +344,9 @@ export const ContactPage: React.FC = () => {
                             {cat.name}
                           </option>
                         ))}
-                        <option value="Custom Mixed Container">Custom Mixed Appliance Container</option>
+                        <option value="Custom Mixed Container">
+                          Custom Mixed Appliance Container
+                        </option>
                       </select>
                     </div>
 
@@ -318,14 +356,24 @@ export const ContactPage: React.FC = () => {
                         Projected Order Volume *
                       </label>
                       <select
-                        {...register('orderVolume')}
+                        {...register("orderVolume")}
                         className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white min-h-[44px]"
                       >
-                        <option value="1x 20GP Container">1x 20GP Container (Trial)</option>
-                        <option value="1x 40HQ Container">1x 40HQ Container (Standard)</option>
-                        <option value="2 - 5x 40HQ Containers">2 - 5x 40HQ Containers</option>
-                        <option value="10+ Containers (Annual Program)">10+ Containers (Annual Contract)</option>
-                        <option value="LCL Sample Consolidation">Sample / Golden Prototype Evaluation</option>
+                        <option value="1x 20GP Container">
+                          1x 20GP Container (Trial)
+                        </option>
+                        <option value="1x 40HQ Container">
+                          1x 40HQ Container (Standard)
+                        </option>
+                        <option value="2 - 5x 40HQ Containers">
+                          2 - 5x 40HQ Containers
+                        </option>
+                        <option value="10+ Containers (Annual Program)">
+                          10+ Containers (Annual Contract)
+                        </option>
+                        <option value="LCL Sample Consolidation">
+                          Sample / Golden Prototype Evaluation
+                        </option>
                       </select>
                     </div>
 
@@ -335,15 +383,27 @@ export const ContactPage: React.FC = () => {
                         Preferred Trade Term (Incoterms® 2020)
                       </label>
                       <select
-                        {...register('tradeTerm')}
+                        {...register("tradeTerm")}
                         className="w-full px-4 py-3 rounded-xl border border-brand-gray-border text-base sm:text-xs text-brand-blue-navy focus:outline-none focus:border-brand-blue transition-all bg-white min-h-[44px]"
                       >
-                        <option value="">Select Preferred Trade Term (Optional)</option>
-                        <option value="CIF (Cost, Insurance & Freight)">CIF (Cost, Insurance & Freight - Recommended)</option>
-                        <option value="FOB (Free on Board - Origin Port)">FOB (Free on Board - Origin Port)</option>
-                        <option value="CFR (Cost and Freight)">CFR (Cost and Freight)</option>
-                        <option value="DDP (Delivered Duty Paid)">DDP (Delivered Duty Paid to Warehouse)</option>
-                        <option value="EXW (Ex Works)">EXW (Ex Works Factory)</option>
+                        <option value="">
+                          Select Preferred Trade Term (Optional)
+                        </option>
+                        <option value="CIF (Cost, Insurance & Freight)">
+                          CIF (Cost, Insurance & Freight - Recommended)
+                        </option>
+                        <option value="FOB (Free on Board - Origin Port)">
+                          FOB (Free on Board - Origin Port)
+                        </option>
+                        <option value="CFR (Cost and Freight)">
+                          CFR (Cost and Freight)
+                        </option>
+                        <option value="DDP (Delivered Duty Paid)">
+                          DDP (Delivered Duty Paid to Warehouse)
+                        </option>
+                        <option value="EXW (Ex Works)">
+                          EXW (Ex Works Factory)
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -351,18 +411,23 @@ export const ContactPage: React.FC = () => {
                   {/* Message / Specifications */}
                   <div>
                     <label className="block text-xs font-bold text-brand-blue-navy mb-2">
-                      Specific Requirements, Certifications, Target Pricing or Model Codes *
+                      Specific Requirements, Certifications, Target Pricing or
+                      Model Codes *
                     </label>
                     <textarea
                       rows={4}
-                      {...register('message')}
+                      {...register("message")}
                       placeholder="Please mention electrical specifications (voltage/Hz), desired certifications (CE, SASO, UL), custom OEM logo packaging requirements, or target FOB price..."
                       className={`w-full px-4 py-3 rounded-xl border text-base sm:text-xs text-brand-blue-navy focus:outline-none transition-all ${
-                        errors.message ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-brand-gray-border focus:border-brand-blue'
+                        errors.message
+                          ? "border-red-500 focus:ring-1 focus:ring-red-500"
+                          : "border-brand-gray-border focus:border-brand-blue"
                       }`}
                     />
                     {errors.message && (
-                      <p className="text-[11px] text-red-500 mt-1">{errors.message.message}</p>
+                      <p className="text-[11px] text-red-500 mt-1">
+                        {errors.message.message}
+                      </p>
                     )}
                   </div>
 
@@ -377,16 +442,18 @@ export const ContactPage: React.FC = () => {
                       className="w-full justify-center"
                       icon={<Send className="w-4 h-4" />}
                     >
-                      {isSubmitting ? 'Processing Trade Dossier...' : 'Submit Container Sourcing RFQ'}
+                      {isSubmitting
+                        ? "Processing Trade Dossier..."
+                        : "Submit Container Sourcing RFQ"}
                     </Button>
                   </div>
 
                   <p className="text-[11px] text-brand-gray-muted text-center pt-2">
-                    All submitted trade data is protected by strict B2B mutual non-disclosure (NDA) protocols.
+                    All submitted trade data is protected by strict B2B mutual
+                    non-disclosure (NDA) protocols.
                   </p>
                 </form>
               )}
-
             </div>
           </div>
 
@@ -405,15 +472,21 @@ export const ContactPage: React.FC = () => {
               </h3>
 
               <p className="text-xs text-slate-300 leading-relaxed">
-                Connect directly with our regional trade coordinators for urgent container bookings or OEM production scheduling.
+                Connect directly with our regional trade coordinators for urgent
+                container bookings or OEM production scheduling.
               </p>
 
               <div className="space-y-4 pt-2 text-xs text-slate-200">
                 <div className="flex items-start gap-3">
                   <Mail className="w-4 h-4 text-brand-green shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Sourcing & RFQ Desk:</span>
-                    <a href={`mailto:${COMPANY_INFO.quoteEmail}`} className="font-medium hover:text-brand-green transition-colors">
+                    <span className="text-slate-400 block text-[11px]">
+                      Sourcing & RFQ Desk:
+                    </span>
+                    <a
+                      href={`mailto:${COMPANY_INFO.quoteEmail}`}
+                      className="font-medium hover:text-brand-green transition-colors"
+                    >
                       {COMPANY_INFO.quoteEmail}
                     </a>
                   </div>
@@ -422,8 +495,13 @@ export const ContactPage: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <Phone className="w-4 h-4 text-brand-green shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Direct Trade Hotline:</span>
-                    <a href={`tel:${COMPANY_INFO.phone}`} className="font-medium hover:text-brand-green transition-colors">
+                    <span className="text-slate-400 block text-[11px]">
+                      Direct Trade Hotline:
+                    </span>
+                    <a
+                      href={`tel:${COMPANY_INFO.phone}`}
+                      className="font-medium hover:text-brand-green transition-colors"
+                    >
                       {COMPANY_INFO.phone}
                     </a>
                   </div>
@@ -432,7 +510,9 @@ export const ContactPage: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-brand-green shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Headquarters:</span>
+                    <span className="text-slate-400 block text-[11px]">
+                      Headquarters:
+                    </span>
                     <span className="font-medium">{COMPANY_INFO.address}</span>
                   </div>
                 </div>
@@ -440,15 +520,19 @@ export const ContactPage: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <Clock className="w-4 h-4 text-brand-green shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Trading Hours:</span>
-                    <span className="font-medium">{COMPANY_INFO.businessHours}</span>
+                    <span className="text-slate-400 block text-[11px]">
+                      Trading Hours:
+                    </span>
+                    <span className="font-medium">
+                      {COMPANY_INFO.businessHours}
+                    </span>
                   </div>
                 </div>
               </div>
 
               <div className="pt-4 border-t border-white/10">
                 <a
-                  href={`https://wa.me/${COMPANY_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(COMPANY_INFO.whatsappMessage)}`}
+                  href={`https://wa.me/${COMPANY_INFO.whatsappNumber.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(COMPANY_INFO.whatsappMessage)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba59] transition-all shadow-md"
@@ -480,7 +564,6 @@ export const ContactPage: React.FC = () => {
               </div>
             </div> */}
           </div>
-
         </div>
       </Container>
     </div>

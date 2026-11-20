@@ -1,10 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { TRADE_SERVICES } from '../data/services';
-import { Container } from '../components/common/Container';
-import { Badge } from '../components/common/Badge';
-import { Button } from '../components/common/Button';
-import { SearchCheck, ShieldCheck, Ship, FileText, CheckCircle2, Clock, ArrowRight } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { TRADE_SERVICES } from "../data/services";
+import { Container } from "../components/common/Container";
+import { Badge } from "../components/common/Badge";
+import { Button } from "../components/common/Button";
+import {
+  SearchCheck,
+  ShieldCheck,
+  Ship,
+  FileText,
+  CheckCircle2,
+  Clock,
+  ArrowRight,
+} from "lucide-react";
 
 export const ServicesPage: React.FC = () => {
   const iconMap: Record<string, any> = {
@@ -28,7 +36,9 @@ export const ServicesPage: React.FC = () => {
               Sourcing, Inspection & Freight Services
             </h1>
             <p className="font-subheading text-base sm:text-sm text-slate-300 mt-4 leading-relaxed">
-              We operate as your on-the-ground international trading arm. From negotiating Tier-1 benchmark prices to conducting pre-shipment drop tests and securing ocean slots, we manage every trade phase.
+              We operate as your on-the-ground international trading arm. From
+              negotiating Tier-1 benchmark prices to conducting pre-shipment
+              drop tests and securing ocean slots, we manage every trade phase.
             </p>
           </div>
         </Container>
@@ -47,8 +57,9 @@ export const ServicesPage: React.FC = () => {
                 key={srv.id}
                 className="rounded-3xl bg-white p-5 sm:p-8 md:p-12 border border-brand-gray-border/80 shadow-card"
               >
-                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
-                  
+                <div
+                  className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center ${isReversed ? "lg:flex-row-reverse" : ""}`}
+                >
                   {/* Left Column: Details */}
                   <div className="lg:col-span-7 space-y-6">
                     <div className="flex items-center gap-3">
@@ -78,7 +89,10 @@ export const ServicesPage: React.FC = () => {
                       </h4>
                       <ul className="space-y-2">
                         {srv.benefits.map((b, bIdx) => (
-                          <li key={bIdx} className="flex items-start gap-2.5 text-xs text-brand-gray-text">
+                          <li
+                            key={bIdx}
+                            className="flex items-start gap-2.5 text-xs text-brand-gray-text"
+                          >
                             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                             <span>{b}</span>
                           </li>
@@ -88,8 +102,14 @@ export const ServicesPage: React.FC = () => {
 
                     <div className="pt-4 flex items-center gap-4">
                       <Link to="/contact" className="w-full sm:w-auto">
-                        <Button variant="primary" size="md" glow icon={<ArrowRight className="w-4 h-4" />} className="w-full sm:w-auto min-h-[44px]">
-                          Inquire for {srv.title.split(' ')[0]}
+                        <Button
+                          variant="primary"
+                          size="md"
+                          glow
+                          icon={<ArrowRight className="w-4 h-4" />}
+                          className="w-full sm:w-auto min-h-[44px]"
+                        >
+                          Inquire for {srv.title.split(" ")[0]}
                         </Button>
                       </Link>
                     </div>
@@ -108,7 +128,10 @@ export const ServicesPage: React.FC = () => {
 
                     <div className="space-y-3">
                       {srv.deliverables.map((deliv, dIdx) => (
-                        <div key={dIdx} className="p-3 bg-white rounded-xl border border-brand-gray-border shadow-xs text-xs font-medium text-slate-800 flex items-center gap-2">
+                        <div
+                          key={dIdx}
+                          className="p-3 bg-white rounded-xl border border-brand-gray-border shadow-xs text-xs font-medium text-slate-800 flex items-center gap-2"
+                        >
                           <span className="w-2 h-2 rounded-full bg-brand-green"></span>
                           <span>{deliv}</span>
                         </div>
@@ -116,10 +139,11 @@ export const ServicesPage: React.FC = () => {
                     </div>
 
                     <div className="pt-3 text-[11px] text-brand-gray-muted leading-relaxed">
-                      All audit reports and test findings are archived in your secure client portal for rapid customs and insurance retrieval.
+                      All audit reports and test findings are archived in your
+                      secure client portal for rapid customs and insurance
+                      retrieval.
                     </div>
                   </div>
-
                 </div>
               </div>
             );
@@ -132,11 +156,18 @@ export const ServicesPage: React.FC = () => {
             Need a Bespoke Trade or Consolidation Route?
           </h3>
           <p className="text-xs sm:text-sm text-slate-300 mt-3 max-w-xl mx-auto">
-            Our trade coordinators manage complex multi-supplier container consolidations (LCL into FCL), OEM tooling protection, and specialized customs tariffs worldwide.
+            Our trade coordinators manage complex multi-supplier container
+            consolidations (LCL into FCL), OEM tooling protection, and
+            specialized customs tariffs worldwide.
           </p>
           <div className="mt-6">
             <Link to="/contact">
-              <Button variant="accent" size="lg" glow icon={<ArrowRight className="w-4 h-4" />}>
+              <Button
+                variant="accent"
+                size="lg"
+                glow
+                icon={<ArrowRight className="w-4 h-4" />}
+              >
                 Connect With Trade Desk
               </Button>
             </Link>

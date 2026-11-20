@@ -1,17 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from '../components/common/Container';
-import { Badge } from '../components/common/Badge';
-import { Button } from '../components/common/Button';
-import { ShieldCheck, Target, Globe, ArrowRight, Scale } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Container } from "../components/common/Container";
+import { Badge } from "../components/common/Badge";
+import { Button } from "../components/common/Button";
+import { ShieldCheck, Target, Globe, ArrowRight, Scale } from "lucide-react";
 
 export const AboutPage: React.FC = () => {
   const milestones = [
-    { year: '2012', title: 'Founded in Global Trade Port', desc: 'Began operations as an independent sourcing bureau connecting European distributors with Ningbo refrigeration producers.' },
-    { year: '2015', title: 'Established Resident QA Team', desc: 'Built dedicated engineering inspection squads in Shunde, Ningbo, and Qingdao for 100% pre-shipment testing.' },
-    { year: '2018', title: '50-Country Milestone', desc: 'Expanded trade coverage to Latin America, Middle East, and Sub-Saharan Africa with tailored regional certification support.' },
-    { year: '2021', title: 'Direct Carrier Alliances', desc: 'Secured priority annual container allocations across Maersk and MSC to bypass post-pandemic supply chain crunches.' },
-    { year: '2024+', title: '14,000+ Containers Shipped', desc: 'Recognized as premier international appliance sourcing partner with $280M+ cumulative merchandise delivered.' },
+    {
+      year: "2012",
+      title: "Founded in Global Trade Port",
+      desc: "Began operations as an independent sourcing bureau connecting European distributors with Ningbo refrigeration producers.",
+    },
+    {
+      year: "2015",
+      title: "Established Resident QA Team",
+      desc: "Built dedicated engineering inspection squads in Shunde, Ningbo, and Qingdao for 100% pre-shipment testing.",
+    },
+    {
+      year: "2018",
+      title: "50-Country Milestone",
+      desc: "Expanded trade coverage to Latin America, Middle East, and Sub-Saharan Africa with tailored regional certification support.",
+    },
+    {
+      year: "2021",
+      title: "Direct Carrier Alliances",
+      desc: "Secured priority annual container allocations across Maersk and MSC to bypass post-pandemic supply chain crunches.",
+    },
+    {
+      year: "2024+",
+      title: "14,000+ Containers Shipped",
+      desc: "Recognized as premier international appliance sourcing partner with $280M+ cumulative merchandise delivered.",
+    },
   ];
 
   return (
@@ -28,7 +48,10 @@ export const AboutPage: React.FC = () => {
               An Independent Partner Advocating for the Importer
             </h1>
             <p className="font-subheading text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
-              We do not manufacture appliances. We exist to protect international brands, distributors, and retail chains from the risks, hidden costs, and quality compromises of overseas procurement.
+              We do not manufacture appliances. We exist to protect
+              international brands, distributors, and retail chains from the
+              risks, hidden costs, and quality compromises of overseas
+              procurement.
             </p>
           </div>
         </Container>
@@ -46,7 +69,12 @@ export const AboutPage: React.FC = () => {
                 Our Non-Manufacturing Guarantee & Trader Independence
               </h3>
               <p className="text-xs text-brand-gray-text mt-1 leading-relaxed">
-                Meet Appliances does not own factories or assembly lines. When you work with a factory sales representative, their allegiance belongs to the manufacturer. When you work with Meet Appliances, our sole fiduciary duty is to <strong>YOU</strong>—ensuring verified components, rock-bottom volume tariffs, and zero defect tolerance before cargo is loaded.
+                Meet Appliances does not own factories or assembly lines. When
+                you work with a factory sales representative, their allegiance
+                belongs to the manufacturer. When you work with Meet Appliances,
+                our sole fiduciary duty is to <strong>YOU</strong>—ensuring
+                verified components, rock-bottom volume tariffs, and zero defect
+                tolerance before cargo is loaded.
               </p>
             </div>
           </div>
@@ -61,9 +89,14 @@ export const AboutPage: React.FC = () => {
               <div className="w-12 h-12 rounded-xl bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-6">
                 <Target className="w-6 h-6" />
               </div>
-              <h3 className="font-heading font-bold text-xl text-brand-blue-navy mb-3">Our Mission</h3>
+              <h3 className="font-heading font-bold text-xl text-brand-blue-navy mb-3">
+                Our Mission
+              </h3>
               <p className="text-xs text-brand-gray-text leading-relaxed">
-                To eliminate the friction and vulnerability of international appliance commerce through fearless factory vetting, rigorous engineering verification, and guaranteed maritime freight delivery.
+                To eliminate the friction and vulnerability of international
+                appliance commerce through fearless factory vetting, rigorous
+                engineering verification, and guaranteed maritime freight
+                delivery.
               </p>
             </div>
 
@@ -71,9 +104,13 @@ export const AboutPage: React.FC = () => {
               <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6">
                 <Globe className="w-6 h-6" />
               </div>
-              <h3 className="font-heading font-bold text-xl text-brand-blue-navy mb-3">Global Vision</h3>
+              <h3 className="font-heading font-bold text-xl text-brand-blue-navy mb-3">
+                Global Vision
+              </h3>
               <p className="text-xs text-brand-gray-text leading-relaxed">
-                To be the undisputed global benchmark for home appliance sourcing intelligence—trusted by tier-1 retailers across all 5 continents for flawless container delivery.
+                To be the undisputed global benchmark for home appliance
+                sourcing intelligence—trusted by tier-1 retailers across all 5
+                continents for flawless container delivery.
               </p>
             </div>
 
@@ -81,9 +118,13 @@ export const AboutPage: React.FC = () => {
               <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-6">
                 <ShieldCheck className="w-6 h-6" />
               </div>
-              <h3 className="font-heading font-bold text-xl text-brand-blue-navy mb-3">Zero Compromise</h3>
+              <h3 className="font-heading font-bold text-xl text-brand-blue-navy mb-3">
+                Zero Compromise
+              </h3>
               <p className="text-xs text-brand-gray-text leading-relaxed">
-                We reject products that fail any component test, irrespective of factory pushback. Our engineering reports are exhaustive, objective, and backed by verifiable photographic evidence.
+                We reject products that fail any component test, irrespective of
+                factory pushback. Our engineering reports are exhaustive,
+                objective, and backed by verifiable photographic evidence.
               </p>
             </div>
           </div>
@@ -101,22 +142,52 @@ export const AboutPage: React.FC = () => {
               Our 5-Pillar Supplier Vetting Protocol
             </h2>
             <p className="text-base text-brand-gray-muted mt-3">
-              Only 14% of audited manufacturing applicants pass our strict onboarding criteria.
+              Only 14% of audited manufacturing applicants pass our strict
+              onboarding criteria.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {[
-              { step: '01', title: 'Financial Solvency', desc: 'Verification of audited balance sheets to prevent factory default or insolvency midway through production cycles.' },
-              { step: '02', title: 'Tooling & Machinery', desc: 'Inspection of robotic welding, automated metal stamping, and plastic injection molds for consistency.' },
-              { step: '03', title: 'Ethical Standards', desc: 'BSCI & SA8000 compliance ensuring safe worker environments and zero exploitative labor.' },
-              { step: '04', title: 'Lab Accreditation', desc: 'Verification of in-house testing labs, thermal chambers, and salt-spray corrosion test equipment.' },
-              { step: '05', title: 'Component Traceability', desc: 'Strict tracking of tier-1 compressors (GMCC, Embraco), motors, and PCBA microcontrollers.' },
+              {
+                step: "01",
+                title: "Financial Solvency",
+                desc: "Verification of audited balance sheets to prevent factory default or insolvency midway through production cycles.",
+              },
+              {
+                step: "02",
+                title: "Tooling & Machinery",
+                desc: "Inspection of robotic welding, automated metal stamping, and plastic injection molds for consistency.",
+              },
+              {
+                step: "03",
+                title: "Ethical Standards",
+                desc: "BSCI & SA8000 compliance ensuring safe worker environments and zero exploitative labor.",
+              },
+              {
+                step: "04",
+                title: "Lab Accreditation",
+                desc: "Verification of in-house testing labs, thermal chambers, and salt-spray corrosion test equipment.",
+              },
+              {
+                step: "05",
+                title: "Component Traceability",
+                desc: "Strict tracking of tier-1 compressors (GMCC, Embraco), motors, and PCBA microcontrollers.",
+              },
             ].map((v, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-brand-gray-bg border border-brand-gray-border">
-                <span className="font-heading font-semibold text-2xl text-brand-blue block mb-2">{v.step}</span>
-                <h4 className="font-heading font-bold text-base text-brand-blue-navy mb-2">{v.title}</h4>
-                <p className="text-xs text-brand-gray-text leading-relaxed">{v.desc}</p>
+              <div
+                key={i}
+                className="p-6 rounded-2xl bg-brand-gray-bg border border-brand-gray-border"
+              >
+                <span className="font-heading font-semibold text-2xl text-brand-blue block mb-2">
+                  {v.step}
+                </span>
+                <h4 className="font-heading font-bold text-base text-brand-blue-navy mb-2">
+                  {v.title}
+                </h4>
+                <p className="text-xs text-brand-gray-text leading-relaxed">
+                  {v.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -134,13 +205,20 @@ export const AboutPage: React.FC = () => {
 
           <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
             {milestones.map((m, idx) => (
-              <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-white border border-brand-gray-border shadow-sm">
+              <div
+                key={idx}
+                className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-white border border-brand-gray-border shadow-sm"
+              >
                 <div className="font-heading font-semibold text-lg sm:text-xl text-brand-blue shrink-0 w-auto sm:w-20">
                   {m.year}
                 </div>
                 <div>
-                  <h4 className="font-heading font-bold text-sm sm:text-base text-brand-blue-navy mb-1">{m.title}</h4>
-                  <p className="text-xs text-brand-gray-muted leading-relaxed">{m.desc}</p>
+                  <h4 className="font-heading font-bold text-sm sm:text-base text-brand-blue-navy mb-1">
+                    {m.title}
+                  </h4>
+                  <p className="text-xs text-brand-gray-muted leading-relaxed">
+                    {m.desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -148,7 +226,13 @@ export const AboutPage: React.FC = () => {
 
           <div className="text-center mt-12">
             <Link to="/contact" className="inline-block w-full sm:w-auto">
-              <Button variant="primary" size="lg" glow icon={<ArrowRight className="w-4 h-4" />} className="w-full sm:w-auto min-h-[44px]">
+              <Button
+                variant="primary"
+                size="lg"
+                glow
+                icon={<ArrowRight className="w-4 h-4" />}
+                className="w-full sm:w-auto min-h-[44px]"
+              >
                 Partner with Meet Appliances Today
               </Button>
             </Link>

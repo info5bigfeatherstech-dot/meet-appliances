@@ -36,7 +36,14 @@ import type {
   DashboardSummary,
 } from "@/lib/admin/types";
 
-const CATEGORY_COLORS = ["#2563EB", "#0D9488", "#D97706", "#7C3AED", "#DB2777", "#475569"];
+const CATEGORY_COLORS = [
+  "#2563EB",
+  "#0D9488",
+  "#D97706",
+  "#7C3AED",
+  "#DB2777",
+  "#475569",
+];
 const MARKET_COLORS: Record<string, string> = {
   USA: "#2563EB",
   UK: "#DC2626",
@@ -52,11 +59,17 @@ export function AdminDashboardPage() {
 
   // Data States
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
-  const [categoryDist, setCategoryDist] = useState<DashboardCategoryDistribution | null>(null);
-  const [marketBuyer, setMarketBuyer] = useState<DashboardMarketAndBuyer | null>(null);
-  const [factories, setFactories] = useState<DashboardFactoryWorkloadItem[]>([]);
-  const [inventoryAlerts, setInventoryAlerts] = useState<DashboardInventoryAlerts | null>(null);
-  const [recentActivity, setRecentActivity] = useState<DashboardRecentActivity | null>(null);
+  const [categoryDist, setCategoryDist] =
+    useState<DashboardCategoryDistribution | null>(null);
+  const [marketBuyer, setMarketBuyer] =
+    useState<DashboardMarketAndBuyer | null>(null);
+  const [factories, setFactories] = useState<DashboardFactoryWorkloadItem[]>(
+    [],
+  );
+  const [inventoryAlerts, setInventoryAlerts] =
+    useState<DashboardInventoryAlerts | null>(null);
+  const [recentActivity, setRecentActivity] =
+    useState<DashboardRecentActivity | null>(null);
 
   // UI States
   const [loading, setLoading] = useState<boolean>(true);
@@ -64,43 +77,55 @@ export function AdminDashboardPage() {
   const [error, setError] = useState<string>("");
   const [lastRefreshedAt, setLastRefreshedAt] = useState<string>("");
 
-  const loadDashboardData = useCallback(async (isRefresh = false) => {
-    if (isRefresh) setRefreshing(true);
-    else setLoading(true);
-    setError("");
+  const loadDashboardData = useCallback(
+    async (isRefresh = false) => {
+      if (isRefresh) setRefreshing(true);
+      else setLoading(true);
+      setError("");
 
-    try {
-      const [sumRes, catRes, mktRes, facRes, invRes, recRes] = await Promise.all([
-        adminApi.getDashboardSummary(),
-        adminApi.getCategoryDistribution({
-          range: range || undefined,
-          season: season || undefined,
-        }),
-        adminApi.getMarketAndBuyerAnalytics({
-          range: range || undefined,
-          season: season || undefined,
-        }),
-        adminApi.getFactoryWorkload(),
-        adminApi.getInventoryAlerts(threshold),
-        adminApi.getRecentActivity(),
-      ]);
+      try {
+        const [sumRes, catRes, mktRes, facRes, invRes, recRes] =
+          await Promise.all([
+            adminApi.getDashboardSummary(),
+            adminApi.getCategoryDistribution({
+              range: range || undefined,
+              season: season || undefined,
+            }),
+            adminApi.getMarketAndBuyerAnalytics({
+              range: range || undefined,
+              season: season || undefined,
+            }),
+            adminApi.getFactoryWorkload(),
+            adminApi.getInventoryAlerts(threshold),
+            adminApi.getRecentActivity(),
+          ]);
 
-      setSummary(sumRes);
-      setCategoryDist(catRes);
-      setMarketBuyer(mktRes);
-      setFactories(facRes);
-      setInventoryAlerts(invRes);
-      setRecentActivity(recRes);
-      setLastRefreshedAt(
-        new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })
-      );
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to load dashboard analytics");
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  }, [range, season, threshold]);
+        setSummary(sumRes);
+        setCategoryDist(catRes);
+        setMarketBuyer(mktRes);
+        setFactories(facRes);
+        setInventoryAlerts(invRes);
+        setRecentActivity(recRes);
+        setLastRefreshedAt(
+          new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
+        );
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Unable to load dashboard analytics",
+        );
+      } finally {
+        setLoading(false);
+        setRefreshing(false);
+      }
+    },
+    [range, season, threshold],
+  );
 
   useEffect(() => {
     loadDashboardData().catch(() => undefined);
@@ -112,13 +137,16 @@ export function AdminDashboardPage() {
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Executive Dashboard</h1>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+              Executive Dashboard
+            </h1>
             <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
               Live Operations
             </span>
           </div>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            Real-time B2B export operations, supplier capacity, and buyer intelligence.
+            Real-time B2B export operations, supplier capacity, and buyer
+            intelligence.
             {lastRefreshedAt ? ` Updated at ${lastRefreshedAt}` : ""}
           </p>
         </div>
@@ -165,7 +193,9 @@ export function AdminDashboardPage() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-lg shadow-2xs transition-colors cursor-pointer disabled:opacity-50"
             title="Refresh dashboard metrics"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin text-blue-600" : "text-slate-500"}`} />
+            <RefreshCw
+              className={`w-3.5 h-3.5 ${refreshing ? "animate-spin text-blue-600" : "text-slate-500"}`}
+            />
             <span>{refreshing ? "Refreshing..." : "Refresh"}</span>
           </button>
 
@@ -197,7 +227,9 @@ export function AdminDashboardPage() {
       {loading && !summary ? (
         <div className="flex flex-col items-center justify-center p-16 text-center space-y-3 bg-white border border-slate-200 rounded-2xl">
           <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
-          <p className="text-sm font-medium text-slate-600">Loading live analytics from Maya Exports API...</p>
+          <p className="text-sm font-medium text-slate-600">
+            Loading live analytics from Maya Exports API...
+          </p>
         </div>
       ) : (
         <>
@@ -206,7 +238,9 @@ export function AdminDashboardPage() {
             {/* Total Styles */}
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
               <div className="flex items-center justify-between text-slate-500">
-                <span className="text-[11px] font-semibold uppercase tracking-wider">Total Styles</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider">
+                  Total Styles
+                </span>
                 <div className="p-1.5 bg-blue-50 text-blue-600 rounded-lg">
                   <Package className="w-4 h-4" />
                 </div>
@@ -220,7 +254,9 @@ export function AdminDashboardPage() {
                   {summary?.activeProducts ?? 0} active
                 </span>
                 {summary && summary.inactiveProducts > 0 && (
-                  <span className="text-slate-400">· {summary.inactiveProducts} draft</span>
+                  <span className="text-slate-400">
+                    · {summary.inactiveProducts} draft
+                  </span>
                 )}
               </div>
             </div>
@@ -228,7 +264,9 @@ export function AdminDashboardPage() {
             {/* Categories */}
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
               <div className="flex items-center justify-between text-slate-500">
-                <span className="text-[11px] font-semibold uppercase tracking-wider">Categories</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider">
+                  Categories
+                </span>
                 <div className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg">
                   <FolderTree className="w-4 h-4" />
                 </div>
@@ -236,29 +274,39 @@ export function AdminDashboardPage() {
               <div className="text-2xl font-bold text-slate-900 tracking-tight">
                 {summary?.totalCategories ?? 0}
               </div>
-              <p className="text-[11px] text-slate-500 truncate">Export catalog tree</p>
+              <p className="text-[11px] text-slate-500 truncate">
+                Export catalog tree
+              </p>
             </div>
 
             {/* Ready Stock Available */}
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
               <div className="flex items-center justify-between text-slate-500">
-                <span className="text-[11px] font-semibold uppercase tracking-wider">Ready Stock</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider">
+                  Ready Stock
+                </span>
                 <div className="p-1.5 bg-amber-50 text-amber-600 rounded-lg">
                   <Boxes className="w-4 h-4" />
                 </div>
               </div>
               <div className="text-2xl font-bold text-slate-900 tracking-tight">
-                {summary?.readyStockProducts ?? 0} <span className="text-xs font-normal text-slate-500">styles</span>
+                {summary?.readyStockProducts ?? 0}{" "}
+                <span className="text-xs font-normal text-slate-500">
+                  styles
+                </span>
               </div>
               <div className="text-[11px] font-medium text-amber-700 bg-amber-50/80 px-1.5 py-0.5 rounded inline-block">
-                {(summary?.readyStockTotalUnits ?? 0).toLocaleString()} units ready
+                {(summary?.readyStockTotalUnits ?? 0).toLocaleString()} units
+                ready
               </div>
             </div>
 
             {/* New Styles This Month */}
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
               <div className="flex items-center justify-between text-slate-500">
-                <span className="text-[11px] font-semibold uppercase tracking-wider">New This Month</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider">
+                  New This Month
+                </span>
                 <div className="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg">
                   <Sparkles className="w-4 h-4" />
                 </div>
@@ -266,13 +314,17 @@ export function AdminDashboardPage() {
               <div className="text-2xl font-bold text-slate-900 tracking-tight">
                 +{summary?.newProductsThisMonth ?? 0}
               </div>
-              <p className="text-[11px] text-emerald-700 font-medium">Recent developments</p>
+              <p className="text-[11px] text-emerald-700 font-medium">
+                Recent developments
+              </p>
             </div>
 
             {/* Manufacturing Units */}
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
               <div className="flex items-center justify-between text-slate-500">
-                <span className="text-[11px] font-semibold uppercase tracking-wider">Factories</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider">
+                  Factories
+                </span>
                 <div className="p-1.5 bg-slate-100 text-slate-700 rounded-lg">
                   <Factory className="w-4 h-4" />
                 </div>
@@ -280,13 +332,17 @@ export function AdminDashboardPage() {
               <div className="text-2xl font-bold text-slate-900 tracking-tight">
                 {summary?.totalFactories ?? 0}
               </div>
-              <p className="text-[11px] text-slate-500 truncate">Partner manufacturing units</p>
+              <p className="text-[11px] text-slate-500 truncate">
+                Partner manufacturing units
+              </p>
             </div>
 
             {/* Buyer Accounts */}
             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
               <div className="flex items-center justify-between text-slate-500">
-                <span className="text-[11px] font-semibold uppercase tracking-wider">Buyers & Brands</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider">
+                  Buyers & Brands
+                </span>
                 <div className="p-1.5 bg-cyan-50 text-cyan-600 rounded-lg">
                   <Users className="w-4 h-4" />
                 </div>
@@ -294,7 +350,9 @@ export function AdminDashboardPage() {
               <div className="text-2xl font-bold text-slate-900 tracking-tight">
                 {summary?.totalCustomers ?? 0}
               </div>
-              <p className="text-[11px] text-slate-500 truncate">Registered export clients</p>
+              <p className="text-[11px] text-slate-500 truncate">
+                Registered export clients
+              </p>
             </div>
           </div>
 
@@ -308,7 +366,9 @@ export function AdminDashboardPage() {
                     <Layers className="w-4 h-4 text-blue-600" />
                     Catalog Distribution
                   </h2>
-                  <p className="text-xs text-slate-500 mt-0.5">Product volume by top-level division</p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Product volume by top-level division
+                  </p>
                 </div>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
                   {categoryDist?.totalProducts ?? 0} Total Styles
@@ -324,7 +384,8 @@ export function AdminDashboardPage() {
                         key={cat.categoryId}
                         style={{
                           width: `${Math.max(2, cat.percentage)}%`,
-                          backgroundColor: CATEGORY_COLORS[idx % CATEGORY_COLORS.length],
+                          backgroundColor:
+                            CATEGORY_COLORS[idx % CATEGORY_COLORS.length],
                         }}
                         title={`${cat.name}: ${cat.count} styles (${cat.percentage}%)`}
                         className="h-full transition-all duration-500 first:rounded-l-full last:rounded-r-full"
@@ -342,20 +403,31 @@ export function AdminDashboardPage() {
                         <div className="flex items-center gap-2 min-w-0">
                           <span
                             className="w-2.5 h-2.5 rounded-full shrink-0"
-                            style={{ backgroundColor: CATEGORY_COLORS[idx % CATEGORY_COLORS.length] }}
+                            style={{
+                              backgroundColor:
+                                CATEGORY_COLORS[idx % CATEGORY_COLORS.length],
+                            }}
                           />
-                          <span className="text-xs font-semibold text-slate-800 truncate">{cat.name}</span>
+                          <span className="text-xs font-semibold text-slate-800 truncate">
+                            {cat.name}
+                          </span>
                         </div>
                         <div className="text-right shrink-0">
-                          <span className="text-xs font-bold text-slate-900">{cat.count}</span>
-                          <span className="text-[11px] text-slate-500 ml-1.5">({cat.percentage}%)</span>
+                          <span className="text-xs font-bold text-slate-900">
+                            {cat.count}
+                          </span>
+                          <span className="text-[11px] text-slate-500 ml-1.5">
+                            ({cat.percentage}%)
+                          </span>
                         </div>
                       </div>
                     ))}
                   </div>
                 </>
               ) : (
-                <p className="text-xs text-slate-400 py-6 text-center">No category distribution data available.</p>
+                <p className="text-xs text-slate-400 py-6 text-center">
+                  No category distribution data available.
+                </p>
               )}
             </div>
 
@@ -367,33 +439,52 @@ export function AdminDashboardPage() {
                     <Users className="w-4 h-4 text-teal-600" />
                     Demographic Representation
                   </h2>
-                  <p className="text-xs text-slate-500 mt-0.5">Style focus across Men, Women & Kids</p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Style focus across Men, Women & Kids
+                  </p>
                 </div>
               </div>
 
-              {categoryDist && categoryDist.byRootCategory.some((r) => r.demographics.length > 0) ? (
+              {categoryDist &&
+              categoryDist.byRootCategory.some(
+                (r) => r.demographics.length > 0,
+              ) ? (
                 <div className="space-y-3.5 pt-1">
                   {categoryDist.byRootCategory
                     .filter((r) => r.demographics.length > 0)
                     .map((root) => (
                       <div key={root.categoryId} className="space-y-1.5">
                         <div className="flex justify-between text-xs">
-                          <span className="font-semibold text-slate-800">{root.name}</span>
-                          <span className="text-slate-500 font-medium">{root.count} total</span>
+                          <span className="font-semibold text-slate-800">
+                            {root.name}
+                          </span>
+                          <span className="text-slate-500 font-medium">
+                            {root.count} total
+                          </span>
                         </div>
                         <div className="grid grid-cols-3 gap-2">
                           {["Men", "Women", "Kids"].map((dName) => {
-                            const found = root.demographics.find((d) => d.name === dName);
+                            const found = root.demographics.find(
+                              (d) => d.name === dName,
+                            );
                             const count = found?.count || 0;
-                            const pctVal = root.count > 0 ? Math.round((count / root.count) * 100) : 0;
+                            const pctVal =
+                              root.count > 0
+                                ? Math.round((count / root.count) * 100)
+                                : 0;
                             return (
                               <div
                                 key={dName}
                                 className="bg-slate-50 border border-slate-100 p-2 rounded-lg text-center"
                               >
-                                <span className="text-[11px] text-slate-500 block">{dName}</span>
+                                <span className="text-[11px] text-slate-500 block">
+                                  {dName}
+                                </span>
                                 <span className="text-xs font-bold text-slate-900 mt-0.5 block">
-                                  {count} <span className="text-[10px] text-slate-400 font-normal">({pctVal}%)</span>
+                                  {count}{" "}
+                                  <span className="text-[10px] text-slate-400 font-normal">
+                                    ({pctVal}%)
+                                  </span>
                                 </span>
                               </div>
                             );
@@ -403,7 +494,9 @@ export function AdminDashboardPage() {
                     ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 py-6 text-center">No demographic breakdown available.</p>
+                <p className="text-xs text-slate-400 py-6 text-center">
+                  No demographic breakdown available.
+                </p>
               )}
             </div>
           </div>
@@ -418,7 +511,9 @@ export function AdminDashboardPage() {
                     <Globe className="w-4 h-4 text-blue-600" />
                     Export Markets
                   </h2>
-                  <p className="text-xs text-slate-500 mt-0.5">Target geographic destinations</p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Target geographic destinations
+                  </p>
                 </div>
               </div>
 
@@ -429,7 +524,9 @@ export function AdminDashboardPage() {
                     return (
                       <div key={m.market} className="space-y-1">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="font-semibold text-slate-800">{m.market}</span>
+                          <span className="font-semibold text-slate-800">
+                            {m.market}
+                          </span>
                           <span className="text-slate-600 font-medium">
                             {m.count} styles ({m.percentage}%)
                           </span>
@@ -437,7 +534,10 @@ export function AdminDashboardPage() {
                         <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
                           <div
                             className="h-full rounded-full transition-all duration-500"
-                            style={{ width: `${Math.min(100, m.percentage)}%`, backgroundColor: color }}
+                            style={{
+                              width: `${Math.min(100, m.percentage)}%`,
+                              backgroundColor: color,
+                            }}
                           />
                         </div>
                       </div>
@@ -445,7 +545,9 @@ export function AdminDashboardPage() {
                   })}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 py-6 text-center">No export market data yet.</p>
+                <p className="text-xs text-slate-400 py-6 text-center">
+                  No export market data yet.
+                </p>
               )}
             </div>
 
@@ -457,7 +559,9 @@ export function AdminDashboardPage() {
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
                     Buyer Account Tiers
                   </h2>
-                  <p className="text-xs text-slate-500 mt-0.5">Classification of export customers</p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Classification of export customers
+                  </p>
                 </div>
               </div>
 
@@ -471,13 +575,19 @@ export function AdminDashboardPage() {
                       <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">
                         {t.tier}
                       </span>
-                      <div className="text-xl font-bold text-slate-900 mt-1">{t.count}</div>
-                      <span className="text-[10px] text-slate-400">Registered accounts</span>
+                      <div className="text-xl font-bold text-slate-900 mt-1">
+                        {t.count}
+                      </div>
+                      <span className="text-[10px] text-slate-400">
+                        Registered accounts
+                      </span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 py-6 text-center">No customer tiers registered.</p>
+                <p className="text-xs text-slate-400 py-6 text-center">
+                  No customer tiers registered.
+                </p>
               )}
             </div>
 
@@ -489,7 +599,9 @@ export function AdminDashboardPage() {
                     <TrendingUp className="w-4 h-4 text-purple-600" />
                     Repeat Order Rate
                   </h2>
-                  <p className="text-xs text-slate-500 mt-0.5">Buyer retention on proven styles</p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Buyer retention on proven styles
+                  </p>
                 </div>
               </div>
 
@@ -500,7 +612,9 @@ export function AdminDashboardPage() {
                       <div className="text-2xl font-bold text-purple-900">
                         {marketBuyer.repeatOrderStats.percentage}%
                       </div>
-                      <span className="text-xs text-purple-700 font-medium">Styles re-ordered by buyers</span>
+                      <span className="text-xs text-purple-700 font-medium">
+                        Styles re-ordered by buyers
+                      </span>
                     </div>
                     <div className="text-right">
                       <span className="text-xs font-bold text-purple-900 block">
@@ -519,15 +633,18 @@ export function AdminDashboardPage() {
                     </span>
                     <div className="grid grid-cols-3 gap-2">
                       {["1st", "2nd", "3rd"].map((num) => {
-                        const found = marketBuyer.repeatOrderStats.byOrderNumber.find(
-                          (b) => b.repeatOrderNumber === num
-                        );
+                        const found =
+                          marketBuyer.repeatOrderStats.byOrderNumber.find(
+                            (b) => b.repeatOrderNumber === num,
+                          );
                         return (
                           <div
                             key={num}
                             className="p-2 rounded-lg bg-slate-50 border border-slate-100 text-center"
                           >
-                            <span className="text-[11px] text-slate-500 block">{num} Repeat</span>
+                            <span className="text-[11px] text-slate-500 block">
+                              {num} Repeat
+                            </span>
                             <span className="text-xs font-bold text-slate-900 block mt-0.5">
                               {found?.styles ?? 0}
                             </span>
@@ -538,7 +655,9 @@ export function AdminDashboardPage() {
                   </div>
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 py-6 text-center">No repeat order data.</p>
+                <p className="text-xs text-slate-400 py-6 text-center">
+                  No repeat order data.
+                </p>
               )}
             </div>
           </div>
@@ -572,21 +691,32 @@ export function AdminDashboardPage() {
                       <th className="px-4 py-3 font-semibold">Factory Code</th>
                       <th className="px-4 py-3 font-semibold">Name</th>
                       <th className="px-4 py-3 font-semibold">Location</th>
-                      <th className="px-4 py-3 font-semibold">Assigned Styles</th>
+                      <th className="px-4 py-3 font-semibold">
+                        Assigned Styles
+                      </th>
                       <th className="px-4 py-3 font-semibold">Ready Stock</th>
-                      <th className="px-4 py-3 font-semibold text-right">Capacity Load</th>
+                      <th className="px-4 py-3 font-semibold text-right">
+                        Capacity Load
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {factories.map((fac) => {
                       const totalStyles = summary?.totalProducts || 1;
-                      const pctStyles = Math.round((fac.assignedStylesCount / totalStyles) * 100);
+                      const pctStyles = Math.round(
+                        (fac.assignedStylesCount / totalStyles) * 100,
+                      );
                       return (
-                        <tr key={fac.factoryId} className="hover:bg-slate-50/60 transition-colors">
+                        <tr
+                          key={fac.factoryId}
+                          className="hover:bg-slate-50/60 transition-colors"
+                        >
                           <td className="px-4 py-3 font-mono font-semibold text-slate-800">
                             {fac.factoryCode}
                           </td>
-                          <td className="px-4 py-3 font-medium text-slate-900">{fac.factoryName}</td>
+                          <td className="px-4 py-3 font-medium text-slate-900">
+                            {fac.factoryName}
+                          </td>
                           <td className="px-4 py-3 text-slate-600 capitalize">
                             {fac.country || "—"}
                           </td>
@@ -606,11 +736,15 @@ export function AdminDashboardPage() {
                           </td>
                           <td className="px-4 py-3 text-right">
                             <div className="inline-flex items-center gap-2 min-w-[120px] justify-end">
-                              <span className="text-slate-600 font-semibold">{pctStyles}%</span>
+                              <span className="text-slate-600 font-semibold">
+                                {pctStyles}%
+                              </span>
                               <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                                 <div
                                   className="h-full bg-blue-600 rounded-full"
-                                  style={{ width: `${Math.min(100, pctStyles)}%` }}
+                                  style={{
+                                    width: `${Math.min(100, pctStyles)}%`,
+                                  }}
                                 />
                               </div>
                             </div>
@@ -624,7 +758,10 @@ export function AdminDashboardPage() {
             ) : (
               <div className="p-8 text-center text-xs text-slate-400">
                 No factories connected yet.{" "}
-                <Link to="/admin/factories" className="text-blue-600 hover:underline">
+                <Link
+                  to="/admin/factories"
+                  className="text-blue-600 hover:underline"
+                >
                   Add your first manufacturing unit.
                 </Link>
               </div>
@@ -663,7 +800,8 @@ export function AdminDashboardPage() {
                 <div className="flex items-center gap-2 p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-800 font-medium">
                   <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
                   <span>
-                    {inventoryAlerts.lowStockCount} item{inventoryAlerts.lowStockCount === 1 ? "" : "s"} below{" "}
+                    {inventoryAlerts.lowStockCount} item
+                    {inventoryAlerts.lowStockCount === 1 ? "" : "s"} below{" "}
                     {inventoryAlerts.lowStockThreshold} units threshold.
                   </span>
                 </div>
@@ -678,22 +816,29 @@ export function AdminDashboardPage() {
                     >
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono text-xs font-bold text-slate-900">{item.productCode}</span>
+                          <span className="font-mono text-xs font-bold text-slate-900">
+                            {item.productCode}
+                          </span>
                           {item.color && (
                             <span className="text-[11px] px-1.5 py-0.2 bg-slate-100 text-slate-600 rounded">
                               {item.color}
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-slate-600 truncate mt-0.5">{item.title}</p>
+                        <p className="text-xs text-slate-600 truncate mt-0.5">
+                          {item.title}
+                        </p>
                       </div>
                       <div className="text-right shrink-0">
                         <span className="text-xs font-bold text-slate-900">
-                          {item.readyStockQuantity.toLocaleString()} {item.quantityUnit}
+                          {item.readyStockQuantity.toLocaleString()}{" "}
+                          {item.quantityUnit}
                         </span>
                         <span
                           className={`block text-[10px] font-semibold mt-0.5 ${
-                            item.readyStockQuantity <= threshold ? "text-amber-600" : "text-emerald-600"
+                            item.readyStockQuantity <= threshold
+                              ? "text-amber-600"
+                              : "text-emerald-600"
                           }`}
                         >
                           {item.variantStatus}
@@ -717,7 +862,9 @@ export function AdminDashboardPage() {
                     <Clock className="w-4 h-4 text-blue-600" />
                     Recent Operations & Styles
                   </h2>
-                  <p className="text-xs text-slate-500 mt-0.5">Audit stream of recently updated styles</p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Audit stream of recently updated styles
+                  </p>
                 </div>
               </div>
 
@@ -733,7 +880,9 @@ export function AdminDashboardPage() {
                         Last Import: {recentActivity.lastBulkImport.fileName}
                       </span>
                       <span className="text-[11px] text-slate-500">
-                        {formatAdminDateTime(recentActivity.lastBulkImport.importedAt)}
+                        {formatAdminDateTime(
+                          recentActivity.lastBulkImport.importedAt,
+                        )}
                       </span>
                     </div>
                   </div>
@@ -759,9 +908,13 @@ export function AdminDashboardPage() {
                           <span className="font-mono text-xs font-semibold text-slate-900">
                             {style.productCode}
                           </span>
-                          <span className="text-[11px] text-slate-400">· {style.categoryName}</span>
+                          <span className="text-[11px] text-slate-400">
+                            · {style.categoryName}
+                          </span>
                         </div>
-                        <p className="text-xs text-slate-700 truncate mt-0.5">{style.title}</p>
+                        <p className="text-xs text-slate-700 truncate mt-0.5">
+                          {style.title}
+                        </p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
                         <span
@@ -785,7 +938,9 @@ export function AdminDashboardPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 py-6 text-center">No recent styles updated.</p>
+                <p className="text-xs text-slate-400 py-6 text-center">
+                  No recent styles updated.
+                </p>
               )}
             </div>
           </div>

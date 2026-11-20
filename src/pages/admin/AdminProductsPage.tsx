@@ -31,7 +31,11 @@ export function AdminProductsPage() {
     const timer = window.setTimeout(() => {
       setLoading(true);
       load(category, search)
-        .catch((err) => setError(err instanceof Error ? err.message : "Unable to load products"))
+        .catch((err) =>
+          setError(
+            err instanceof Error ? err.message : "Unable to load products",
+          ),
+        )
         .finally(() => setLoading(false));
     }, 250);
     return () => window.clearTimeout(timer);
@@ -51,9 +55,12 @@ export function AdminProductsPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Products Catalog</h1>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            Products Catalog
+          </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Browse product master records, ERP specifications, variants and pricing. Expand any row to see variants.
+            Browse product master records, ERP specifications, variants and
+            pricing. Expand any row to see variants.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -99,13 +106,20 @@ export function AdminProductsPage() {
       </div>
 
       {error ? (
-        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>
+        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+          {error}
+        </p>
       ) : null}
 
       {loading ? (
-        <div className="p-8 text-center text-sm text-slate-500">Loading product catalog...</div>
+        <div className="p-8 text-center text-sm text-slate-500">
+          Loading product catalog...
+        </div>
       ) : (
-        <ProductTable products={products} onDelete={(product) => void handleDelete(product)} />
+        <ProductTable
+          products={products}
+          onDelete={(product) => void handleDelete(product)}
+        />
       )}
     </div>
   );
