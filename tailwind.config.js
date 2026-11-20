@@ -43,6 +43,7 @@ export default {
         medium: '500',
         semibold: '500',
         bold: '600',
+        
         extrabold: '700',
       },
       borderRadius: {

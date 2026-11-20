@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { 
   ArrowRight, 
   CheckCircle2, 
@@ -10,21 +10,66 @@ import {
 } from 'lucide-react';
 import { PRODUCT_CATEGORIES } from '../data/categories';
 import { getProductsByCategory } from '../data/products';
+import { fetchAllStorefrontProducts, matchesCategory } from '../lib/catalog/storefrontProducts';
 import { Container } from '../components/common/Container';
 import { Button } from '../components/common/Button';
+import type { Product } from '../types';
 
 export const CategoryPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
 
-  const category = PRODUCT_CATEGORIES.find(
-    (c) => c.slug.toLowerCase() === (slug || '').toLowerCase() || c.id.toLowerCase() === (slug || '').toLowerCase()
-  );
+  // Initial category resolution from static config or dynamic synthesis
+  const category = useMemo(() => {
+    const s = (slug || '').toLowerCase();
+    const found = PRODUCT_CATEGORIES.find(
+      (c) => c.slug.toLowerCase() === s || c.id.toLowerCase() === s
+    );
+    if (found) return found;
 
-  if (!category) {
-    return <Navigate to="/products" replace />;
-  }
+    // Synthesize a fallback category object for new categories created in Admin
+    const capitalized = s.charAt(0).toUpperCase() + s.slice(1);
+    return {
+      id: s,
+      name: capitalized,
+      slug: s,
+      iconName: 'Box',
+      itemCount: 0,
+      description: `Comprehensive export and private-label manufacturing portfolio for ${capitalized}.`,
+      image: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=800&q=80',
+      highlightSpecs: ['Private Label OEM/ODM', 'AQL II Pre-Shipment Inspection', 'Worldwide Ocean Freight'],
+    };
+  }, [slug]);
 
-  const products = getProductsByCategory(category.slug);
+  // Load products dynamically
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      try {
+        const list = await fetchAllStorefrontProducts();
+        if (!cancelled && list.length > 0) {
+          setAllProducts(list);
+        }
+      } catch (err) {
+        console.warn('Could not load dynamic products for category:', err);
+      }
+    }
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Filter products for this category
+  const products = useMemo(() => {
+    if (!category) return [];
+    if (allProducts.length > 0) {
+      const targetSlug = slug || category.slug;
+      const matched = allProducts.filter((p) => matchesCategory(p, targetSlug));
+      if (matched.length > 0) return matched;
+    }
+    return getProductsByCategory(category.slug);
+  }, [category, allProducts, slug]);
 
   return (
     <div className="flex flex-col min-h-screen bg-brand-gray-bg select-none">

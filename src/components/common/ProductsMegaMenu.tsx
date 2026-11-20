@@ -20,11 +20,11 @@ export const MEGA_MENU_ROW_1: MegaMenuCategory[] = [
     categorySlug: 'kitchen',
     viewAllLabel: 'View All Kitchen',
     items: [
-      { name: 'Air Fryers', productId: 'prod-air-fryers' },
-      { name: 'Blenders', productId: 'prod-blenders' },
-      { name: 'Kettles', productId: 'prod-kettles' },
-      { name: 'Rice Cookers', productId: 'prod-rice-cookers' },
-      { name: 'Toasters', productId: 'prod-toasters' },
+      { name: 'Air Fryers', productId: 'air-fryer' },
+      { name: 'Blenders', productId: 'blenders' },
+      { name: 'Kettles', productId: 'kettles' },
+      { name: 'Rice Cookers', productId: 'rice-cookers' },
+      { name: 'Toasters', productId: 'toasters' },
     ],
   },
   {
@@ -32,11 +32,11 @@ export const MEGA_MENU_ROW_1: MegaMenuCategory[] = [
     categorySlug: 'home-care',
     viewAllLabel: 'View All Home Care',
     items: [
-      { name: 'Vacuum Cleaners', productId: 'prod-vacuum-cleaners' },
-      { name: 'Steam Cleaners', productId: 'prod-steam-cleaners' },
-      { name: 'Floor Cleaners', productId: 'prod-floor-cleaners' },
-      { name: 'Window Cleaners', productId: 'prod-window-cleaners' },
-      { name: 'Carpet Cleaners', productId: 'prod-carpet-cleaners' },
+      { name: 'Vacuum Cleaners', productId: 'vacuum-cleaners' },
+      { name: 'Steam Cleaners', productId: 'steam-cleaners' },
+      { name: 'Floor Cleaners', productId: 'floor-cleaners' },
+      { name: 'Window Cleaners', productId: 'window-cleaners' },
+      { name: 'Carpet Cleaners', productId: 'carpet-cleaners' },
     ],
   },
   {
@@ -44,11 +44,11 @@ export const MEGA_MENU_ROW_1: MegaMenuCategory[] = [
     categorySlug: 'personal-care',
     viewAllLabel: 'View All Personal Care',
     items: [
-      { name: 'Hair Dryers', productId: 'prod-hair-dryers' },
-      { name: 'Hair Straighteners', productId: 'prod-hair-straighteners' },
-      { name: 'Trimmers', productId: 'prod-trimmers' },
-      { name: 'Shavers', productId: 'prod-shavers' },
-      { name: 'Grooming', productId: 'prod-grooming' },
+      { name: 'Hair Dryers', productId: 'hair-dryers' },
+      { name: 'Hair Straighteners', productId: 'hair-straighteners' },
+      { name: 'Trimmers', productId: 'trimmers' },
+      { name: 'Shavers', productId: 'shavers' },
+      { name: 'Grooming', productId: 'grooming' },
     ],
   },
 ];
@@ -58,27 +58,27 @@ export const MEGA_MENU_ROW_2: MegaMenuCategory[] = [
     title: 'COOLING & AIR',
     categorySlug: 'cooling-air',
     items: [
-      { name: 'Fans', productId: 'prod-fans' },
-      { name: 'Air Purifiers', productId: 'prod-air-purifiers' },
-      { name: 'Humidifiers', productId: 'prod-cooling-humidifiers' },
+      { name: 'Fans', productId: 'fans' },
+      { name: 'Air Purifiers', productId: 'air-purifiers' },
+      { name: 'Humidifiers', productId: 'humidifiers' },
     ],
   },
   {
     title: 'LAUNDRY',
     categorySlug: 'laundry',
     items: [
-      { name: 'Garment Steamers', productId: 'prod-garment-steamers' },
-      { name: 'Steam Irons', productId: 'prod-steam-irons' },
-      { name: 'Drying Appliances', productId: 'prod-drying-appliances' },
+      { name: 'Garment Steamers', productId: 'garment-steamers' },
+      { name: 'Steam Irons', productId: 'steam-irons' },
+      { name: 'Drying Appliances', productId: 'drying-appliances' },
     ],
   },
   {
     title: 'HOME COMFORT',
     categorySlug: 'home-comfort',
     items: [
-      { name: 'Heaters', productId: 'prod-heaters' },
-      { name: 'Humidifiers', productId: 'prod-comfort-humidifiers' },
-      { name: 'Aroma Diffusers', productId: 'prod-aroma-diffusers' },
+      { name: 'Heaters', productId: 'heaters' },
+      { name: 'Humidifiers', productId: 'humidifiers' },
+      { name: 'Aroma Diffusers', productId: 'aroma-diffusers' },
     ],
   },
 ];
@@ -117,9 +117,9 @@ export const ProductsMegaMenu: React.FC<ProductsMegaMenuProps> = ({ onClose }) =
               </h4>
               <ul className="space-y-2 mb-4">
                 {cat.items.map((item) => (
-                  <li key={item.productId}>
+                  <li key={item.name}>
                     <Link
-                      to={`/products/${item.productId}`}
+                      to={`/products?category=${encodeURIComponent(item.productId || item.name.toLowerCase())}`}
                       onClick={onClose}
                       className="group flex items-center gap-2 text-xs sm:text-[13px] text-gray-700 hover:text-black transition-colors"
                     >
@@ -154,9 +154,9 @@ export const ProductsMegaMenu: React.FC<ProductsMegaMenuProps> = ({ onClose }) =
             </h4>
             <ul className="space-y-2">
               {cat.items.map((item) => (
-                <li key={item.productId}>
+                <li key={item.name}>
                   <Link
-                    to={`/products/${item.productId}`}
+                    to={`/products?category=${encodeURIComponent(item.productId || item.name.toLowerCase())}`}
                     onClick={onClose}
                     className="group flex items-center gap-2 text-xs sm:text-[13px] text-gray-700 hover:text-black transition-colors"
                   >

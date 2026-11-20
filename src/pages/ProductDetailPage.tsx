@@ -1,22 +1,111 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { PRODUCTS_DATA } from '../data/products';
+import {
+  fetchStorefrontProductById,
+  fetchAllStorefrontProducts,
+  type DynamicStorefrontProduct,
+} from '../lib/catalog/storefrontProducts';
 import { Container } from '../components/common/Container';
 import { Badge } from '../components/common/Badge';
 import { Button } from '../components/common/Button';
-import { ArrowLeft, ShieldCheck, Check, Ship } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Check, Ship, Box, Palette } from 'lucide-react';
+import type { Product } from '../types';
 
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const product = PRODUCTS_DATA.find((p) => p.id === id) || PRODUCTS_DATA[0];
-  const [selectedImage, setSelectedImage] = useState(product.image);
+  // Initial immediate fallback from static data if present
+  const [product, setProduct] = useState<DynamicStorefrontProduct | Product | null>(() => {
+    return PRODUCTS_DATA.find((p) => p.id === id || p.modelCode === id) || null;
+  });
+  const [loading, setLoading] = useState(!product);
+  const [selectedImage, setSelectedImage] = useState<string>(product?.image || '');
+  const [allProducts, setAllProducts] = useState<Product[]>(PRODUCTS_DATA);
+
+  // Load product dynamically from backend API
+  useEffect(() => {
+    let cancelled = false;
+    async function loadData() {
+      if (!id) return;
+      try {
+        setLoading(true);
+        const [fetchedProd, allList] = await Promise.all([
+          fetchStorefrontProductById(id),
+          fetchAllStorefrontProducts(),
+        ]);
+        if (!cancelled) {
+          if (fetchedProd) {
+            setProduct(fetchedProd);
+            setSelectedImage(fetchedProd.image);
+          }
+          if (allList.length > 0) {
+            setAllProducts(allList);
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load product detail:', err);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    loadData();
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  // Keep selected image updated when product changes
+  useEffect(() => {
+    if (product?.image && !selectedImage) {
+      setSelectedImage(product.image);
+    }
+  }, [product, selectedImage]);
+
+  if (loading && !product) {
+    return (
+      <div className="py-20 bg-brand-gray-bg min-h-screen flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="w-10 h-10 border-3 border-brand-blue border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm text-brand-gray-muted">Loading product specifications...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="py-20 bg-brand-gray-bg min-h-screen">
+        <Container size="md" className="text-center bg-white p-12 rounded-3xl border border-brand-gray-border">
+          <Box className="w-12 h-12 text-brand-gray-muted mx-auto mb-4" />
+          <h2 className="font-heading font-bold text-xl text-brand-blue-navy">Product Not Found</h2>
+          <p className="text-xs text-brand-gray-muted mt-2 mb-6">
+            The requested product model code could not be located in our active export catalog.
+          </p>
+          <Button variant="primary" onClick={() => navigate('/products')}>
+            Back to Catalog
+          </Button>
+        </Container>
+      </div>
+    );
+  }
+
+  const dynamicProd = product as DynamicStorefrontProduct;
 
   // Similar products in same category
-  const similarProducts = PRODUCTS_DATA.filter(
-    (p) => p.category === product.category && p.id !== product.id
+  const similarProducts = allProducts.filter(
+    (p) => p.category.toLowerCase() === product.category.toLowerCase() && p.id !== product.id
   ).slice(0, 6);
+
+  // Extra attributes from backend that are not covered in the standard specs
+  const extraAttributes = (dynamicProd.rawAttributes || []).filter((attr) => {
+    const k = attr.key.toLowerCase();
+    return (
+      !['power', 'capacity', 'voltage', 'dimensions', 'weight', 'energyrating', 'certifications', 'certification', 'badge', 'leadtime'].includes(k) &&
+      attr.value
+    );
+  });
 
   return (
     <div className="py-10 bg-brand-gray-bg min-h-screen">
@@ -135,20 +224,53 @@ export const ProductDetailPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Features List */}
-              <div>
-                <span className="text-xs font-bold text-brand-blue-navy block mb-2">
-                  Standard Factory Features:
-                </span>
-                <ul className="space-y-2">
-                  {product.features.map((feat, fIdx) => (
-                    <li key={fIdx} className="flex items-start gap-2 text-xs text-brand-gray-text">
-                      <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  {/* Ready Stock Alert Banner if available */}
+                  {dynamicProd.readyStockAvailability === 'Yes' && (
+                    <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="font-semibold">Ready Stock Available for Immediate Dispatch:</span>
+                      </div>
+                      <span className="font-bold text-emerald-900">
+                        {dynamicProd.readyStockQuantity || 'Units In Warehouse'}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Available Colorways */}
+                  {dynamicProd.colorways && dynamicProd.colorways.length > 0 && (
+                    <div>
+                      <span className="text-xs font-bold text-brand-blue-navy block mb-2">
+                        Available Colorways / Finishes:
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {dynamicProd.colorways.map((col, cIdx) => (
+                          <span
+                            key={cIdx}
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200"
+                          >
+                            <Palette className="w-3 h-3 text-slate-500" />
+                            {col}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Standard Factory Features */}
+                  <div>
+                    <span className="text-xs font-bold text-brand-blue-navy block mb-2">
+                      Standard Factory Features:
+                    </span>
+                    <ul className="space-y-2">
+                      {product.features.map((feat, fIdx) => (
+                        <li key={fIdx} className="flex items-start gap-2 text-xs text-brand-gray-text">
+                          <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
               {/* Call to action buttons */}
               <div className="pt-4 border-t border-brand-gray-border/60 flex flex-col sm:flex-row items-center gap-3">
@@ -225,6 +347,24 @@ export const ProductDetailPage: React.FC = () => {
                       <td className="py-3 px-4">{product.specs.weight}</td>
                     </tr>
                   )}
+                  {dynamicProd.fabric && (
+                    <tr className="bg-brand-gray-bg/60">
+                      <td className="py-3 px-4 font-semibold text-brand-blue-navy">Fabric / Material Composition</td>
+                      <td className="py-3 px-4">{dynamicProd.fabric}</td>
+                    </tr>
+                  )}
+                  {dynamicProd.gsm && (
+                    <tr>
+                      <td className="py-3 px-4 font-semibold text-brand-blue-navy">Material Weight / GSM</td>
+                      <td className="py-3 px-4">{dynamicProd.gsm} GSM</td>
+                    </tr>
+                  )}
+                  {extraAttributes.map((attr, idx) => (
+                    <tr key={idx} className={idx % 2 === 0 ? "bg-brand-gray-bg/60" : ""}>
+                      <td className="py-3 px-4 font-semibold text-brand-blue-navy">{attr.key}</td>
+                      <td className="py-3 px-4">{attr.value}</td>
+                    </tr>
+                  ))}
                   <tr>
                     <td className="py-3 px-4 font-semibold text-brand-blue-navy">Compliance & Safety Certifications</td>
                     <td className="py-3 px-4">

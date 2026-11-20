@@ -1,26 +1,61 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Box, ArrowRight } from 'lucide-react';
+import { Box, ArrowRight, Search } from 'lucide-react';
 import { PRODUCTS_DATA } from '../data/products';
+import { fetchAllStorefrontProducts, matchesCategory } from '../lib/catalog/storefrontProducts';
 import { Container } from '../components/common/Container';
 import { Badge } from '../components/common/Badge';
 import { Button } from '../components/common/Button';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { Product } from '../types';
 
 export const ProductsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const selectedCategory = searchParams.get('category') || 'all';
+  const [products, setProducts] = useState<Product[]>(PRODUCTS_DATA);
+  const [_loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Fetch dynamic products from the backend on mount
+  useEffect(() => {
+    let cancelled = false;
+    async function loadProducts() {
+      try {
+        setLoading(true);
+        const dynamicList = await fetchAllStorefrontProducts(true);
+        if (!cancelled && dynamicList.length > 0) {
+          setProducts(dynamicList);
+        }
+      } catch (err) {
+        console.warn('Using default products due to load error:', err);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    loadProducts();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === 'all') return PRODUCTS_DATA;
-    const catLower = selectedCategory.toLowerCase();
-    return PRODUCTS_DATA.filter((product) => {
-      return (
-        product.category.toLowerCase().includes(catLower) ||
-        product.subCategory?.toLowerCase().includes(catLower)
+    let list = products;
+    if (selectedCategory !== 'all') {
+      list = list.filter((product) => matchesCategory(product, selectedCategory));
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      list = list.filter((p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.modelCode.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q)
       );
-    });
-  }, [selectedCategory]);
+    }
+
+    return list;
+  }, [products, selectedCategory, searchQuery]);
 
   return (
     <div className="py-12 bg-brand-gray-bg min-h-screen">
@@ -38,18 +73,40 @@ export const ProductsPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Category active filter indicator if routed from category */}
-        {selectedCategory !== 'all' && (
-          <div className="mb-6 flex items-center gap-2">
-            <span className="text-xs text-brand-gray-text font-medium">Category:</span>
-            <span className="px-3 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-xs font-semibold capitalize">
-              {selectedCategory}
-            </span>
-            <Link to="/products" className="text-xs text-slate-500 hover:text-brand-blue underline ml-2">
-              View all products
-            </Link>
+        {/* Search Bar & Category Filter Indicator */}
+        <div className="mb-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div className="relative flex-1 max-w-md">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by model code, name, or spec..."
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-brand-gray-border text-xs text-brand-blue-navy placeholder:text-slate-400 focus:outline-none focus:border-brand-blue shadow-xs"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
+              >
+                Clear
+              </button>
+            )}
           </div>
-        )}
+
+          {selectedCategory !== 'all' && (
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-brand-gray-text font-medium">Category:</span>
+              <span className="px-3 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-xs font-semibold capitalize">
+                {selectedCategory}
+              </span>
+              <Link to="/products" className="text-xs text-slate-500 hover:text-brand-blue underline ml-2">
+                View all products
+              </Link>
+            </div>
+          )}
+        </div>
 
         {/* Results Count & Notice */}
         <div className="flex items-center justify-between text-xs text-brand-gray-muted mb-6">
