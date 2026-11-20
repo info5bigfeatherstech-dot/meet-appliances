@@ -1,10 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Container as ContainerIcon, ShieldCheck, PhoneCall } from 'lucide-react';
-import { Button } from '../common/Button';
-import { Container } from '../common/Container';
-import { RevealOnScroll } from '../common/RevealOnScroll';
-import { COMPANY_INFO } from '../../data/company';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  Container as ContainerIcon,
+  ShieldCheck,
+  PhoneCall,
+} from "lucide-react";
+import { Button } from "../common/Button";
+import { Container } from "../common/Container";
+import { RevealOnScroll } from "../common/RevealOnScroll";
+import { COMPANY_INFO } from "../../data/company";
 
 export const CtaBanner: React.FC = () => {
   return (
@@ -15,7 +20,7 @@ export const CtaBanner: React.FC = () => {
             {/* Background Floating Decorative Blobs & Shapes */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-brand-green/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20 animate-pulse-subtle" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-blue/30 rounded-full blur-2xl pointer-events-none -ml-20 -mb-20" />
-            
+
             {/* Geometric floating accent ring */}
             <div className="absolute top-10 right-1/4 w-32 h-32 rounded-full border border-white/10 pointer-events-none animate-float-slow" />
             <div className="absolute bottom-8 right-12 w-20 h-20 rounded-2xl border border-white/15 rotate-12 pointer-events-none animate-float-reverse" />
@@ -31,7 +36,9 @@ export const CtaBanner: React.FC = () => {
               </h2>
 
               <p className="font-subheading text-sm sm:text-base text-slate-200 mt-4 max-w-2xl leading-relaxed">
-                Send us your target model specifications, annual volume, and required port of destination. We return a fully-costed CIF/FOB quotation and factory audit report within 24 to 48 hours.
+                Send us your target model specifications, annual volume, and
+                required port of destination. We return a fully-costed CIF/FOB
+                quotation and factory audit report within 24 to 48 hours.
               </p>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-8">

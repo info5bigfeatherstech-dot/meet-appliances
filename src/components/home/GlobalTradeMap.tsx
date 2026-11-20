@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   WORLD_LAND_PATH,
   CHINA_PATH,
@@ -6,24 +6,24 @@ import {
   COUNTRY_PINS,
   type MapLens,
   type MapPin,
-} from '../../data/worldMapData';
+} from "../../data/worldMapData";
 
-export const GlobalTradeMap: React.FC<{ className?: string }> = ({ className = '' }) => {
+export const GlobalTradeMap: React.FC<{ className?: string }> = ({
+  className = "",
+}) => {
   const [activeLens, setActiveLens] = useState<string | null>(null);
   const [hoveredPin, setHoveredPin] = useState<string | null>(null);
 
   return (
-    <div className={`relative w-full h-full flex items-center justify-center overflow-hidden select-none ${className}`}>
+    <div
+      className={`relative w-full h-full flex items-center justify-center overflow-hidden select-none ${className}`}
+    >
       {/* 1. Deep Oceanic Theme Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#071526] via-[#091B33] to-[#050F1C] -z-20" />
 
       {/* Atmospheric radial brand glow */}
-      <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-brand-blue/20 rounded-full blur-[120px] pointer-events-none -z-10"
-      />
-      <div
-        className="absolute bottom-10 right-1/4 w-[500px] h-[350px] bg-brand-green/10 rounded-full blur-[100px] pointer-events-none -z-10"
-      />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-brand-blue/20 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[350px] bg-brand-green/10 rounded-full blur-[100px] pointer-events-none -z-10" />
 
       {/* 2. Main High-Precision World Map SVG (Cropped tightly to maximize continent scale) */}
       <svg
@@ -34,7 +34,13 @@ export const GlobalTradeMap: React.FC<{ className?: string }> = ({ className = '
       >
         <defs>
           {/* Theme Land Gradient: Corporate Ice-Blue matching brand palette */}
-          <linearGradient id="themeLandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient
+            id="themeLandGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
             <stop offset="0%" stopColor="#7ec8f8" />
             <stop offset="45%" stopColor="#6cbcf3" />
             <stop offset="85%" stopColor="#5aaee8" />
@@ -42,7 +48,13 @@ export const GlobalTradeMap: React.FC<{ className?: string }> = ({ className = '
           </linearGradient>
 
           {/* China Sourcing Hub Gradient: Brand Green highlight */}
-          <linearGradient id="chinaSourcingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient
+            id="chinaSourcingGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
             <stop offset="0%" stopColor="#8de05a" />
             <stop offset="50%" stopColor="#74C043" />
             <stop offset="100%" stopColor="#5ca332" />
@@ -57,17 +69,47 @@ export const GlobalTradeMap: React.FC<{ className?: string }> = ({ className = '
 
           {/* Red Pin Drop Shadow */}
           <filter id="redPinGlow" x="-60%" y="-60%" width="220%" height="220%">
-            <feDropShadow dx="0" dy="0" stdDeviation="3.5" floodColor="#f43f5e" floodOpacity="0.9" />
+            <feDropShadow
+              dx="0"
+              dy="0"
+              stdDeviation="3.5"
+              floodColor="#f43f5e"
+              floodOpacity="0.9"
+            />
           </filter>
 
           {/* Orange Pin Drop Shadow */}
-          <filter id="orangePinGlow" x="-60%" y="-60%" width="220%" height="220%">
-            <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#f97316" floodOpacity="0.9" />
+          <filter
+            id="orangePinGlow"
+            x="-60%"
+            y="-60%"
+            width="220%"
+            height="220%"
+          >
+            <feDropShadow
+              dx="0"
+              dy="0"
+              stdDeviation="3"
+              floodColor="#f97316"
+              floodOpacity="0.9"
+            />
           </filter>
 
           {/* Brand Green Glow */}
-          <filter id="greenPinGlow" x="-80%" y="-80%" width="260%" height="260%">
-            <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#74C043" floodOpacity="0.95" />
+          <filter
+            id="greenPinGlow"
+            x="-80%"
+            y="-80%"
+            width="260%"
+            height="260%"
+          >
+            <feDropShadow
+              dx="0"
+              dy="0"
+              stdDeviation="5"
+              floodColor="#74C043"
+              floodOpacity="0.95"
+            />
           </filter>
         </defs>
 
@@ -113,7 +155,7 @@ export const GlobalTradeMap: React.FC<{ className?: string }> = ({ className = '
                   cy={lens.cy}
                   r={lens.r + (isHovered ? 6 : 0)}
                   fill="url(#themeLensGrad)"
-                  stroke={isHovered ? '#74C043' : 'rgba(255, 255, 255, 0.28)'}
+                  stroke={isHovered ? "#74C043" : "rgba(255, 255, 255, 0.28)"}
                   strokeWidth={isHovered ? 2 : 1.2}
                   className="transition-all duration-300"
                 />
@@ -136,54 +178,61 @@ export const GlobalTradeMap: React.FC<{ className?: string }> = ({ className = '
         </g>
 
         {/* 5. LEADER LINES FOR PINS (Exact crisp elbow lines from pins to labels) */}
-        <g stroke="rgba(255, 255, 255, 0.75)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-          {COUNTRY_PINS.filter((p) => p.leader && p.targetX && p.targetY).map((pin: MapPin, idx: number) => {
-            if (pin.leader === 'left') {
-              // Horizontal elbow leading to left label
-              const midX = pin.x - 35;
-              return (
-                <polyline
-                  key={idx}
-                  points={`${pin.x},${pin.y} ${midX},${pin.targetY} ${pin.targetX},${pin.targetY}`}
-                  fill="none"
-                />
-              );
-            }
-            if (pin.leader === 'right') {
-              // Diagonal elbow leading out to the right label column
-              const midX = pin.x + 50;
-              return (
-                <polyline
-                  key={idx}
-                  points={`${pin.x},${pin.y} ${midX},${pin.targetY} ${pin.targetX},${pin.targetY}`}
-                  fill="none"
-                />
-              );
-            }
-            if (pin.leader === 'top') {
-              // Vertical upward line
-              return (
-                <line
-                  key={idx}
-                  x1={pin.x}
-                  y1={pin.y}
-                  x2={pin.targetX}
-                  y2={pin.targetY}
-                />
-              );
-            }
-            return null;
-          })}
+        <g
+          stroke="rgba(255, 255, 255, 0.75)"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {COUNTRY_PINS.filter((p) => p.leader && p.targetX && p.targetY).map(
+            (pin: MapPin, idx: number) => {
+              if (pin.leader === "left") {
+                // Horizontal elbow leading to left label
+                const midX = pin.x - 35;
+                return (
+                  <polyline
+                    key={idx}
+                    points={`${pin.x},${pin.y} ${midX},${pin.targetY} ${pin.targetX},${pin.targetY}`}
+                    fill="none"
+                  />
+                );
+              }
+              if (pin.leader === "right") {
+                // Diagonal elbow leading out to the right label column
+                const midX = pin.x + 50;
+                return (
+                  <polyline
+                    key={idx}
+                    points={`${pin.x},${pin.y} ${midX},${pin.targetY} ${pin.targetX},${pin.targetY}`}
+                    fill="none"
+                  />
+                );
+              }
+              if (pin.leader === "top") {
+                // Vertical upward line
+                return (
+                  <line
+                    key={idx}
+                    x1={pin.x}
+                    y1={pin.y}
+                    x2={pin.targetX}
+                    y2={pin.targetY}
+                  />
+                );
+              }
+              return null;
+            },
+          )}
         </g>
 
         {/* 6. COUNTRY PINPOINTS (Red & Orange Dots with white halos) */}
         <g id="pins">
           {COUNTRY_PINS.map((pin: MapPin, idx: number) => {
-            if (pin.type === 'label-only') return null;
+            if (pin.type === "label-only") return null;
 
-            const isRed = pin.type === 'red';
-            const dotColor = isRed ? '#f43f5e' : '#f97316';
-            const filterId = isRed ? 'url(#redPinGlow)' : 'url(#orangePinGlow)';
+            const isRed = pin.type === "red";
+            const dotColor = isRed ? "#f43f5e" : "#f97316";
+            const filterId = isRed ? "url(#redPinGlow)" : "url(#orangePinGlow)";
             const isHovered = hoveredPin === pin.name;
 
             return (
@@ -259,23 +308,23 @@ export const GlobalTradeMap: React.FC<{ className?: string }> = ({ className = '
           {COUNTRY_PINS.map((pin: MapPin, idx: number) => {
             let labelX = pin.labelX || pin.x;
             let labelY = pin.labelY || pin.y;
-            let anchor = pin.anchor || 'start';
+            let anchor = pin.anchor || "start";
             let fontSize = pin.fontSize || 16;
-            let fill = '#FFFFFF';
+            let fill = "#FFFFFF";
 
-            if (pin.leader === 'left' && pin.targetX && pin.targetY) {
+            if (pin.leader === "left" && pin.targetX && pin.targetY) {
               labelX = pin.targetX - 8;
               labelY = pin.targetY + 5;
-              anchor = 'end';
-            } else if (pin.leader === 'right' && pin.targetX && pin.targetY) {
+              anchor = "end";
+            } else if (pin.leader === "right" && pin.targetX && pin.targetY) {
               labelX = pin.targetX + 10;
               labelY = pin.targetY + 5;
-              anchor = 'start';
-            } else if (pin.leader === 'top' && pin.targetX && pin.targetY) {
+              anchor = "start";
+            } else if (pin.leader === "top" && pin.targetX && pin.targetY) {
               labelX = pin.targetX;
               labelY = pin.targetY - 8;
-              anchor = 'middle';
-              fill = '#e0f2fe';
+              anchor = "middle";
+              fill = "#e0f2fe";
             }
 
             const isHovered = hoveredPin === pin.name;
@@ -286,7 +335,7 @@ export const GlobalTradeMap: React.FC<{ className?: string }> = ({ className = '
                 x={labelX}
                 y={labelY}
                 textAnchor={anchor}
-                fill={isHovered ? '#74C043' : fill}
+                fill={isHovered ? "#74C043" : fill}
                 fontSize={fontSize}
                 className="drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] select-none pointer-events-none transition-colors duration-200"
               >
@@ -296,7 +345,6 @@ export const GlobalTradeMap: React.FC<{ className?: string }> = ({ className = '
           })}
         </g>
       </svg>
-
     </div>
   );
 };

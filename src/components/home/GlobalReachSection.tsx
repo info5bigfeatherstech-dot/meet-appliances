@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Container } from '../common/Container';
-import { RevealOnScroll } from '../common/RevealOnScroll';
-import { Badge } from '../common/Badge';
-import { TRADE_HUBS, TRADE_ROUTES } from '../../data/tradeRoutes';
-import { WorldTradeMapCanvas } from './WorldTradeMapCanvas';
-import { Globe, Clock, Box, ArrowRight } from 'lucide-react';
+import React, { useState } from "react";
+import { Container } from "../common/Container";
+import { RevealOnScroll } from "../common/RevealOnScroll";
+import { Badge } from "../common/Badge";
+import { TRADE_HUBS, TRADE_ROUTES } from "../../data/tradeRoutes";
+import { WorldTradeMapCanvas } from "./WorldTradeMapCanvas";
+import { Globe, Clock, Box, ArrowRight } from "lucide-react";
 
 export const GlobalReachSection: React.FC = () => {
   const [selectedRoute, setSelectedRoute] = useState(TRADE_ROUTES[0]);
@@ -29,14 +29,16 @@ export const GlobalReachSection: React.FC = () => {
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
             <p className="font-subheading text-base text-slate-300 mt-4 leading-relaxed">
-              We contract direct ocean liner allocations across Maersk, MSC, COSCO, and CMA CGM. Whether shipping full container loads (FCL) to Europe or multi-stop consolidation to South America, your cargo moves with scheduled precision.
+              We contract direct ocean liner allocations across Maersk, MSC,
+              COSCO, and CMA CGM. Whether shipping full container loads (FCL) to
+              Europe or multi-stop consolidation to South America, your cargo
+              moves with scheduled precision.
             </p>
           </RevealOnScroll>
         </div>
 
         {/* Global Map Display with Real-Time Routing Info */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
           {/* Left Canvas Map Interactive Area */}
           <div className="lg:col-span-8 rounded-3xl bg-white/5 border border-white/10 p-6 backdrop-blur-xl shadow-2xl">
             <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/10">
@@ -64,9 +66,13 @@ export const GlobalReachSection: React.FC = () => {
                   key={hub.id}
                   className="inline-flex items-center gap-1.5 text-xs bg-white/10 text-slate-200 px-3 py-1.5 rounded-xl border border-white/10 hover:border-brand-green transition-colors"
                 >
-                  <span className={`w-2 h-2 rounded-full ${hub.type === 'Sourcing Hub' ? 'bg-brand-blue' : 'bg-brand-green'}`}></span>
+                  <span
+                    className={`w-2 h-2 rounded-full ${hub.type === "Sourcing Hub" ? "bg-brand-blue" : "bg-brand-green"}`}
+                  ></span>
                   <span className="font-semibold text-white">{hub.city}</span>
-                  <span className="text-[10px] text-slate-400">({hub.code})</span>
+                  <span className="text-[10px] text-slate-400">
+                    ({hub.code})
+                  </span>
                 </div>
               ))}
             </div>
@@ -88,14 +94,18 @@ export const GlobalReachSection: React.FC = () => {
                     onClick={() => setSelectedRoute(route)}
                     className={`p-4 rounded-2xl border transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-brand-blue/20 border-brand-green shadow-glow-green/20'
-                        : 'bg-white/5 border-white/10 hover:bg-white/10'
+                        ? "bg-brand-blue/20 border-brand-green shadow-glow-green/20"
+                        : "bg-white/5 border-white/10 hover:bg-white/10"
                     }`}
                   >
                     <div className="flex items-center justify-between text-xs font-semibold mb-1">
-                      <span className="text-brand-green">{route.origin.name}</span>
+                      <span className="text-brand-green">
+                        {route.origin.name}
+                      </span>
                       <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
-                      <span className="text-white">{route.destination.name}</span>
+                      <span className="text-white">
+                        {route.destination.name}
+                      </span>
                     </div>
 
                     <div className="text-xs text-slate-300 font-medium mt-1">
@@ -119,11 +129,13 @@ export const GlobalReachSection: React.FC = () => {
 
             {/* Quick Sourcing Advice */}
             <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-slate-300">
-              <span className="font-semibold text-white block mb-1">Need a custom port quote?</span>
-              We provide spot rates & long-term contract pricing for FOB, CIF, and CFR shipments with demurrage protection.
+              <span className="font-semibold text-white block mb-1">
+                Need a custom port quote?
+              </span>
+              We provide spot rates & long-term contract pricing for FOB, CIF,
+              and CFR shipments with demurrage protection.
             </div>
           </div>
-
         </div>
       </Container>
     </section>

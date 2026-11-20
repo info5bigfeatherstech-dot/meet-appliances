@@ -9,7 +9,6 @@ import {
   Sparkles,
 } from "lucide-react";
 import { PRODUCT_CATEGORIES } from "../data/categories";
-import { getProductsByCategory } from "../data/products";
 import {
   fetchAllStorefrontProducts,
   matchesCategory,
@@ -73,10 +72,9 @@ export const CategoryPage: React.FC = () => {
     if (!category) return [];
     if (allProducts.length > 0) {
       const targetSlug = slug || category.slug;
-      const matched = allProducts.filter((p) => matchesCategory(p, targetSlug));
-      if (matched.length > 0) return matched;
+      return allProducts.filter((p) => matchesCategory(p, targetSlug));
     }
-    return getProductsByCategory(category.slug);
+    return [];
   }, [category, allProducts, slug]);
 
   return (

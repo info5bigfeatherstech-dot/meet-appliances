@@ -156,7 +156,13 @@ export type Product = {
   readyStockQuantity?: string;
   readyStockQuantityUnit?: string;
   customer?: NamedRef | null;
-  customers?: Array<NamedRef & { styleCode?: string; repeatOrder?: "Yes" | "No"; repeatOrderNumber?: string }>;
+  customers?: Array<
+    NamedRef & {
+      styleCode?: string;
+      repeatOrder?: "Yes" | "No";
+      repeatOrderNumber?: string;
+    }
+  >;
   customerStyleCode?: string;
   repeatOrder?: "Yes" | "No";
   repeatOrderNumber?: "None" | "1st" | "2nd" | "3rd";

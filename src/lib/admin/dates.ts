@@ -16,7 +16,9 @@ export function formatAdminDateTime(value?: string): string {
   }).format(date);
 }
 
-export function formatAdminDateParts(value?: string): { date: string; time: string } | null {
+export function formatAdminDateParts(
+  value?: string,
+): { date: string; time: string } | null {
   const date = parseAdminDate(value);
   if (!date) return null;
   return {

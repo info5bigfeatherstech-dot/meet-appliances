@@ -1,5 +1,4 @@
 import type { Product, TradeMode } from "@/types";
-import { PRODUCTS_DATA } from "@/data/products";
 
 export interface DynamicStorefrontProduct extends Product {
   _isFromBackend?: boolean;
@@ -192,8 +191,7 @@ const CACHE_TTL = 10000; // 10 seconds
 /**
  * Fetch all storefront products.
  * Pulls active products dynamically from GET /api/products.
- * If backend products exist, they are displayed first.
- * Gracefully merges/falls back to PRODUCTS_DATA so the storefront is never empty.
+ * Only returns real products created in the Admin Panel / MongoDB.
  */
 export async function fetchAllStorefrontProducts(forceRefresh = false): Promise<Product[]> {
   const now = Date.now();
@@ -206,37 +204,22 @@ export async function fetchAllStorefrontProducts(forceRefresh = false): Promise<
     if (res.ok) {
       const data = await res.json();
       const rawList = Array.isArray(data?.data) ? data.data : (Array.isArray(data) ? data : []);
-      
-      if (rawList.length > 0) {
-        const backendProducts = rawList.map(transformBackendProduct);
-        
-        // Merge backend products with static catalog (backend products prioritized at top)
-        // Deduplicate any items sharing the same modelCode or ID
-        const backendCodes = new Set(backendProducts.map((p: Product) => p.modelCode.toLowerCase()));
-        const backendIds = new Set(backendProducts.map((p: Product) => p.id.toLowerCase()));
-        
-        const nonConflictingStatic = PRODUCTS_DATA.filter(
-          (p) => !backendCodes.has(p.modelCode.toLowerCase()) && !backendIds.has(p.id.toLowerCase())
-        );
-        
-        const combined = [...backendProducts, ...nonConflictingStatic];
-        cachedProducts = combined;
-        lastFetchTime = now;
-        return combined;
-      }
+      const backendProducts = rawList.map(transformBackendProduct);
+      cachedProducts = backendProducts;
+      lastFetchTime = now;
+      return backendProducts;
     }
   } catch (err) {
-    console.warn("Could not fetch dynamic products from backend API, using fallback catalog:", err);
+    console.warn("Could not fetch dynamic products from backend API:", err);
   }
 
-  // Fallback to static catalog
-  cachedProducts = PRODUCTS_DATA;
+  cachedProducts = [];
   lastFetchTime = now;
-  return PRODUCTS_DATA;
+  return [];
 }
 
 /**
- * Fetch a single product by ID or modelCode dynamically.
+ * Fetch a single product by ID or modelCode dynamically from API.
  */
 export async function fetchStorefrontProductById(id: string): Promise<Product | null> {
   if (!id) return null;
@@ -257,7 +240,7 @@ export async function fetchStorefrontProductById(id: string): Promise<Product | 
     }
   }
 
-  // 2. Fetch full list (which caches backend + static) and search
+  // 2. Fetch full list from API and search by id or productCode
   const all = await fetchAllStorefrontProducts();
   const idLower = id.toLowerCase();
   
@@ -268,10 +251,7 @@ export async function fetchStorefrontProductById(id: string): Promise<Product | 
       (p as DynamicStorefrontProduct)._rawBackend?._id === id
   );
 
-  if (found) return found;
-
-  // 3. Fallback to static PRODUCTS_DATA
-  return PRODUCTS_DATA.find((p) => p.id.toLowerCase() === idLower || p.modelCode.toLowerCase() === idLower) || null;
+  return found || null;
 }
 
 /**

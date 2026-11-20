@@ -1,24 +1,36 @@
-import React, { useRef } from 'react';
-import { motion, useScroll } from 'framer-motion';
-import { HOW_IT_WORKS_TIMELINE } from '../../data/services';
-import { Container } from '../common/Container';
-import { RevealOnScroll } from '../common/RevealOnScroll';
-import { Badge } from '../common/Badge';
-import { CheckCircle2, Clock, ShieldCheck, FileCheck, Anchor, Truck, Search, Inbox } from 'lucide-react';
+import React, { useRef } from "react";
+import { motion, useScroll } from "framer-motion";
+import { HOW_IT_WORKS_TIMELINE } from "../../data/services";
+import { Container } from "../common/Container";
+import { RevealOnScroll } from "../common/RevealOnScroll";
+import { Badge } from "../common/Badge";
+import {
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
+  FileCheck,
+  Anchor,
+  Truck,
+  Search,
+  Inbox,
+} from "lucide-react";
 
 export const HowItWorksTimeline: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start center', 'end center'],
+    offset: ["start center", "end center"],
   });
 
   // Step icons map
   const stepIcons = [Inbox, Search, ShieldCheck, FileCheck, Anchor, Truck];
 
   return (
-    <section ref={containerRef} className="py-24 bg-white relative overflow-hidden">
+    <section
+      ref={containerRef}
+      className="py-24 bg-white relative overflow-hidden"
+    >
       <Container size="xl">
         <div className="max-w-3xl mx-auto text-center mb-20">
           <RevealOnScroll direction="up">
@@ -33,7 +45,9 @@ export const HowItWorksTimeline: React.FC = () => {
           </RevealOnScroll>
           <RevealOnScroll direction="up" delay={0.2}>
             <p className="font-subheading text-base text-brand-gray-muted mt-4 leading-relaxed capitalize">
-              Our 6-phase global trading methodology eliminates supply chain surprises. Every container goes through structured sample approval, continuous assembly audits, and pre-loading inspection.
+              Our 6-phase global trading methodology eliminates supply chain
+              surprises. Every container goes through structured sample
+              approval, continuous assembly audits, and pre-loading inspection.
             </p>
           </RevealOnScroll>
         </div>
@@ -58,7 +72,7 @@ export const HowItWorksTimeline: React.FC = () => {
                 <div
                   key={item.step}
                   className={`relative flex flex-col md:flex-row items-start md:items-center ${
-                    isEven ? 'md:flex-row-reverse' : ''
+                    isEven ? "md:flex-row-reverse" : ""
                   } gap-6 sm:gap-8 md:gap-10 lg:gap-12`}
                 >
                   {/* Center Node Marker */}
@@ -70,9 +84,11 @@ export const HowItWorksTimeline: React.FC = () => {
 
                   {/* Content Card */}
                   <div className="ml-11 sm:ml-16 md:ml-0 md:w-1/2 w-[calc(100%-2.75rem)] sm:w-[calc(100%-4rem)] md:w-1/2">
-                    <RevealOnScroll direction={isEven ? 'left' : 'right'} delay={0.15}>
+                    <RevealOnScroll
+                      direction={isEven ? "left" : "right"}
+                      delay={0.15}
+                    >
                       <div className="rounded-2xl bg-brand-gray-bg/70 hover:bg-white p-5 sm:p-7 md:p-8 border border-brand-gray-border/80 hover:border-brand-blue/30 shadow-card hover:shadow-card-hover transition-all group">
-                        
                         <div className="flex items-center justify-between gap-4 mb-3">
                           <span className="flex items-center gap-1.5 text-xs font-semibold text-brand-blue">
                             <Icon className="w-4 h-4 text-brand-blue" />
@@ -113,7 +129,6 @@ export const HowItWorksTimeline: React.FC = () => {
                             ))}
                           </div>
                         </div>
-
                       </div>
                     </RevealOnScroll>
                   </div>

@@ -5,7 +5,7 @@ import type { ProductFormValues } from "./types";
 export function buildProductFormData(
   values: ProductFormValues,
   images: ImageDraft[],
-  mode: "create" | "update"
+  mode: "create" | "update",
 ) {
   const form = new FormData();
   form.append("productCode", values.productCode.trim());
@@ -19,7 +19,11 @@ export function buildProductFormData(
   if (mode === "update") {
     form.append(
       "existingImages",
-      JSON.stringify(images.filter((image) => image.kind === "existing").map((image) => image.url))
+      JSON.stringify(
+        images
+          .filter((image) => image.kind === "existing")
+          .map((image) => image.url),
+      ),
     );
   }
   images.forEach((image) => {

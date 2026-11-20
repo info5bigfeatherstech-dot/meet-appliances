@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
-import { Container } from '../common/Container';
-import { GlobalTradeMap } from './GlobalTradeMap';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { Container } from "../common/Container";
+import { GlobalTradeMap } from "./GlobalTradeMap";
 
 interface SlideContent {
   id: number;
@@ -20,36 +20,39 @@ interface SlideContent {
 const SLIDES: SlideContent[] = [
   {
     id: 1,
-    tagPre: 'More than',
-    tagHighlight: 'import and export',
-    headlineMain: 'YOUR',
-    headlineHighlight: 'ONE-STOP',
-    headlineSub: 'SOURCING PLATFORM IN ASIA & WORLDWIDE',
-    description: 'We connect international importers and retail chains to 320+ vetted tier-1 appliance production hubs with zero factory bias.',
-    ctaText: 'Explore Sourcing Network',
-    ctaLink: '/products',
+    tagPre: "More than",
+    tagHighlight: "import and export",
+    headlineMain: "YOUR",
+    headlineHighlight: "ONE-STOP",
+    headlineSub: "SOURCING PLATFORM IN ASIA & WORLDWIDE",
+    description:
+      "We connect international importers and retail chains to 320+ vetted tier-1 appliance production hubs with zero factory bias.",
+    ctaText: "Explore Sourcing Network",
+    ctaLink: "/products",
   },
   {
     id: 2,
-    tagPre: 'Strict statistical',
-    tagHighlight: 'AQL Level II QA',
-    headlineMain: 'INDEPENDENT',
-    headlineHighlight: 'INSPECTIONS',
-    headlineSub: 'BEFORE CARGO SEALS ARE LOCKED',
-    description: 'Electrical Hi-Pot tests, drop tests, thermal chamber benchmarks, and 100% container loading supervision.',
-    ctaText: 'View Inspection Protocol',
-    ctaLink: '/services#quality-inspection',
+    tagPre: "Strict statistical",
+    tagHighlight: "AQL Level II QA",
+    headlineMain: "INDEPENDENT",
+    headlineHighlight: "INSPECTIONS",
+    headlineSub: "BEFORE CARGO SEALS ARE LOCKED",
+    description:
+      "Electrical Hi-Pot tests, drop tests, thermal chamber benchmarks, and 100% container loading supervision.",
+    ctaText: "View Inspection Protocol",
+    ctaLink: "/services#quality-inspection",
   },
   {
     id: 3,
-    tagPre: 'Direct carrier',
-    tagHighlight: 'guaranteed space',
-    headlineMain: 'RELIABLE',
-    headlineHighlight: 'CONTAINER FREIGHT',
-    headlineSub: 'TO 58 DESTINATION COUNTRIES',
-    description: 'Annual ocean contracts across Maersk, MSC, and COSCO ensuring timely vessel sailings with FOB, CIF & CFR Incoterms.',
-    ctaText: 'Request Container Quote',
-    ctaLink: '/contact',
+    tagPre: "Direct carrier",
+    tagHighlight: "guaranteed space",
+    headlineMain: "RELIABLE",
+    headlineHighlight: "CONTAINER FREIGHT",
+    headlineSub: "TO 58 DESTINATION COUNTRIES",
+    description:
+      "Annual ocean contracts across Maersk, MSC, and COSCO ensuring timely vessel sailings with FOB, CIF & CFR Incoterms.",
+    ctaText: "Request Container Quote",
+    ctaLink: "/contact",
   },
 ];
 
@@ -73,7 +76,7 @@ export const GlobalTradeBanner: React.FC = () => {
       ([entry]) => {
         isVisibleRef.current = entry.isIntersecting;
       },
-      { threshold: 0.05 }
+      { threshold: 0.05 },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -91,25 +94,28 @@ export const GlobalTradeBanner: React.FC = () => {
   const slide = SLIDES[currentSlide];
 
   return (
-    <section ref={bannerRef} className="relative w-full overflow-hidden bg-brand-blue-navy py-16 lg:py-24 text-white border-y border-white/10 select-none">
+    <section
+      ref={bannerRef}
+      className="relative w-full overflow-hidden bg-brand-blue-navy py-16 lg:py-24 text-white border-y border-white/10 select-none"
+    >
       {/* 1. Deep atmospheric background gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#07132B] via-[#0A1A3F] to-[#0D214F] -z-20" />
 
       {/* Subtle radial lighting from theme colors */}
       <div
         className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-brand-blue/15 rounded-full blur-[80px] pointer-events-none -z-10"
-        style={{ transform: 'translate3d(0,0,0)' }}
+        style={{ transform: "translate3d(0,0,0)" }}
       />
       <div
         className="absolute bottom-10 right-1/4 w-[450px] h-[450px] bg-brand-green/10 rounded-full blur-[80px] pointer-events-none -z-10"
-        style={{ transform: 'translate3d(0,0,0)' }}
+        style={{ transform: "translate3d(0,0,0)" }}
       />
 
-
-
-      <Container size="full" className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-[1720px] mx-auto">
+      <Container
+        size="full"
+        className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-[1720px] mx-auto"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center min-h-[540px] lg:min-h-[660px]">
-
           {/* LEFT COLUMN: Hero Copy */}
           <div className="lg:col-span-4 xl:col-span-4 z-10 space-y-6 text-left">
             <AnimatePresence mode="wait">
@@ -118,7 +124,7 @@ export const GlobalTradeBanner: React.FC = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.45, ease: 'easeOut' }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
                 className="space-y-4"
               >
                 {/* Tagline */}
@@ -134,7 +140,7 @@ export const GlobalTradeBanner: React.FC = () => {
                 {/* Big Bold Headline */}
                 <div className="font-heading font-semibold tracking-tight leading-[1.12]">
                   <span className="text-2xl sm:text-3xl lg:text-4xl text-white block">
-                    {slide.headlineMain}{' '}
+                    {slide.headlineMain}{" "}
                     <span className="text-brand-green underline decoration-brand-green/40 decoration-4 underline-offset-4">
                       {slide.headlineHighlight}
                     </span>
@@ -151,7 +157,10 @@ export const GlobalTradeBanner: React.FC = () => {
 
                 {/* CTA Button in theme color */}
                 <div className="pt-2">
-                  <Link to={slide.ctaLink} className="inline-block w-full sm:w-auto">
+                  <Link
+                    to={slide.ctaLink}
+                    className="inline-block w-full sm:w-auto"
+                  >
                     <button className="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-green text-brand-blue-navy font-bold text-xs sm:text-sm hover:bg-[#6edba0] shadow-glow-green transition-all duration-300 flex items-center justify-center gap-2 group active:scale-95 min-h-[44px]">
                       <span>{slide.ctaText}</span>
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -164,18 +173,30 @@ export const GlobalTradeBanner: React.FC = () => {
             {/* Quick Sourcing Metrics Strip */}
             <div className="pt-6 border-t border-white/10 grid grid-cols-3 gap-2 sm:flex sm:items-center sm:gap-6 text-xs text-slate-300">
               <div>
-                <span className="font-bold text-brand-green text-base block font-heading">320+</span>
-                <span className="text-[11px] text-slate-400">Audited Factories</span>
+                <span className="font-bold text-brand-green text-base block font-heading">
+                  320+
+                </span>
+                <span className="text-[11px] text-slate-400">
+                  Audited Factories
+                </span>
               </div>
               <div className="hidden sm:block h-8 w-px bg-white/15" />
               <div>
-                <span className="font-bold text-brand-green text-base block font-heading">58</span>
-                <span className="text-[11px] text-slate-400">Destination Ports</span>
+                <span className="font-bold text-brand-green text-base block font-heading">
+                  58
+                </span>
+                <span className="text-[11px] text-slate-400">
+                  Destination Ports
+                </span>
               </div>
               <div className="hidden sm:block h-8 w-px bg-white/15" />
               <div>
-                <span className="font-bold text-brand-green text-base block font-heading">AQL II</span>
-                <span className="text-[11px] text-slate-400">Pre-Shipment Pass</span>
+                <span className="font-bold text-brand-green text-base block font-heading">
+                  AQL II
+                </span>
+                <span className="text-[11px] text-slate-400">
+                  Pre-Shipment Pass
+                </span>
               </div>
             </div>
           </div>
@@ -184,7 +205,6 @@ export const GlobalTradeBanner: React.FC = () => {
           <div className="lg:col-span-8 xl:col-span-8 relative w-full min-h-[460px] sm:min-h-[560px] lg:min-h-[660px] xl:min-h-[740px] flex items-center justify-center">
             <GlobalTradeMap />
           </div>
-
         </div>
 
         {/* Slide Pagination Dots */}
@@ -194,7 +214,9 @@ export const GlobalTradeBanner: React.FC = () => {
               key={idx}
               onClick={() => setCurrentSlide(idx)}
               className={`h-2 rounded-full transition-all duration-300 ${
-                currentSlide === idx ? 'w-8 bg-brand-green shadow-glow-green/50' : 'w-2 bg-white/30 hover:bg-white/60'
+                currentSlide === idx
+                  ? "w-8 bg-brand-green shadow-glow-green/50"
+                  : "w-2 bg-white/30 hover:bg-white/60"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />

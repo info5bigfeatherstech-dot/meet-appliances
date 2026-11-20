@@ -9,9 +9,20 @@ import type {
 
 export const YES_NO = ["Yes", "No"] as const;
 export const PRODUCT_STATUSES = ["Active", "Inactive"] as const;
-export const PRODUCT_TYPES = ["New Developed", "Shipment Sample", "Customer Sample"] as const;
+export const PRODUCT_TYPES = [
+  "New Developed",
+  "Shipment Sample",
+  "Customer Sample",
+] as const;
 export const GENDERS = ["Women", "Men", "Unisex"] as const;
-export const AGE_GROUPS = ["Newborn", "Infant", "Toddler", "Kids", "Teen", "Adult"] as const;
+export const AGE_GROUPS = [
+  "Newborn",
+  "Infant",
+  "Toddler",
+  "Kids",
+  "Teen",
+  "Adult",
+] as const;
 export const GARMENT_CATEGORIES = [
   "Dress",
   "Top",
@@ -46,12 +57,31 @@ export const MONTHS = [
   "November",
   "December",
 ] as const;
-export const VARIANT_STATUSES = ["In Stock", "Low Stock", "Out of Stock"] as const;
+export const VARIANT_STATUSES = [
+  "In Stock",
+  "Low Stock",
+  "Out of Stock",
+] as const;
 export const REPEAT_NUMBERS = ["None", "1st", "2nd", "3rd"] as const;
-export const SIZE_PRESETS = ["S, M, L, XL", "XS, S, M, L, XL, XXL", "28, 30, 32, 34, 36", "Free Size"] as const;
+export const SIZE_PRESETS = [
+  "S, M, L, XL",
+  "XS, S, M, L, XL, XXL",
+  "28, 30, 32, 34, 36",
+  "Free Size",
+] as const;
 export const SEASON_PRESETS = ["SS26", "AW26", "Resort", "Holiday"] as const;
-export const COLLECTION_PRESETS = ["Summer Collection", "Winter Collection", "Resort", "Core"] as const;
-export const CUSTOMER_TIERS = ["Key Account", "Retail Brand", "Boutique", "Wholesale"] as const;
+export const COLLECTION_PRESETS = [
+  "Summer Collection",
+  "Winter Collection",
+  "Resort",
+  "Core",
+] as const;
+export const CUSTOMER_TIERS = [
+  "Key Account",
+  "Retail Brand",
+  "Boutique",
+  "Wholesale",
+] as const;
 export const MAX_VARIANTS = 20;
 export const MAX_SUB_VARIANTS = 20;
 export const MAX_VARIANT_FIELDS = 10;
@@ -119,7 +149,8 @@ export function emptyErpForm(): ErpFormValues {
 
 function presetOrCustom(value: string | undefined, presets: readonly string[]) {
   if (!value) return { value: "", custom: "" };
-  if ((presets as readonly string[]).includes(value)) return { value, custom: "" };
+  if ((presets as readonly string[]).includes(value))
+    return { value, custom: "" };
   return { value: "Custom", custom: value };
 }
 
@@ -159,12 +190,21 @@ export function productToErpForm(product?: Product | null): ErpFormValues {
     variant: product.variant === "Yes" ? "Yes" : "No",
     variantDetails: (product.variantDetails || []).map((row, index) => {
       const parentSku = extraVariantSku(product.productCode, index);
-      const subVariants = mapSubVariants(row.subVariants, parentSku, row.color || "");
+      const subVariants = mapSubVariants(
+        row.subVariants,
+        parentSku,
+        row.color || "",
+      );
       return {
         sku: parentSku,
         title: row.title || "",
         description: row.description || "",
-        attributes: displayAttributes(row.color || "", row.size || "", row.attributes || [], subVariants),
+        attributes: displayAttributes(
+          row.color || "",
+          row.size || "",
+          row.attributes || [],
+          subVariants,
+        ),
         images: row.images || [],
         drafts: [],
         stockQty: Number(row.stockQty) || 0,
@@ -180,12 +220,12 @@ export function productToErpForm(product?: Product | null): ErpFormValues {
       product.color || "",
       "",
       product.primaryAttributes || [],
-      product.primarySubVariants
+      product.primarySubVariants,
     ),
     primarySubVariants: mapSubVariants(
       product.primarySubVariants,
       serialVariantSku(product.productCode, 0),
-      product.color || ""
+      product.color || "",
     ),
     factoryId: product.factory?.id || "",
     factoryPriceEXW: product.factoryPriceEXW || "",
@@ -194,7 +234,8 @@ export function productToErpForm(product?: Product | null): ErpFormValues {
     fobPort: product.fobPort || "",
     moq: product.moq || "",
     quantityUnit: product.quantityUnit || "Pcs",
-    readyStockAvailability: product.readyStockAvailability === "Yes" ? "Yes" : "No",
+    readyStockAvailability:
+      product.readyStockAvailability === "Yes" ? "Yes" : "No",
     readyStockQuantity: product.readyStockQuantity || "",
     readyStockQuantityUnit: product.readyStockQuantityUnit || "Pcs",
     customerId: product.customer?.id || "",
@@ -213,7 +254,9 @@ function chosenValue(selected: string, custom: string) {
   return selected.trim();
 }
 
-function cleanAttributeList(attributes: ProductAttribute[] | undefined): ProductAttribute[] {
+function cleanAttributeList(
+  attributes: ProductAttribute[] | undefined,
+): ProductAttribute[] {
   const out: ProductAttribute[] = [];
   const seen = new Set<string>();
   for (const item of attributes || []) {
@@ -232,49 +275,84 @@ function cleanAttributeList(attributes: ProductAttribute[] | undefined): Product
 }
 
 function attributeValue(attributes: ProductAttribute[], name: string): string {
-  return attributes.find((item) => item.key.trim().toLowerCase() === name.toLowerCase())?.value.trim() || "";
+  return (
+    attributes
+      .find((item) => item.key.trim().toLowerCase() === name.toLowerCase())
+      ?.value.trim() || ""
+  );
 }
 
 function splitAttributeValues(value: string): string[] {
-  return [...new Set(value.split(",").map((item) => item.trim()).filter(Boolean))].slice(0, MAX_SUB_VARIANTS);
+  return [
+    ...new Set(
+      value
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean),
+    ),
+  ].slice(0, MAX_SUB_VARIANTS);
 }
 
-export function spreadingFields(attributes: ProductAttribute[]): Array<{ key: string; values: string[] }> {
+export function spreadingFields(
+  attributes: ProductAttribute[],
+): Array<{ key: string; values: string[] }> {
   return cleanAttributeList(attributes)
     .filter((item) => item.key && splitAttributeValues(item.value).length > 1)
-    .map((item) => ({ key: item.key, values: splitAttributeValues(item.value) }));
+    .map((item) => ({
+      key: item.key,
+      values: splitAttributeValues(item.value),
+    }));
 }
 
 export function colorSizeFromAttributes(
   attributes: ProductAttribute[],
   fallbackColor = "",
-  fallbackSize = ""
+  fallbackSize = "",
 ): { color: string; size: string } {
   const spreading = spreadingFields(attributes)[0];
   const color =
-    spreading?.key.toLowerCase() === "color" ? "" : attributeValue(attributes, "Color") || fallbackColor;
+    spreading?.key.toLowerCase() === "color"
+      ? ""
+      : attributeValue(attributes, "Color") || fallbackColor;
   const size =
-    spreading?.key.toLowerCase() === "size" ? "" : attributeValue(attributes, "Size") || fallbackSize;
+    spreading?.key.toLowerCase() === "size"
+      ? ""
+      : attributeValue(attributes, "Size") || fallbackSize;
   return { color, size };
 }
 
-function liftColorSize(color: string, size: string, attributes: ProductAttribute[]): ProductAttribute[] {
+function liftColorSize(
+  color: string,
+  size: string,
+  attributes: ProductAttribute[],
+): ProductAttribute[] {
   const next = cleanAttributeList(attributes).filter((item) => item.key);
-  if (color.trim() && !next.some((item) => item.key.toLowerCase() === "color")) {
+  if (
+    color.trim() &&
+    !next.some((item) => item.key.toLowerCase() === "color")
+  ) {
     next.unshift({ key: "Color", value: color.trim() });
   }
   if (size.trim() && !next.some((item) => item.key.toLowerCase() === "size")) {
-    const colorOffset = next.some((item) => item.key.toLowerCase() === "color") ? 1 : 0;
+    const colorOffset = next.some((item) => item.key.toLowerCase() === "color")
+      ? 1
+      : 0;
     next.splice(colorOffset, 0, { key: "Size", value: size.trim() });
   }
   return next.slice(0, MAX_VARIANT_FIELDS);
 }
 
-function inferSpreadingAttribute(subs: ProductSubVariant[] | undefined): ProductAttribute | null {
+function inferSpreadingAttribute(
+  subs: ProductSubVariant[] | undefined,
+): ProductAttribute | null {
   if (!subs?.length) return null;
-  const sizes = [...new Set(subs.map((row) => row.size.trim()).filter(Boolean))];
+  const sizes = [
+    ...new Set(subs.map((row) => row.size.trim()).filter(Boolean)),
+  ];
   if (sizes.length > 1) return { key: "Size", value: sizes.join(", ") };
-  const colors = [...new Set(subs.map((row) => row.color.trim()).filter(Boolean))];
+  const colors = [
+    ...new Set(subs.map((row) => row.color.trim()).filter(Boolean)),
+  ];
   if (colors.length > 1) return { key: "Color", value: colors.join(", ") };
   const counts = new Map<string, Set<string>>();
   for (const row of subs) {
@@ -287,7 +365,8 @@ function inferSpreadingAttribute(subs: ProductSubVariant[] | undefined): Product
       const bucket = counts.get(id) || new Set<string>();
       bucket.add(value.toLowerCase());
       counts.set(id, bucket);
-      if (!counts.has(`__name__${id}`)) counts.set(`__name__${id}`, new Set([key]));
+      if (!counts.has(`__name__${id}`))
+        counts.set(`__name__${id}`, new Set([key]));
     }
   }
   for (const [id, values] of counts) {
@@ -296,8 +375,14 @@ function inferSpreadingAttribute(subs: ProductSubVariant[] | undefined): Product
       const name = [...(counts.get(`__name__${id}`) || [])][0] || id;
       const ordered: string[] = [];
       for (const row of subs) {
-        const value = row.attributes.find((item) => item.key.trim().toLowerCase() === id)?.value.trim();
-        if (value && !ordered.some((item) => item.toLowerCase() === value.toLowerCase())) ordered.push(value);
+        const value = row.attributes
+          .find((item) => item.key.trim().toLowerCase() === id)
+          ?.value.trim();
+        if (
+          value &&
+          !ordered.some((item) => item.toLowerCase() === value.toLowerCase())
+        )
+          ordered.push(value);
       }
       if (ordered.length > 1) return { key: name, value: ordered.join(", ") };
     }
@@ -309,24 +394,39 @@ export function displayAttributes(
   color: string,
   size: string,
   attributes: ProductAttribute[] | undefined,
-  subs?: ProductSubVariant[]
+  subs?: ProductSubVariant[],
 ): ProductAttribute[] {
   const lifted = liftColorSize(color, size, attributes || []);
   const spreading = inferSpreadingAttribute(subs);
   if (!spreading) return lifted.length ? lifted : [];
-  if (lifted.some((item) => item.key.toLowerCase() === spreading.key.toLowerCase())) return lifted;
+  if (
+    lifted.some(
+      (item) => item.key.toLowerCase() === spreading.key.toLowerCase(),
+    )
+  )
+    return lifted;
   return [...lifted, spreading].slice(0, MAX_VARIANT_FIELDS);
 }
 
-function parentPayloadAttributes(attributes: ProductAttribute[]): ProductAttribute[] {
-  const cleaned = cleanAttributeList(attributes).filter((item) => item.key && item.value);
+function parentPayloadAttributes(
+  attributes: ProductAttribute[],
+): ProductAttribute[] {
+  const cleaned = cleanAttributeList(attributes).filter(
+    (item) => item.key && item.value,
+  );
   const spreading = spreadingFields(cleaned)[0];
   return spreading
-    ? cleaned.filter((item) => item.key.toLowerCase() !== spreading.key.toLowerCase())
+    ? cleaned.filter(
+        (item) => item.key.toLowerCase() !== spreading.key.toLowerCase(),
+      )
     : cleaned;
 }
 
-function payloadAttributes(attributes: ProductAttribute[] | undefined, color = "", size = "") {
+function payloadAttributes(
+  attributes: ProductAttribute[] | undefined,
+  color = "",
+  size = "",
+) {
   return liftColorSize(color, size, parentPayloadAttributes(attributes || []));
 }
 
@@ -335,13 +435,20 @@ function payloadSubVariants(rows: ProductSubVariant[] | undefined) {
     const attributes = displayAttributes(row.color, row.size, row.attributes);
     const derived = colorSizeFromAttributes(attributes, row.color, row.size);
     return {
-      title: row.title.trim() || derived.size || derived.color || attributes[0]?.value || "",
+      title:
+        row.title.trim() ||
+        derived.size ||
+        derived.color ||
+        attributes[0]?.value ||
+        "",
       attributes: payloadAttributes(attributes, derived.color, derived.size),
       color: derived.color,
       size: derived.size,
       images: (row.images || []).filter(Boolean).slice(0, 5),
       stockQty: Number.isFinite(row.stockQty) ? Math.max(0, row.stockQty) : 0,
-      priceAdjustment: Number.isFinite(row.priceAdjustment) ? row.priceAdjustment : 0,
+      priceAdjustment: Number.isFinite(row.priceAdjustment)
+        ? row.priceAdjustment
+        : 0,
       status: row.status || "In Stock",
     };
   });
@@ -352,8 +459,9 @@ function spreadingValueOf(row: ProductSubVariant, key: string): string {
   if (id === "size") return row.size.trim();
   if (id === "color") return row.color.trim();
   return (
-    row.attributes.find((item) => item.key.trim().toLowerCase() === id)?.value.trim() ||
-    row.title.trim()
+    row.attributes
+      .find((item) => item.key.trim().toLowerCase() === id)
+      ?.value.trim() || row.title.trim()
   );
 }
 
@@ -361,7 +469,7 @@ export function applyParentAttributes(
   attributes: ProductAttribute[],
   existingSubs: ProductSubVariant[] | undefined,
   parentSku: string,
-  fallbackColor = ""
+  fallbackColor = "",
 ): {
   attributes: ProductAttribute[];
   color: string;
@@ -413,7 +521,12 @@ export function applyParentAttributes(
         attributes: liftColorSize(
           isColor ? value : prev.color || derived.color,
           isSize ? value : prev.size || derived.size,
-          [{ key: spreading.key, value }, ...prev.attributes.filter((item) => item.key.toLowerCase() !== spreading.key.toLowerCase())]
+          [
+            { key: spreading.key, value },
+            ...prev.attributes.filter(
+              (item) => item.key.toLowerCase() !== spreading.key.toLowerCase(),
+            ),
+          ],
         ),
       };
     }
@@ -441,7 +554,14 @@ export function applyParentAttributes(
 }
 
 function parseCsv(value: string, max = 30) {
-  return [...new Set(value.split(",").map((item) => item.trim()).filter(Boolean))].slice(0, max);
+  return [
+    ...new Set(
+      value
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean),
+    ),
+  ].slice(0, max);
 }
 
 export function parseColors(value: string) {
@@ -477,11 +597,19 @@ export function catalogSizeList(erp: ErpFormValues): string[] {
 function mapSubVariants(
   rows: Product["primarySubVariants"] | ProductVariant["subVariants"],
   parentSku: string,
-  fallbackColor: string
+  fallbackColor: string,
 ): ProductSubVariant[] {
   return (rows || []).map((row, index) => {
-    const attributes = displayAttributes(row.color || "", row.size || "", row.attributes || []);
-    const derived = colorSizeFromAttributes(attributes, row.color || fallbackColor, row.size || "");
+    const attributes = displayAttributes(
+      row.color || "",
+      row.size || "",
+      row.attributes || [],
+    );
+    const derived = colorSizeFromAttributes(
+      attributes,
+      row.color || fallbackColor,
+      row.size || "",
+    );
     return {
       sku: subVariantSku(parentSku, index),
       title: row.title || "",
@@ -500,7 +628,7 @@ function mapSubVariants(
 export function emptySubVariant(
   parentSku: string,
   index: number,
-  seed?: { color?: string; size?: string }
+  seed?: { color?: string; size?: string },
 ): ProductSubVariant {
   return {
     sku: subVariantSku(parentSku, index),
@@ -516,7 +644,10 @@ export function emptySubVariant(
   };
 }
 
-function stampSubs(parentSku: string, rows: ProductSubVariant[]): ProductSubVariant[] {
+function stampSubs(
+  parentSku: string,
+  rows: ProductSubVariant[],
+): ProductSubVariant[] {
   return rows.slice(0, MAX_SUB_VARIANTS).map((row, index) => ({
     ...row,
     sku: subVariantSku(parentSku, index),
@@ -547,7 +678,9 @@ function productCustomers(product: Product): CustomerLink[] {
       styleCode: item.styleCode || "",
       repeatOrder: item.repeatOrder === "Yes" ? "Yes" : "No",
       repeatOrderNumber:
-        item.repeatOrderNumber === "1st" || item.repeatOrderNumber === "2nd" || item.repeatOrderNumber === "3rd"
+        item.repeatOrderNumber === "1st" ||
+        item.repeatOrderNumber === "2nd" ||
+        item.repeatOrderNumber === "3rd"
           ? item.repeatOrderNumber
           : "None",
     }));
@@ -572,13 +705,19 @@ export function catalogSizeSeed(erp: ErpFormValues): string {
 }
 
 export function catalogColorSuggestions(erp: ErpFormValues): string[] {
-  return [...new Set([erp.color.trim(), ...parseColors(erp.availableColorsInput)].filter(Boolean))];
+  return [
+    ...new Set(
+      [erp.color.trim(), ...parseColors(erp.availableColorsInput)].filter(
+        Boolean,
+      ),
+    ),
+  ];
 }
 
 export function emptyVariant(
   productCode: string,
   extraIndex: number,
-  seed?: { color?: string; size?: string }
+  seed?: { color?: string; size?: string },
 ): ProductVariant {
   return {
     sku: extraVariantSku(productCode, extraIndex),
@@ -631,23 +770,36 @@ export function toErpPayload(erp: ErpFormValues) {
     fabricComposition: erp.fabricComposition.trim(),
     gsm: erp.gsm.trim(),
     pattern: erp.pattern.trim(),
-    color: colorSizeFromAttributes(erp.primaryAttributes || [], erp.color).color,
+    color: colorSizeFromAttributes(erp.primaryAttributes || [], erp.color)
+      .color,
     availableColors: parseColors(erp.availableColorsInput),
     sizeRange: chosenValue(erp.sizeRange, erp.sizeRangeCustom),
     variant: erp.variant,
     variantDetails:
       erp.variant === "Yes"
         ? erp.variantDetails.map((row) => {
-            const derived = colorSizeFromAttributes(row.attributes || [], row.color || "", row.size || "");
+            const derived = colorSizeFromAttributes(
+              row.attributes || [],
+              row.color || "",
+              row.size || "",
+            );
             return {
               title: row.title.trim(),
               description: row.description.trim(),
-              attributes: payloadAttributes(row.attributes, derived.color, derived.size),
+              attributes: payloadAttributes(
+                row.attributes,
+                derived.color,
+                derived.size,
+              ),
               color: derived.color,
               size: derived.size,
               images: (row.images || []).filter(Boolean).slice(0, 5),
-              stockQty: Number.isFinite(row.stockQty) ? Math.max(0, row.stockQty) : 0,
-              priceAdjustment: Number.isFinite(row.priceAdjustment) ? row.priceAdjustment : 0,
+              stockQty: Number.isFinite(row.stockQty)
+                ? Math.max(0, row.stockQty)
+                : 0,
+              priceAdjustment: Number.isFinite(row.priceAdjustment)
+                ? row.priceAdjustment
+                : 0,
               status: row.status || "In Stock",
               subVariants: payloadSubVariants(row.subVariants),
             };
@@ -656,7 +808,7 @@ export function toErpPayload(erp: ErpFormValues) {
     primaryAttributes: payloadAttributes(
       erp.primaryAttributes,
       colorSizeFromAttributes(erp.primaryAttributes || [], erp.color).color,
-      colorSizeFromAttributes(erp.primaryAttributes || [], "", "").size
+      colorSizeFromAttributes(erp.primaryAttributes || [], "", "").size,
     ),
     primarySubVariants: payloadSubVariants(erp.primarySubVariants),
     factoryId: erp.factoryId,
@@ -670,18 +822,24 @@ export function toErpPayload(erp: ErpFormValues) {
     readyStockQuantity: erp.readyStockQuantity.trim(),
     readyStockQuantityUnit: erp.readyStockQuantityUnit || "Pcs",
     customerId: erp.customers[0]?.customerId || erp.customerId,
-    customerStyleCode: erp.customers[0]?.styleCode.trim() || erp.customerStyleCode.trim(),
+    customerStyleCode:
+      erp.customers[0]?.styleCode.trim() || erp.customerStyleCode.trim(),
     repeatOrder: erp.customers[0]?.repeatOrder || erp.repeatOrder,
-    repeatOrderNumber: erp.customers[0]?.repeatOrderNumber || erp.repeatOrderNumber,
+    repeatOrderNumber:
+      erp.customers[0]?.repeatOrderNumber || erp.repeatOrderNumber,
     customers: erp.customers
       .filter((item) => item.customerId)
       .map((item) => ({
         customerId: item.customerId,
         styleCode: item.styleCode.trim(),
         repeatOrder: item.repeatOrder,
-        repeatOrderNumber: item.repeatOrder === "Yes" ? item.repeatOrderNumber : "None",
+        repeatOrderNumber:
+          item.repeatOrder === "Yes" ? item.repeatOrderNumber : "None",
       })),
     productStatus: erp.productStatus,
-    marketSuitability: erp.marketSuitability.map((item) => item.trim()).filter(Boolean).slice(0, 20),
+    marketSuitability: erp.marketSuitability
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .slice(0, 20),
   };
 }

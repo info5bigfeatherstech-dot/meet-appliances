@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { PRODUCTS_DATA } from "../data/products";
 import {
   fetchStorefrontProductById,
   fetchAllStorefrontProducts,
@@ -23,17 +22,12 @@ export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  // Initial immediate fallback from static data if present
   const [product, setProduct] = useState<
     DynamicStorefrontProduct | Product | null
-  >(() => {
-    return PRODUCTS_DATA.find((p) => p.id === id || p.modelCode === id) || null;
-  });
-  const [loading, setLoading] = useState(!product);
-  const [selectedImage, setSelectedImage] = useState<string>(
-    product?.image || "",
-  );
-  const [allProducts, setAllProducts] = useState<Product[]>(PRODUCTS_DATA);
+  >(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string>("");
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
 
   // Load product dynamically from backend API
   useEffect(() => {

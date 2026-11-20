@@ -1,10 +1,15 @@
 import type { Category } from "./types";
 
-export function flattenCategories(categories: Category[], prefix = ""): Category[] {
+export function flattenCategories(
+  categories: Category[],
+  prefix = "",
+): Category[] {
   const rows: Category[] = [];
 
   for (const category of categories) {
-    const path = prefix ? `${prefix} / ${category.name}` : category.path || category.name;
+    const path = prefix
+      ? `${prefix} / ${category.name}`
+      : category.path || category.name;
     const current = { ...category, path };
     rows.push(current);
     if (category.children?.length) {

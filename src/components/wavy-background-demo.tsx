@@ -3,7 +3,7 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 
 export default function WavyBackgroundDemo() {
   return (
-    <WavyBackground 
+    <WavyBackground
       containerClassName="h-screen flex flex-col items-center justify-center"
       className="max-w-4xl mx-auto pb-40"
     >

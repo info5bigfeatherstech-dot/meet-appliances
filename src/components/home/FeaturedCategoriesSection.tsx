@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
-import { PRODUCT_CATEGORIES } from '../../data/categories';
-import { Container } from '../common/Container';
-import { RevealOnScroll } from '../common/RevealOnScroll';
-import { Badge } from '../common/Badge';
+import React from "react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
+import { PRODUCT_CATEGORIES } from "../../data/categories";
+import { Container } from "../common/Container";
+import { RevealOnScroll } from "../common/RevealOnScroll";
+import { Badge } from "../common/Badge";
 
 export const FeaturedCategoriesSection: React.FC = () => {
   const categories = PRODUCT_CATEGORIES.slice(0, 6);
@@ -26,7 +26,8 @@ export const FeaturedCategoriesSection: React.FC = () => {
             </RevealOnScroll>
             <RevealOnScroll direction="up" delay={0.2}>
               <p className="font-subheading text-base text-brand-gray-muted mt-3">
-                Pre-tested to international electrical standards (CE, CB, UL, SASO, NOM) with flexible container load optimization.
+                Pre-tested to international electrical standards (CE, CB, UL,
+                SASO, NOM) with flexible container load optimization.
               </p>
             </RevealOnScroll>
           </div>
@@ -48,7 +49,6 @@ export const FeaturedCategoriesSection: React.FC = () => {
             <RevealOnScroll key={cat.id} direction="up" delay={0.1 * idx}>
               <Link to={`/category/${cat.slug}`} className="block group">
                 <div className="relative rounded-3xl overflow-hidden bg-white border border-brand-gray-border/80 shadow-card group-hover:shadow-card-hover group-hover:border-brand-blue/30 transition-all duration-500">
-                  
                   {/* Category Image with Zoom & Dark Gradient */}
                   <div className="relative h-52 sm:h-64 w-full overflow-hidden bg-slate-900">
                     <img
@@ -58,7 +58,7 @@ export const FeaturedCategoriesSection: React.FC = () => {
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-blue-navy via-brand-blue-navy/40 to-transparent" />
-                    
+
                     {/* Item count tag */}
                     <div className="absolute top-4 right-4">
                       <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-semibold border border-white/30">
@@ -80,15 +80,12 @@ export const FeaturedCategoriesSection: React.FC = () => {
                       {cat.description}
                     </p>
 
-
-
                     <div className="flex items-center justify-between pt-2 text-xs font-bold text-brand-blue group-hover:text-brand-blue-deep">
                       <span>Explore Sourcing Models</span>
                       <div className="w-7 h-7 rounded-full bg-brand-blue/10 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
                         <ArrowUpRight className="w-4 h-4" />
                       </div>
                     </div>
-
                   </div>
                 </div>
               </Link>

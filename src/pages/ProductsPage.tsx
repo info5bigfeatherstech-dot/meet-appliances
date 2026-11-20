@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Box, ArrowRight, Search } from "lucide-react";
-import { PRODUCTS_DATA } from "../data/products";
 import {
   fetchAllStorefrontProducts,
   matchesCategory,
@@ -15,8 +14,8 @@ import type { Product } from "../types";
 export const ProductsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const selectedCategory = searchParams.get("category") || "all";
-  const [products, setProducts] = useState<Product[]>(PRODUCTS_DATA);
-  const [_loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Fetch dynamic products from the backend on mount
@@ -26,11 +25,11 @@ export const ProductsPage: React.FC = () => {
       try {
         setLoading(true);
         const dynamicList = await fetchAllStorefrontProducts(true);
-        if (!cancelled && dynamicList.length > 0) {
+        if (!cancelled) {
           setProducts(dynamicList);
         }
       } catch (err) {
-        console.warn("Using default products due to load error:", err);
+        console.warn("Error loading products:", err);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -136,15 +135,19 @@ export const ProductsPage: React.FC = () => {
         </div>
 
         {/* Product Cards Grid */}
-        {filteredProducts.length === 0 ? (
+        {loading ? (
+          <div className="py-24 text-center">
+            <div className="w-10 h-10 border-3 border-brand-blue border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+            <p className="text-xs text-brand-gray-muted">Loading live products from catalog...</p>
+          </div>
+        ) : filteredProducts.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-3xl border border-brand-gray-border">
             <Box className="w-12 h-12 text-brand-gray-muted mx-auto mb-3" />
             <h3 className="font-heading font-bold text-lg text-brand-blue-navy">
-              No appliances match your criteria
+              No products found in this category
             </h3>
             <p className="text-xs text-brand-gray-muted mt-1 max-w-sm mx-auto">
-              We frequently source custom models not listed in our public
-              catalog. Contact our trade desk with your specific requirement.
+              Products created in the Admin Panel will appear here dynamically.
             </p>
             <Link to="/products">
               <Button variant="primary" size="sm" className="mt-6">
